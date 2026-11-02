@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>19 · Multi-array systems — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Phased-array radars with several faces, MIMO and massive MIMO, satellite phased arrays, HAARP, and radio-telescope interferometers from the VLA to the Event Horizon Telescope.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 19 · Hero level</span>
+<h1>Multi-array systems</h1>
+<div class="meta"><span>~45 min</span><span>3 widgets</span><span>faces, MIMO, interferometers and a tour of real systems</span></div>
+<p class="lede">One array steers a beam. A system of arrays does more: it covers the entire sky, serves dozens of phone users at once, heats a patch of the ionosphere, or links dishes across continents so that together they act as one telescope the size of the Earth. This last chapter is a tour, using only the ideas you already have.</p>
+
+<h2 id="faces" data-short="Arrays on every side">Faces: covering 360°</h2>
+<p>A flat array looks out of one side and, as chapter 18 showed, loses gain as $\cos\theta_0$ off boresight. The simple fix is geometry: put two, three or four fixed faces at different angles. Ships carry four on the deckhouse (the US Navy’s <strong>AN/SPY-1</strong> “Aegis” radar: four S-band arrays of about four thousand elements each), early-warning sites use two or three (<strong>PAVE PAWS</strong>: two UHF faces, 1792 elements each, covering 240° out to roughly 5500 km). Try coverage and edge loss:</p>
+<div data-widget="array-faces"></div>
+
+<h2 id="mimo" data-short="MIMO">Many antennas, many users: MIMO</h2>
+<p>Take the array idea and add a second twist: <strong>multiple-input, multiple-output</strong>. In a rich scattering environment (city streets) every pair of transmit and receive antennas sees a slightly different channel, and with enough processing a link with $N$ antennas at each end can carry up to $N$ independent data streams on the same frequency: capacity grows with the <em>number of antennas</em>, not with bandwidth or power. Wi-Fi 6 and 4G use 2×2 or 4×4; <strong>massive MIMO</strong> 5G base stations (typically 64 transmit and 64 receive elements at 3.5 GHz) form separate narrow beams to a dozen or more users at the same time, which is an array of chapter 18 used for <em>spatial multiplexing</em>.</p>
+<p>In radar the same idea creates a <strong>virtual array</strong>: with orthogonal transmit waveforms, $N$ transmitters and $M$ receivers behave like an $N\times M$-element array. That is how a 77 GHz car radar with 3 transmit and 4 receive channels resolves angles like a 12-element array:</p>
+<div data-widget="mimo-virtual"></div>
+
+<h2 id="sat" data-short="Satellites and mobile arrays">Phased arrays in space and on the roof</h2>
+<ul>
+<li><strong>Starlink user terminals</strong> are flat electronically steered arrays (Ku band, hundreds of elements) that track a satellite crossing the sky in minutes and switch between satellites, with no motors. The satellites themselves carry phased arrays in Ku and Ka bands for their many spot beams.</li>
+<li><strong>Weather and defence radars</strong> are shifting from rotating dishes to flat arrays: faster updates, many simultaneous functions, no mechanical wear.</li>
+<li><strong>Automotive radar:</strong> 77 GHz chips with integrated antennas, MIMO, and increasingly imaging radars with hundreds of virtual channels.</li>
+<li><strong>Aircraft:</strong> AESA radars in fighters, with the ability to change frequency pulse to pulse, build low-interference beams and form nulls on interference (chapter 15a); satellite communications arrays on airliner roofs.</li>
+</ul>
+
+<h2 id="haarp" data-short="HAARP: array as instrument">Arrays as scientific instruments: HAARP</h2>
+<p>The phased array does not have to be a radar or a communications antenna. The <strong>HAARP</strong> ionospheric research instrument (chapter 11a) is a $12\times15$ grid of 180 crossed dipoles at 2.7–10 MHz, fed by 3.6 MW of transmitters. At 5 MHz ($\lambda=60$ m) the elements sit about 0.4 λ apart, so the array is $\approx12\times0.4\lambda=4.8\lambda$ across: beamwidth ≈ $51/(4.8)\approx10°$, directivity of order 25–30 dBi, ERP up to several gigawatts, and the beam can be tilted away from the zenith, with polarisation selected by feeding the crossed dipoles. Exactly the same formulas as the 16-element array of chapter 18. And like any array it has scan-loss and grating-lobe limits; the designers chose a spacing for the highest frequency. The facility at Gakona is run by the University of Alaska Fairbanks; similar heaters in Tromsø (EISCAT) and Russia (Sura) are also arrays.</p>
+
+<h2 id="sparse" data-short="Sparse arrays: telescopes">Sparse arrays: interferometers</h2>
+<p>What if the elements are not centimetres or metres apart, but kilometres? Then you cannot fill the aperture, but you do not have to. <strong>Radio interferometry</strong> measures each <em>pair</em> of dishes (a “baseline” $B$) as one Fourier component of the sky. $N$ dishes give $N(N-1)/2$ baselines; the Earth’s rotation turns each baseline into an arc, filling in more spatial frequencies; and a computer inverts the Fourier relation to make an image. The resolution is the same as for a single dish of diameter $B_{max}$: $\theta\approx\lambda/B_{max}$. Drag the dishes below and look at the coverage and the synthesised beam it implies:</p>
+<div data-widget="interferometer"></div>
+<div class="table-wrap"><table class="data">
+<tr><th>Telescope array</th><th>Elements</th><th>Largest baseline</th><th>Wavelength</th><th>Resolution</th></tr>
+<tr><td>VLA (New Mexico)</td><td>27 dishes of 25 m</td><td>36 km</td><td>1 cm – 4 m (21 cm shown)</td><td>≈ 1.2″ at 21 cm; 0.04″ at 7 mm</td></tr>
+<tr><td>ALMA (Chile, 5000 m altitude)</td><td>66 dishes (54 × 12 m, 12 × 7 m)</td><td>≈ 16 km</td><td>0.3–9.6 mm</td><td>down to ≈ 0.005″</td></tr>
+<tr><td>LOFAR (Europe)</td><td>≈ 50 stations of many dipoles</td><td>≈ 1000+ km</td><td>1.2–30 m</td><td>≈ 0.3–1″ at 150 MHz</td></tr>
+<tr><td>SKA-Low (Australia, under construction)</td><td>≈ 131 000 dipoles in 512 stations</td><td>≈ 65 km</td><td>1–6 m (50–350 MHz)</td><td>≈ arcminutes–arcseconds</td></tr>
+<tr><td>Event Horizon Telescope</td><td>8 sites across the globe (2017–18)</td><td>≈ 10 000 km</td><td>1.3 mm</td><td>≈ 20–25 microarcseconds</td></tr>
+</table></div>
+<p>The last row is the remarkable one. By recording signals at each site against an atomic-clock time stamp on hard disks and combining them later (<strong>very-long-baseline interferometry</strong>, VLBI), the EHT made a telescope with the aperture of the Earth, and imaged the shadow of the black hole in galaxy M87 (published 2019) and of Sagittarius A* at the centre of the Milky Way (2022). It is a phased array whose “cables” are hard drives and whose phase shifters are software, and whose elements are separated by thousands of kilometres: the same array factor of chapter 18, with the grating lobes taken care of by the Earth’s rotation.</p>
+
+<h2 id="threads" data-short="Threads that tie it all together">Threads that tie the guide together</h2>
+<ul>
+<li><strong>Interference of waves</strong> (chapter 5b: double slit) is the array factor (chapter 18) is the interferometer (this chapter). The only difference is who you say the “slits” are.</li>
+<li><strong>Aperture in wavelengths sets the resolution</strong>: a dish (11), a radar antenna (12), a SAR synthetic aperture (14), a phased array (18), a telescope array (19).</li>
+<li><strong>The link budget</strong> (9) decides what a system can do: from Voyager’s 10<sup>-19</sup> W to a car radar’s 1 mW.</li>
+<li><strong>Bandwidth buys resolution</strong> in range (12, 13); <strong>aperture buys resolution</strong> in angle (11, 18, 19).</li>
+<li><strong>Resilience</strong> (15a) is built from the same pieces: spreading, hopping, narrow beams and nulls (18).</li>
+<li><strong>Shielding and resonance</strong> (6, 16, 17) decide what stays in and what gets out.</li>
+</ul>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Several faces cover the sky when each flat array is limited to ±60° by scan loss.</li>
+<li>MIMO uses independent paths for more streams (communications) or a larger virtual aperture (radar).</li>
+<li>HAARP is a 180-element HF phased array used as a scientific instrument, with ERP of gigawatts but only milliwatts per square metre at the ionosphere.</li>
+<li>Interferometers combine pairs of dishes into one Fourier sample each; resolution is $\lambda/B_{max}$, up to Earth-sized for VLBI.</li>
+<li>All of it is the same physics: interference of waves from many sources.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What is the main reason ship radars use several fixed array faces?","o":["Each flat array loses gain and broadens its beam when scanned far from boresight","They are cheaper","To reduce power","Arrays cannot be steered"],"a":0,"why":"Scan loss ∝ cos θ0: beyond about ±60° a face is poor, so faces are placed around the platform."},
+ {"q":"A 3-Tx, 4-Rx MIMO radar behaves like an array of how many virtual elements?","o":["7","12","3","4"],"a":1,"why":"N × M = 3 × 4 = 12 virtual elements."},
+ {"q":"What determines the angular resolution of an interferometer?","o":["The number of dishes only","The longest baseline in wavelengths: θ ≈ λ/B_max","The dish diameter","The observing time"],"a":1,"why":"Resolution is set by the longest baseline, while the number of dishes and the Earth’s rotation determine how well the uv plane is filled (the sidelobes)."},
+ {"q":"Roughly how does the EHT get a baseline of 10 000 km?","o":["A huge dish","Telescopes on different continents record data with atomic-clock timestamps and the signals are combined later","A single cable","Satellites only"],"a":1,"why":"VLBI: independent recordings combined in a correlator, no physical link needed."}
+]</script>
+</div>
+
+<div class="callout tip"><span class="ct">You made it</span>From one wire and a battery to Earth-sized telescopes. If you want to keep going: build a dipole and a simple SDR receiver, read about ham radio in your country, or open the <a href="reference.html">formula and glossary reference</a>.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

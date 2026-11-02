@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15a · Electronic warfare &amp; resilient links — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="What electronic warfare is, why radio links are vulnerable to interference, and the engineering defences: spread spectrum, frequency hopping, nulling arrays, low probability of intercept, and fibre-optic tethers.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 15a · Radar</span>
+<h1>Electronic warfare &amp; resilient links</h1>
+<div class="meta"><span>~40 min</span><span>3 widgets</span><span>spread spectrum, hopping, nulling and glass fibre</span></div>
+<div class="safety-strip"><b>Scope:</b> this chapter explains <em>how and why radio links are protected</em>. It deliberately contains no methods for building or operating interference sources, and no operational targeting details: those are illegal in most places and can endanger lives (aviation, emergency services). See <a href="safety.html">Safety &amp; scope</a>.</div>
+<p class="lede">The radio spectrum is a shared medium, and everybody on it can hear everybody else. That is fine for a radio station, and a problem for anyone who needs a link to work <em>no matter what</em>: an aircraft landing, a rescue team, a navigation receiver, a military unit. “Electronic warfare” is the contest over that shared medium, and its lessons (resilience, agility, low emissions) are the same ones that keep your Bluetooth earbuds and GPS working.</p>
+
+<h2 id="what" data-short="What EW is">What is electronic warfare?</h2>
+<p>Military doctrine splits the field in three. Each division has an obvious civil twin:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Division</th><th>Purpose</th><th>Civil analogue</th></tr>
+<tr><td><strong>Electronic Support (ES, ESM)</strong></td><td>Listen: detect, identify and locate emitters (signals intelligence, radar warning receivers, spectrum surveillance).</td><td>Spectrum monitoring by regulators, finding a faulty transmitter, radio astronomers’ interference mapping, SDR hobbyists (chapter 11a).</td></tr>
+<tr><td><strong>Electronic Attack (EA, ECM)</strong></td><td>Degrade an opponent’s use of the spectrum or sensors: interference, deception, decoys, directed energy.</td><td>Accidental interference; illegal “signal blockers”: a crime almost everywhere and a real hazard when it disturbs aviation or emergency services.</td></tr>
+<tr><td><strong>Electronic Protection (EP, ECCM)</strong></td><td>Make your own systems keep working: spread spectrum, hopping, nulling, encryption, agility, redundancy, emission control.</td><td>Wi-Fi/Bluetooth coexistence, GPS anti-spoofing in phones and aircraft, LoRa and cellular robustness.</td></tr>
+</table></div>
+<p>The history is a long cat-and-mouse game. In WWII British “Battle of the Beams” navigation was met with deception of the beam; in 1943 the Allies dropped strips of aluminium foil (“Window”, now <em>chaff</em>) cut to half the wavelength of German radar, creating a cloud of dipoles that swamped the screens over Hamburg (chapter 9: a half-wave dipole is an excellent scatterer at its resonance). Radars responded with Doppler processing (chapter 13), which could tell a slowly falling cloud from an aircraft; the next round came with frequency agility; and on it went. Every technique below arrived because the previous one was beaten.</p>
+
+<h2 id="why" data-short="Why links are vulnerable">Why a radio link can be disturbed at all</h2>
+<p>Take the link budget from chapter 9. A receiver has a noise floor $kTB$ and needs a signal $S$ above it by some margin. It cannot tell <em>who</em> produced the energy in its band: any unwanted source in the same band, in the same direction, adds to the noise. If the unwanted power at the receiver rivals or exceeds the signal, the link fails. Three consequences follow from physics you already know:</p>
+<ul>
+<li><strong>The signal is weak, the disturbance can be near.</strong> Free-space loss $(\lambda/4\pi d)^2$ (chapter 9) makes a signal from a satellite or a distant station faint. GPS arrives at $-130$ dBm, about 10<sup>15</sup> times less than a mobile phone’s own transmit power. A modest interferer close to a receiver can easily out-shout it. The same reasoning is why a Wi-Fi network is slowed by the neighbour’s microwave oven (chapter 17).</li>
+<li><strong>Wide receivers see everything in their band.</strong> A wide-bandwidth receiver collects noise and interference from the whole bandwidth. Narrowing the bandwidth (or <em>spreading</em> the signal and then filtering) improves the margin.</li>
+<li><strong>Directions matter.</strong> An antenna hears mostly where it points (chapter 9–11); interference arriving from another direction is suppressed by the sidelobe level, and an adaptive array can reduce it more (chapter 18).</li>
+</ul>
+<p>So resilience means increasing the <em>margin</em>: making the signal harder to drown, harder to find, and quick to adapt.</p>
+
+<h2 id="spread" data-short="Spread spectrum">Defence 1: spread the signal</h2>
+<p>In <strong>direct-sequence spread spectrum</strong> (DSSS) each data bit is multiplied by a fast pseudo-random code of $N$ chips. The signal now occupies $N$ times more bandwidth; its power density falls by the same factor, often <em>below the noise floor</em>. The receiver, which knows the code, multiplies again: the wanted signal collapses back to its narrow bandwidth, while a narrowband interferer is spread into a low floor. The result is the <strong>processing gain</strong></p>
+<div class="eq">$$G_p=\frac{R_{\text{chip}}}{R_{\text{bit}}}\qquad (\text{dB: }10\log_{10}G_p)$$</div>
+<p>GPS spreads a 50 bit/s message over 1.023 MHz: $G_p=20\,460$, 43 dB. That is how a signal 20 dB <em>below</em> the noise can be received. The widget shows the before-and-after spectra:</p>
+<div data-widget="spread-spectrum"></div>
+<p>Spreading has a second benefit: a signal whose density sits under the noise is hard for an outsider to detect without knowing the code, which is the root of <strong>low probability of intercept</strong> (LPI). The limits are equally clear: a wide-band noise source covering the whole spread bandwidth is a harder problem for the link than a narrowband one, and a very large gain needs very low data rates.</p>
+
+<h2 id="hop" data-short="Frequency hopping">Defence 2: hop</h2>
+<p>In <strong>frequency-hopping spread spectrum</strong> (FHSS) the carrier jumps from channel to channel following a pseudo-random sequence derived from a shared secret. Bluetooth hops 1600 times per second across 79 channels of 1 MHz; military tactical radios hop tens to hundreds of times a second across wide bands; some radars change frequency from pulse to pulse (<em>frequency agility</em>). Interference confined to part of the band damages only the bursts that land there, and <strong>error-correcting codes</strong> with <strong>interleaving</strong> spread those losses so that they can be repaired. <em>Adaptive</em> hopping (Bluetooth AFH) goes further and simply avoids channels it has found bad, which is how it coexists with Wi-Fi.</p>
+<div data-widget="hop-demo"></div>
+<div class="callout violet"><span class="ct">The gamble in hopping</span>Hopping helps when the interferer cannot follow the hops: wide hop sets, fast hop rates and unpredictable sequences make that expensive. It does <em>not</em> hide the transmitter: every burst is still a detectable emission, only the frequency changes. That is why designers combine hopping with spreading, low power, directional antennas and short bursts.</div>
+
+<h2 id="space" data-short="Space and time">Defence 3: use space, time and power wisely</h2>
+<ul>
+<li><strong>Directional antennas and nulling arrays.</strong> A narrow beam hears little outside its beam. An <em>adaptive array</em> computes weights that put deep nulls toward interfering directions while keeping gain toward the wanted signal: the technique of chapter 18, used in anti-interference GPS antennas (CRPA) and many radars.</li>
+<li><strong>Sidelobe control.</strong> Low-sidelobe antennas (chapter 9, tapered apertures) reduce both what they pick up and what they reveal away from the main beam.</li>
+<li><strong>Coding and diversity.</strong> Forward error correction, retransmission, polarisation and antenna diversity, and spreading data across time and frequency make fading and interference less harmful.</li>
+<li><strong>Authentication.</strong> Spoofing (false but plausible signals) is countered with cryptographic authentication: Galileo OSNMA, protected military GPS codes, signed ADS-B proposals. Unauthenticated civil signals remain the weakest link.</li>
+<li><strong>Emission control (EMCON).</strong> The best way not to be detected is not to transmit: radio silence, short bursts, low power, narrow beams pointed away from listeners.</li>
+<li><strong>Redundancy.</strong> Multi-constellation GNSS, inertial navigation, terrestrial beacons (DME, eLoran), HF and satellite fall-backs, and procedures for when everything fails.</li>
+</ul>
+
+<h2 id="fibre" data-short="Fibre-optic drones">Case study: when the best radio link is no radio link</h2>
+<p>Small uncrewed aircraft are a vivid example of all this. A typical drone depends on a radio link for control and video; in places where the spectrum is contested, that link is the weak point, because anyone nearby can disturb or locate it. One response, seen on a large scale in the 2024–2025 war in Ukraine and widely reported, is to give up radio and fly the aircraft on a <strong>thread of optical fibre</strong> unspooling from a reel carried by the drone: the control commands and the live video travel as light in glass.</p>
+<p>The engineering logic is exactly the one the matrix below captures:</p>
+<ul>
+<li><strong>Immune to radio interference.</strong> Light in a fibre does not couple to radio-frequency fields. There is nothing for an interference source to jam, and no spoofable radio protocol.</li>
+<li><strong>No emission to detect.</strong> A radio-controlled drone is a transmitter; direction-finders can locate it and its operator. A fibre-controlled one radiates no control signal. The same goes for its operator.</li>
+<li><strong>Huge bandwidth.</strong> A fibre carries gigabits per second, so the video can be sharp and low-latency, while radio video links in the same situation are narrowband and noisy. (Compare the bandwidth versus depth trade-offs of chapter 8.)</li>
+<li><strong>The price is the tether.</strong> The reel adds weight and bulk; the reach is set by the length of fibre (reports speak of roughly 10–40 km); the fibre can snag on trees or wires and break; the aircraft cannot easily fly round behind obstacles or double back over its own line; and the path of the thin line can be seen from the ground. Each of these limits is physical, and each is the other side of a benefit.</li>
+</ul>
+<p>The idea is not new. <strong>Wire-guided missiles and torpedoes</strong> have trailed a thin copper wire since the 1950s (SS.10, TOW, many torpedoes), tethered undersea robots have used fibre for decades, and optical links run between continents on the sea floor. What changed is cost: spools of fibre and small cameras became cheap and light enough for a hobby-scale aircraft. And it will not end the contest. Countermeasures move to physical defences, to optical and acoustic detection of the aircraft itself, and designers add autonomy so that the platform can finish a task if any link is lost. Each new defence creates a new compromise, which is the pattern of this whole chapter.</p>
+<div data-widget="resilience-matrix"></div>
+
+<h2 id="civil" data-short="Civil lessons">What this means for civilians</h2>
+<ul>
+<li><strong>GPS is fragile.</strong> Its signal is so faint that even small, unintended sources (cheap “privacy” devices in vehicles) disturb receivers in a radius of hundreds of metres. Aviation, shipping, timing for mobile networks, and power grids all depend on it; the remedy is diversity (GPS + Galileo + GLONASS + BeiDou), inertial back-up and holdover clocks.</li>
+<li><strong>Unlicensed bands are crowded.</strong> The 2.4 GHz band hosts Wi-Fi, Bluetooth, Zigbee, microwave ovens and drones; spreading and hopping are the reason they coexist. In your home, choosing a channel and keeping routers away from the oven (chapter 17) is EP.</li>
+<li><strong>Rules matter.</strong> Deliberately interfering with radio services is illegal almost everywhere, with serious penalties, because it can block emergency calls, air-traffic communication and navigation. Learn the physics; don’t practise on the air.</li>
+</ul>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Electronic warfare has three parts: support (listen), attack (degrade), protection (keep working).</li>
+<li>A radio link fails when interference or noise erodes the margin; links are fragile because signals are weak and receivers cannot distinguish sources.</li>
+<li>Defences: spread spectrum (processing gain $R_c/R_b$), frequency hopping with coding, directional antennas and nulling arrays, low emissions, authentication, redundancy.</li>
+<li>Fibre-optic tethers trade freedom of movement and reach for complete immunity to radio interference and zero radio emission; autonomy trades redirection for independence.</li>
+<li>Every defence has a price: the best systems layer several.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A direct-sequence system uses a 10 Mchip/s code for 10 kbit/s data. What is the processing gain?","o":["10 dB","30 dB","40 dB","60 dB"],"a":1,"why":"G_p = 10⁷/10⁴ = 1000 = 30 dB."},
+ {"q":"Why does a frequency-hopping link survive narrowband interference on part of the band?","o":["Hopping hides the transmitter completely","Only the bursts landing on affected channels are lost, and error-correcting codes repair them","It transmits at higher power","Hopping changes the speed of light"],"a":1,"why":"Interference hits only a fraction of the hops, and forward error correction with interleaving recovers the lost bursts."},
+ {"q":"What is a fundamental limit of a fibre-optic tethered drone?","o":["It can be jammed by radio","The length of fibre limits its reach and the tether limits how it can manoeuvre","It needs a radio licence","It cannot carry video"],"a":1,"why":"The tether caps range and constrains movement; immunity to radio interference and no radio emission are the benefits."},
+ {"q":"Which statement about hopping and detectability is right?","o":["Hopping makes a transmitter undetectable","A hopping transmitter still radiates; hopping changes where it radiates, not whether","Hopping needs no spectrum","Hopping works only below 1 MHz"],"a":1,"why":"Each burst is still an emission that can be detected and located; combine hopping with low power, directionality and short bursts for LPI."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>One more thing that can disturb electronics: an intense, very short pulse of electromagnetic energy. Part V: EMPs, what they are, how they couple into wires and chips, how to shield against them, and then a small, familiar case study: the microwave oven.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

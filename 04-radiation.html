@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 · Waves leave the wire (and fade) — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="How an oscillating current launches a wave, the near and far field, and how field strength falls off from wires, points and dipoles.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 4 · Fields from scratch</span>
+<h1>Waves leave the wire (and fade)</h1>
+<div class="meta"><span>~30 min</span><span>3 widgets</span><span>near field, far field, 1/r, 1/r², 1/r³</span></div>
+<p class="lede">We know a wave <em>can</em> travel. Now we need to start one, follow it out, and answer the practical question: how much is left when it gets there?</p>
+
+<h2 id="launch" data-short="Launching a wave">Launching a wave from a wire</h2>
+<p>Take a short straight wire and drive an alternating current $I\cos\omega t$ along it. Electrons slosh up and down (charges accelerate, chapter 1), so a ripple of $\vec E$ and $\vec H$ is shed every cycle. The ripple moves outward at $c$. By the time one cycle is done the first ripple is a distance $\lambda=c/f$ away, which is why wavelength and frequency are tied together.</p>
+<p>The simplest antenna model is the <strong>Hertzian dipole</strong>: a wire of length $\ell\ll\lambda$ with the same current $I$ along its length. Its fields are known exactly. In the plane through the wire, $r$ from the centre and $\theta$ from the wire’s axis:</p>
+<div class="eq">$$E_\theta=\frac{j\eta I\ell\,k\sin\theta}{4\pi r}\Big[1+\frac{1}{jkr}-\frac{1}{(kr)^2}\Big]e^{-jkr},\qquad k=\frac{2\pi}{\lambda}$$</div>
+<p>You don’t need to memorise it. Look at the bracket: three terms in $1/(kr)$. When $kr\gg1$ only the “1” survives and the field is $\propto1/r$. When $kr\ll1$ the last term wins and the field is $\propto1/r^3$. Between them, a mixture. The widget below draws exactly this.</p>
+<div data-widget="radiating-dipole"></div>
+
+<h2 id="zones" data-short="Near field vs far field">Near field vs far field</h2>
+<p>Three regions, with boundaries scaled by the wavelength:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Zone</th><th>Distance</th><th>What the fields do</th><th>Falls like</th></tr>
+<tr><td><strong>Reactive near field</strong></td><td>$r<\lambda/2\pi$</td><td>$\vec E$ and $\vec H$ are 90° out of step; energy is stored and returned to the antenna each cycle (like a capacitor + inductor). Only part is radiated.</td><td>$1/r^3$ (E), $1/r^2$ (H)</td></tr>
+<tr><td><strong>Radiating near field</strong> (Fresnel)</td><td>$\lambda/2\pi<r<2D^2/\lambda$</td><td>Radiation has started but the pattern is still changing shape with distance. Only matters for large antennas ($D\gg\lambda$).</td><td>mixed</td></tr>
+<tr><td><strong>Far field</strong> (Fraunhofer)</td><td>$r>2D^2/\lambda$</td><td>A true travelling wave: $\vec E\perp\vec H\perp\hat r$, $E/H=377\ \Omega$, the pattern no longer changes with $r$.</td><td>$1/r$ (E and H)</td></tr>
+</table></div>
+<p>Here $D$ is the largest dimension of the antenna. A 1 m dish at 10 GHz ($\lambda=3$ cm) has its far field beyond $2D^2/\lambda=2\cdot1/0.03\approx67$ m. A 25 m radio-telescope dish at 1.4 GHz needs $2\cdot625/0.21\approx6$ km. <em>Why it matters:</em> antenna ranges, RF exposure assessments and wireless charging all depend on which zone you’re in. NFC cards and wireless chargers work in the reactive near field on purpose: no energy leaves, so none is wasted.</p>
+
+<h2 id="powerlaw" data-short="How strength fades">How strength fades: the ladder of exponents</h2>
+<p>How fast a field falls with distance depends on the <strong>shape of the source</strong>. The question to ask is: <em>how many directions can the field spread into?</em></p>
+<ul>
+<li><strong>A flat infinite sheet</strong> doesn’t let the field spread at all: constant ($r^0$). (Think of a huge capacitor.)</li>
+<li><strong>A long straight wire or line charge</strong> spreads sideways in a circle: the field is shared over a circumference $2\pi r$, so $E$ or $B\propto1/r$.</li>
+<li><strong>A point source</strong> (a charge, a tiny lamp) spreads over a sphere $4\pi r^2$: $\propto1/r^2$ for the field of a static charge.</li>
+<li><strong>A dipole</strong> (two opposite charges, a bar magnet, a small loop) mostly cancels itself from far away: $\propto1/r^3$.</li>
+<li><strong>A radiating wave</strong> is special. Its <em>power</em> spreads over a sphere ($\propto1/r^2$), and since $S\propto E^2$ the <em>field</em> falls as $1/r$, the slowest fade of any point source. This is why radio works at all.</li>
+</ul>
+<div data-widget="falloff"></div>
+<div class="callout violet"><span class="ct">Why do radio waves beat a static field?</span>A static magnet’s field falls as $1/r^3$ and carries no energy outward. A radio wave’s field falls as $1/r$ and carries energy forever. At 100 m a typical bar magnet’s field has dropped to a millionth of its near value, while a radio wave’s is down to a hundredth.</div>
+
+<h3 id="cyl">Line and plane sources in radio</h3>
+<p>Real systems can be line- or plane-like too. A very tall vertical array of dipoles radiates like a <strong>cylinder</strong>: power spreads over $2\pi r\,h$, so power density falls only as $1/r$ (field $1/\sqrt r$) until the distance is about $h^2/\lambda$. A big flat panel behaves like a plane wave over a distance of $A/\lambda$ and then turns into a diverging beam. That is the origin of “pencil beams”: the near field of a large aperture is a tube of nearly constant width, which is why a radar dish can keep its power concentrated over tens of kilometres.</p>
+
+<h2 id="spread" data-short="Spreading & decibels">Spreading, power density and decibels</h2>
+<p>For an antenna radiating total power $P$ with gain $G$ (in the direction you look) the power flowing through each square metre at distance $r$ is</p>
+<div class="eq">$$S=\frac{P\,G}{4\pi r^2}\qquad\Rightarrow\qquad E_{rms}=\sqrt{S\,\eta_0}=\frac{\sqrt{30\,P\,G}}{r}$$</div>
+<p>The second form is the handy one: $E=\sqrt{30PG}/r$ volts per metre for $P$ in watts and $r$ in metres. A 100 kW FM station with gain 4 at 10 km gives $E=\sqrt{30\cdot10^5\cdot4}/10^4=0.35$ V/m, a strong signal. A Wi-Fi router (0.1 W, gain 2) at 3 m gives $sqrt{30cdot0.1cdot2}/3=0.8$ V/m, a harmless level. What a receiver actually sees is <em>received power</em>, which is what the link budget in chapter 9 does.</p>
+<div data-widget="inverse-square"></div>
+<div class="callout yellow"><span class="ct">Decibels in one minute</span>Engineers count in dB because ratios multiply and dB add. For power: $10\log_{10}(P_2/P_1)$. For field strength: $20\log_{10}(E_2/E_1)$. Double the distance: power −6 dB, field −6 dB (same thing, since $P\propto E^2$). Ten times the distance: −20 dB. A signal that has lost 120 dB has lost a factor of $10^{12}$ in power, which is routine for radio links.</div>
+
+<h2 id="loss" data-short="Not only spreading">Spreading is not the only loss</h2>
+<p>In free space the only loss is geometric spreading. In the real world waves are also <strong>absorbed</strong> (rain, oxygen at 60 GHz, trees), <strong>reflected</strong> (ground, buildings), <strong>diffracted</strong> around hills, and <strong>refracted</strong> by layers of air. Chapter 6 puts numbers on what different materials do at different frequencies. For now, hold on to the free-space law as the best-case baseline.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>An alternating current (accelerating charge) launches a wave that moves at $c$, with $\lambda=c/f$.</li>
+<li>Near an antenna ($r<\lambda/2\pi$) fields are reactive and fall as $1/r^2$–$1/r^3$. Far away they become a true wave with $E,H\propto1/r$ and $E/H=377\ \Omega$.</li>
+<li>The fade rate depends on source shape: sheet $r^0$, line $r^{-1}$, point charge $r^{-2}$, dipole $r^{-3}$, radiated field $r^{-1}$ (power $r^{-2}$).</li>
+<li>$S=PG/4\pi r^2$ and $E=\sqrt{30PG}/r$. Doubling the distance costs 6 dB.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"The far-field electric field of an antenna falls with distance like…","o":["1/r","1/r²","1/r³","it doesn’t fall"],"a":0,"why":"The radiated power spreads over 4πr² (∝1/r²); since S ∝ E², E ∝ 1/r."},
+ {"q":"You double your distance from a transmitter in free space. The received power changes by…","o":["−3 dB","−6 dB","−12 dB","−20 dB"],"a":1,"why":"Power ∝ 1/r². Doubling r gives a factor 1/4, which is −6 dB."},
+ {"q":"Which source's field falls the FASTEST at large distance?","o":["A long straight wire","A point charge","A magnetic dipole (bar magnet)","A radio antenna’s radiated wave"],"a":2,"why":"A dipole’s field ∝ 1/r³; point charge 1/r²; wire 1/r; radiated wave 1/r."},
+ {"q":"Why can a wireless charger transfer power without radiating it away?","o":["It uses a different kind of wave","It works in the reactive near field, where energy is stored and returned, not radiated","It uses DC","It breaks Maxwell’s equations"],"a":1,"why":"In the near field E and H are out of phase and the energy mostly swaps between the coil and field; little is radiated."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Chapter 5 asks “what is the difference between a radio wave and light?”. Only the frequency. We’ll slide along the entire electromagnetic spectrum, from 1 Hz to gamma rays, and see what each part is used for.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

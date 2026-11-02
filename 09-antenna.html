@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9 · What is an antenna? — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="What an antenna does, the half-wave dipole, radiation patterns, gain, directivity, effective area, polarisation and the Friis link budget.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 9 · Antennas</span>
+<h1>What is an antenna?</h1>
+<div class="meta"><span>~40 min</span><span>3 widgets</span><span>dipoles, patterns, gain, link budget</span></div>
+<p class="lede">An antenna is a <strong>transducer</strong>: it converts the guided electrical energy in a wire into a free wave in space (transmitting), and does the reverse when it receives. Everything in chapters 1–4 is now applied: a current that accelerates charges makes a wave. The rest is engineering: <em>how well, in which direction, at what frequency.</em></p>
+
+<h2 id="reciprocity" data-short="Reciprocity">One antenna, two jobs: reciprocity</h2>
+<p>A wonderful result: <strong>an antenna has the same pattern, gain and impedance whether it is transmitting or receiving</strong> (for ordinary materials). This is the <em>reciprocity theorem</em>. It means we can study a transmitting antenna and know everything about the same antenna as a receiver. A good transmitting antenna for a given direction is equally good at catching waves from that direction.</p>
+
+<h2 id="dipole" data-short="The dipole">The half-wave dipole</h2>
+<p>The classic antenna: a straight wire cut to about half a wavelength, fed at the centre. Why half a wavelength? Current has to be zero at the open ends of the wire, so the current wave bounces back and forth and forms a <em>standing wave</em> with a node at each end. A wire a half wavelength long supports exactly one half-cycle of that standing wave, with the maximum current in the middle where we feed it. This is a <strong>resonance</strong>: the reactance at the feed point cancels and the antenna takes power efficiently. The half-wave dipole gives $R_{in}\approx73\ \Omega$, a directivity of 1.64 (2.15 dBi) and a doughnut-shaped pattern: strongest broadside, zero along the wire. The widget lets you change the length and watch.</p>
+<div data-widget="dipole-length"></div>
+<div class="callout"><span class="ct">Rule of thumb for building one</span>Length in metres $\approx 143/f_{\text{MHz}}$ for a real wire half-wave dipole. (The free-space value would be 150/f; the factor 0.95 corrects for the wire’s thickness, an “end effect”.) For FM at 100 MHz: 1.43 m total, 71 cm per arm. This is why FM “rabbit ear” antennas look the way they do.</div>
+<h3 id="monopole">The monopole: a dipole with a mirror</h3>
+<p>Put one quarter-wave rod vertically above a good conducting plane (a car roof, the ground, a radial wire mesh). The plane acts as a mirror: the “image” of the rod below it is the other half of the dipole. So a quarter-wave monopole radiates only into the upper half-space, with <em>twice</em> the directivity of the dipole (3.28 or 5.15 dBi), has 36.5 Ω input resistance, and half the length. Whip antennas, AM broadcast masts and cell towers’ whips are monopoles.</p>
+
+<h2 id="pattern" data-short="Radiation patterns">Radiation patterns</h2>
+<p>An antenna does not radiate equally in all directions. The <strong>radiation pattern</strong> is a plot of the far-field strength against direction. You will see it drawn two ways: a polar plot (like a compass) and a rectangular plot with decibels. The vocabulary:</p>
+<ul>
+<li><strong>Main lobe</strong>, the direction of maximum radiation; <strong>sidelobes</strong>, smaller unwanted lobes; <strong>back lobe</strong>, the one behind; <strong>nulls</strong>, directions of zero field.</li>
+<li><strong>Half-power beamwidth (HPBW)</strong>, the angle between the −3 dB points on either side of the peak.</li>
+<li><strong>Front-to-back ratio</strong>, main lobe divided by the back lobe, in dB.</li>
+<li><strong>E-plane and H-plane</strong>, the two principal cuts: the plane containing $\vec E$, and the plane containing $\vec H$.</li>
+</ul>
+<p>The size of the beam is set by the <strong>aperture</strong>: how big the antenna is, measured in wavelengths. Double the aperture and the beam halves in width (a narrower beam). Play with a simple line aperture:</p>
+<div data-widget="pattern-anatomy"></div>
+
+<h2 id="gain" data-short="Gain, directivity, area">Directivity, gain and effective area</h2>
+<p>Power can only go somewhere. If an antenna squeezes its radiation into a narrow beam, the power in that direction goes up as much as it goes down elsewhere. We measure that with three related ideas:</p>
+<div class="eq">$$D=\frac{4\pi\,U_{\max}}{P_{\text{rad}}},\qquad G=\eta_{rad}\,D,\qquad A_e=\frac{\lambda^2}{4\pi}G$$</div>
+<ul>
+<li><strong>Directivity $D$</strong>: how much more intense the beam is than that of a hypothetical isotropic radiator spreading the same power equally in all directions. Isotropic: $D=1$ (0 dBi). Half-wave dipole: 2.15 dBi.</li>
+<li><strong>Gain $G$</strong>: directivity times the antenna’s efficiency $\eta_{rad}$ (power lost as heat in the metal or dielectric counts against it). Usually quoted in <strong>dBi</strong> (relative to isotropic) or <strong>dBd</strong> (relative to a dipole; 0 dBd = 2.15 dBi).</li>
+<li><strong>Effective area $A_e$</strong>: how much of an incoming wave’s power front the antenna “catches”: received power = (power density) × $A_e$. Notice $A_e\propto\lambda^2G$: <em>at a given gain, a lower frequency antenna catches more.</em> A dipole has $A_e=0.13\lambda^2$, which at 100 MHz is 1.2 m², much bigger than its cross-section.</li>
+</ul>
+<p>Gain and area are two ways of saying the same thing. For a dish, $A_e=\eta A_{phys}$ with $\eta\approx0.55–0.7$, so $G=\eta(\pi D/\lambda)^2$.</p>
+<div class="callout yellow"><span class="ct">What gain does <em>not</em> mean</span>An antenna does not create power. A 10 dBi antenna fed 1 W does not radiate 10 W; it radiates 1 W (less losses) but concentrates it so that in the main-beam direction it looks like a 10 W isotropic source. The product $P_tG_t$ is called the <strong>EIRP</strong> (effective isotropic radiated power) and is what regulators limit.</div>
+
+<h2 id="polar" data-short="Polarisation">Polarisation</h2>
+<p>The polarisation of a wave is the direction of its $\vec E$ (chapter 3). Vertical dipoles send and receive vertical waves; if the receiving antenna is turned 90° it hears almost nothing (polarisation loss: $\cos^2\psi$, a 20–30 dB loss at 90°). Hence mobile radio uses vertical polarisation, TV broadcasts often horizontal; GPS and satellites use <strong>circular polarisation</strong> (rotating $\vec E$) so that orientation does not matter, at a fixed cost of 3 dB when mixed with a linear antenna.</p>
+
+<h2 id="friis" data-short="The link budget">Will the signal be heard? The link budget</h2>
+<p>Put it together. A transmitter of power $P_t$ with antenna gain $G_t$ sends a power density $S=P_tG_t/4\pi d^2$ (chapter 4). The receiver’s antenna collects $A_e=G_r\lambda^2/4\pi$ of it. Multiply:</p>
+<div class="eq">$$P_r=P_tG_tG_r\left(\frac{\lambda}{4\pi d}\right)^2$$</div>
+<p>That is the <strong>Friis transmission equation</strong>. The bracket is “free-space path loss” (FSPL, a ratio below 1), which looks like it depends on frequency, but only because of the receive aperture’s dependence on $\lambda$: if you fix the <em>antenna areas</em> instead of gains, higher frequency gives <em>less</em> loss. (This is why satellite dishes at 12 GHz are small yet have high gain.) In decibels, $P_r=P_t+G_t+G_r-\text{FSPL}$, which is how every link is designed. The receiver also sees a noise floor $N=kTB$, and what counts is the <strong>signal-to-noise ratio</strong>. Take real examples, from Bluetooth to Voyager 1, 24 billion km away:</p>
+<div data-widget="link-budget"></div>
+<p>Notice what the Voyager row teaches: a 23 W transmitter, 2.4×10¹³ m away, arrives at $10^{-19}$ W, a hundred billion times below what a Wi-Fi laptop must receive. It is detected because the antennas have 48 and 74 dBi gain, and because the receiver’s bandwidth is only 160 Hz, which lowers its noise floor by the same ratio.</p>
+
+<h2 id="bandwidth" data-short="Impedance, bandwidth, efficiency">Three more numbers every antenna has</h2>
+<ul>
+<li><strong>Input impedance</strong> $Z_{in}=R+jX$: what the feed line “sees”. We want it real and equal to the line’s impedance (50 Ω or 75 Ω): chapter 10.</li>
+<li><strong>Bandwidth</strong>: the range of frequencies over which the impedance and pattern stay acceptable. A thin wire dipole is narrow (a few per cent); a fat “biconical” is much wider; the log-periodic design is ten-to-one. Small antennas are always narrow-band: the <strong>Chu limit</strong> says that for an antenna fitting in a sphere of radius $a$ the product of bandwidth and efficiency is limited by $(ka)^3$.</li>
+<li><strong>Efficiency</strong> $\eta_{rad}=R_{rad}/(R_{rad}+R_{loss})$: the ELF antenna of chapter 8 taught us this one the hard way.</li>
+</ul>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>An antenna converts guided waves to free waves and back; it behaves identically both ways (reciprocity).</li>
+<li>A half-wave dipole: 73 Ω, 2.15 dBi, $L\approx143/f_\text{MHz}$ m. A quarter-wave monopole on a ground plane: 36.5 Ω, 5.15 dBi.</li>
+<li>Aperture size in wavelengths sets the beamwidth; directivity $\approx4\pi A_e/\lambda^2$.</li>
+<li>Gain is concentration, not creation. $G=\eta D$, $A_e=G\lambda^2/4\pi$, EIRP $=P_tG_t$.</li>
+<li>Friis: $P_r=P_tG_tG_r(\lambda/4\pi d)^2$. Margin over the noise floor $kTB$ decides success.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What is the approximate total length of a half-wave dipole for 144 MHz (the 2 m ham band)?","o":["0.25 m","0.5 m","1 m","2 m"],"a":2,"why":"143/144 ≈ 0.99 m. (λ = 2.08 m; half of it is 1.04 m; the 5 % end-effect correction gives ≈ 0.99 m.)"},
+ {"q":"An antenna has a gain of 13 dBi. Compared with an isotropic antenna, in its main direction it appears to radiate…","o":["13 times the power","about 20 times the power","1300 times","its input power plus 13 W"],"a":1,"why":"13 dB = 10^1.3 ≈ 20. Gain concentrates the same power into a narrow beam; it does not create power."},
+ {"q":"Reciprocity means…","o":["Receiving and transmitting patterns are the same","Antennas send and receive at different frequencies","Transmit power equals receive power","Every antenna needs a ground"],"a":0,"why":"An antenna’s pattern, gain and impedance are identical for transmit and receive."},
+ {"q":"If you double the distance between transmitter and receiver (free space), received power falls by…","o":["3 dB","6 dB","12 dB","It doesn’t change"],"a":1,"why":"Friis: Pr ∝ 1/d²: a factor 4 = 6 dB."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Our antenna works best when the transmitter “sees” the impedance it expects. Chapter 10 follows the wire between them: transmission lines, reflections, standing waves, the Smith chart and how to match impedances.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

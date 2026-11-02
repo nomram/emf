@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 · Radar types &amp; bands — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Primary and secondary radar, pulse, CW and FMCW, tracking, weather, marine, over-the-horizon, ground-penetrating and synthetic-aperture radar, and the radar frequency bands.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 14 · Radar</span>
+<h1>Radar types &amp; bands</h1>
+<div class="meta"><span>~40 min</span><span>2 widgets</span><span>a tour of the radar family</span></div>
+<p class="lede">The same physics (a pulse out, an echo back, a time, a frequency shift) is built into radars that weigh raindrops, watch airliners, park cars, map glaciers from space and find buried pipes. What differs is the band, the waveform and the antenna. This chapter puts names on them.</p>
+
+<h2 id="bands" data-short="The radar bands">The radar bands: L, S, C, X…</h2>
+<p>Radar engineers use a letter code from World War II secrecy that stuck. Each band is a compromise (chapter 12): a long wavelength gives long range through weather and with fewer problems, but needs big antennas and gives coarse angular detail; a short wavelength gives fine detail from a small antenna, but rain and gas absorb it.</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Band</th><th>Frequency</th><th>λ</th><th>Typical uses</th></tr>
+<tr><td>HF</td><td>3–30 MHz</td><td>10–100 m</td><td>Over-the-horizon radar</td></tr>
+<tr><td>VHF</td><td>30–300 MHz</td><td>1–10 m</td><td>Early warning, wind profilers, ice sounding</td></tr>
+<tr><td>UHF</td><td>0.3–1 GHz</td><td>30 cm–1 m</td><td>Missile early warning, foliage penetration</td></tr>
+<tr><td>L</td><td>1–2 GHz</td><td>15–30 cm</td><td>Long-range air traffic control, SAR</td></tr>
+<tr><td>S</td><td>2–4 GHz</td><td>7.5–15 cm</td><td>Airport radar, NEXRAD weather, naval air defence</td></tr>
+<tr><td>C</td><td>4–8 GHz</td><td>3.75–7.5 cm</td><td>Weather, SAR, shipborne</td></tr>
+<tr><td>X</td><td>8–12 GHz</td><td>2.5–3.75 cm</td><td>Marine, tracking, fire control, high-resolution SAR</td></tr>
+<tr><td>Ku / K / Ka</td><td>12–40 GHz</td><td>0.75–2.5 cm</td><td>Altimeters, police radar, cloud radar</td></tr>
+<tr><td>V / W</td><td>40–110 GHz</td><td>2.7–7.5 mm</td><td>Automotive (77 GHz), cloud radar (94 GHz), scanners</td></tr>
+</table></div>
+<p>Use the chart to see the compromise. Set the beamwidth you want from your antenna and the rain you must work in:</p>
+<div data-widget="radar-bands"></div>
+
+<h2 id="families" data-short="The families">Radar families</h2>
+<h3>Primary and secondary radar</h3>
+<p><strong>Primary radar</strong> uses the raw echo from the target: it works on anything, cooperative or not. <strong>Secondary surveillance radar</strong> (SSR) is a conversation: the ground station transmits an interrogation (1030 MHz) and the aircraft’s <em>transponder</em> replies (1090 MHz) with its identity (Mode A), altitude (Mode C) or full data (Mode S). The reply is stronger than any echo ($1/R^2$ rather than $1/R^4$), so SSR sees farther with little power. ADS-B has aircraft broadcast their GPS position spontaneously on the same 1090 MHz. Air-traffic control uses both: primary radar as the safety net for uncooperative targets.</p>
+<h3>By waveform</h3>
+<ul>
+<li><strong>Pulsed</strong> (chapter 12): the classic, with high peak power; long range; coarse Doppler.</li>
+<li><strong>Pulse-Doppler:</strong> coherent pulse train; measures range and speed, rejects clutter. Airborne and air-defence radars.</li>
+<li><strong>CW and FMCW</strong> (chapter 13): low power, continuous; automotive, altimeters, level meters, short-range surveillance (“LPI”: low-probability-of-intercept).</li>
+<li><strong>Pulse compression, stepped frequency, noise radar:</strong> large bandwidth for resolution; noise radar uses random noise as the waveform for cover and jamming resistance.</li>
+</ul>
+<h3>By job</h3>
+<ul>
+<li><strong>Search / surveillance:</strong> wide coverage, moderate accuracy: airport ASR, long-range 3D radars measuring range, azimuth <em>and</em> elevation.</li>
+<li><strong>Tracking:</strong> a narrow beam follows one target accurately. A <strong>monopulse</strong> antenna forms two or more overlapping beams simultaneously, and the ratio of their signals in a <em>single pulse</em> gives the angle error with no sensitivity to amplitude fluctuations. <strong>Track-while-scan</strong> follows many targets from successive sweeps.</li>
+<li><strong>Weather:</strong> measures rain by its reflectivity $Z$ (dBZ: 20 dBZ light rain, 50+ dBZ hail); Doppler winds; <strong>dual-polarisation</strong> separates rain, snow and hail by drop shape.</li>
+<li><strong>Marine:</strong> X-band (9.4 GHz) navigation, S-band for heavy rain; ship traffic and coastal surveillance.</li>
+<li><strong>Altimeters and terrain-following:</strong> aircraft radio altimeters at 4.2–4.4 GHz; satellite altimeters (Ku) measure ocean height to a centimetre.</li>
+<li><strong>Speed and traffic:</strong> police radar (K, Ka), roadside sensors, car sensors (24, 77 GHz).</li>
+<li><strong>Over-the-horizon (OTH):</strong> HF radar using skywave bounce (chapter 11a) or surface-wave guiding over the sea to see 1000–3000 km. Long wavelengths mean coarse resolution but strong immunity to shape-based stealth.</li>
+<li><strong>Ground-penetrating radar (GPR):</strong> low-GHz pulses into soil, ice or concrete (chapter 6): finds pipes, rebar, graves, bedrock, glacier layers.</li>
+<li><strong>Through-wall and life detection:</strong> UWB or CW radar that detects breathing behind rubble.</li>
+<li><strong>Planetary and space:</strong> radar astronomy (Goldstone, formerly Arecibo) maps asteroids and Venus; ground radars track space debris.</li>
+</ul>
+
+<h2 id="sar" data-short="Radar imaging (SAR)">Radar imaging: SAR and ISAR</h2>
+<p>A radar can paint a picture. <strong>Synthetic-aperture radar</strong> uses the platform’s motion to synthesise a huge antenna. A 12 m satellite antenna looking from 700 km at C-band has a real beam of 3 km on the ground; SAR processing sharpens it to about 6 m. The result: all-weather, day-and-night images, used to watch floods, oil spills, forest, volcanoes, ships, and (by comparing phases between passes, <em>interferometry</em>) ground motion to millimetres. <strong>ISAR</strong> (inverse SAR) does the opposite: the radar is fixed and the target moves, for example a ship rolling in waves yields a 2D picture.</p>
+<div data-widget="sar"></div>
+
+<h2 id="arrays" data-short="Phased array radars">Radars with no moving parts</h2>
+<p>Many modern radars have no rotating antenna. A <strong>phased array</strong> (chapters 18–19) steers its beam electronically in microseconds, so one radar can search a sector, track tens or hundreds of targets, and pass guidance to a missile, all interleaved. An <em>AESA</em> (active electronically scanned array) has a small transmit/receive module behind <em>every</em> element, giving graceful degradation (a few dead modules barely matter), fast wideband beams, several simultaneous beams, and the ability to change frequency pulse to pulse, which matters for the resilience topics in chapter 15a.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Radar bands trade antenna size, resolution and weather loss: VHF/UHF long range, S/C weather-proof, X fine detail, W compact sensors.</li>
+<li>Primary radar needs only an echo; secondary radar (transponders, ADS-B) trades cooperation for range.</li>
+<li>Waveforms: pulsed, pulse-Doppler, CW/FMCW, pulse-compressed.</li>
+<li>Tracking uses monopulse; weather radars use reflectivity, Doppler and polarisation; GPR uses penetration; OTH uses skywave.</li>
+<li>SAR synthesises a long aperture from motion: cross-range resolution ≈ D/2, independent of range.</li>
+<li>Phased arrays steer electronically and multitask.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Why is a transponder-based secondary radar able to work over longer distances than a primary radar for the same power?","o":["It uses higher frequency","The reply travels one way, so the signal falls as 1/R² rather than 1/R⁴","It has a bigger antenna","It uses Doppler"],"a":1,"why":"Interrogation goes out, reply comes back at full transponder power: two one-way links instead of one two-way echo."},
+ {"q":"Which radar band would you choose for a weather radar that must see through heavy rain at long distances?","o":["W-band (94 GHz)","S-band (3 GHz)","V-band (60 GHz)","Ka-band"],"a":1,"why":"S-band suffers little rain attenuation. C-band is the compromise for smaller antennas; W-band is only for cloud droplets at short range."},
+ {"q":"What does SAR achieve?","o":["It images by using the platform’s motion to synthesise a large aperture","It sees through the ground at 100 m depth","It measures wind with Doppler only","It requires a very big dish"],"a":0,"why":"Cross-range resolution of about D/2 is obtained by coherently combining echoes along the flight path."},
+ {"q":"What is a monopulse radar antenna used for?","o":["Making only one pulse per second","Measuring the target angle precisely from a single pulse using the ratio of overlapping beams","Sending messages","Jamming"],"a":1,"why":"Comparing two simultaneous beams gives the angular error on every pulse, independent of target fluctuations."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>A radar sees a target because it reflects. How <em>much</em> it reflects depends on the target’s size, material and shape: the radar cross section. Chapter 15 explains why a metal sphere, a flat plate and a faceted aircraft look so different, and what “stealth” really means.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

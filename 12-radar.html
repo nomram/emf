@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 · Radar from zero — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="How radar measures range: pulses, echoes, resolution, ambiguity, the radar equation, noise and the radar screen.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 12 · Radar</span>
+<h1>Radar from zero</h1>
+<div class="meta"><span>~40 min</span><span>3 widgets</span><span>pulses, range, resolution, the 1/R⁴ equation</span></div>
+<p class="lede">Shout in a canyon and time the echo: that is radar. “RADAR” stands for <strong>RA</strong>dio <strong>D</strong>etection <strong>A</strong>nd <strong>R</strong>anging. The principle is just as simple, but the numbers are extreme: the echo you must detect can be a hundred million billion times weaker than the pulse you sent.</p>
+
+<h2 id="idea" data-short="The big idea">Time of flight</h2>
+<p>A radio wave travels at $c=3\times10^8$ m/s. Send a short pulse, listen, and time how long until the echo returns. The wave went out and back, so</p>
+<div class="eq">$$R=\frac{c\,t}{2}\qquad\Longleftrightarrow\qquad t=\frac{2R}{c}=6.67\ \mu\text{s per km}\ (12.36\ \mu\text{s per nautical mile})$$</div>
+<p>An aircraft 100 km away returns its echo after 667 µs. At that speed the aircraft hardly moves; it is as if the world is frozen between transmission and reception. The antenna also tells you the <strong>bearing</strong> (the direction it is pointing when the echo arrives) and often the <strong>elevation</strong>; with Doppler (chapter 13) the radial <strong>speed</strong>. History: the idea was shown by Christian Hülsmeyer (1904) with ships and by the Americans and the British in the 1920s–30s; the British <em>Chain Home</em> stations, using 20–30 MHz pulses and huge antenna towers, gave early warning in the Battle of Britain in 1940.</p>
+<h3 id="blocks">The block diagram</h3>
+<p>A pulse radar has: a <strong>transmitter</strong> (a high-power oscillator or amplifier, formerly a magnetron, now often solid-state), a <strong>duplexer</strong> (a fast switch so the same antenna transmits and receives without the transmitter frying the receiver), the <strong>antenna</strong> (chapter 11), a sensitive <strong>receiver</strong>, a <strong>signal processor</strong> (filters, Doppler, detection) and a <strong>display</strong>. A <strong>monostatic</strong> radar has transmitter and receiver together; a <strong>bistatic</strong> radar puts them apart; a <strong>passive</strong> radar uses someone else’s transmissions (FM, TV, cell towers).</p>
+
+<h2 id="pulse" data-short="Pulse, resolution, ambiguity">The pulse: three numbers you must know</h2>
+<ul>
+<li><strong>Pulse length $\tau$</strong>: in space the pulse is $c\tau$ long (a 1 µs pulse is 300 m). Two targets closer than half of that merge into one blip: the <strong>range resolution</strong> is $\Delta R=c\tau/2=c/2B$, where $B\approx1/\tau$ is the bandwidth.</li>
+<li><strong>Pulse repetition frequency PRF</strong> (and period PRI $=1/\text{PRF}$): after each pulse the radar waits for echoes before sending the next. An echo from beyond the <strong>unambiguous range</strong> $R_u=c/(2\,\text{PRF})$ arrives <em>after</em> the next pulse was sent and is mistaken for a closer target. A 1500 Hz PRF gives $R_u=100$ km.</li>
+<li><strong>Duty cycle</strong> $\tau\cdot\text{PRF}$: the fraction of time spent transmitting, typically 0.1–1 % for pulsed radars. The <strong>average power</strong> is $P_{avg}=P_{peak}\cdot$ duty cycle, and it is the average power (energy) that decides detection.</li>
+</ul>
+<p>Also, the radar cannot hear echoes while it transmits, so targets closer than $c\tau/2$ (the “blind range”) are invisible. Play with all of this; make the second target farther than the unambiguous range and watch it jump to the wrong place:</p>
+<div data-widget="radar-echo"></div>
+<div class="callout violet"><span class="ct">The pulse-compression trick</span>To see far you need <em>energy</em> (a long pulse); to separate nearby targets you need a short pulse (large bandwidth). These conflict. <strong>Pulse compression</strong> breaks the conflict: transmit a long pulse whose frequency sweeps across a bandwidth $B$ (a <em>chirp</em>), then correlate the echo with a copy of it in the receiver: the output is a sharp peak of width $1/B$. You get the energy of a 100 µs pulse and the resolution of a 0.1 µs one. Almost every modern radar does this; chapter 13’s FMCW radar takes it to the extreme.</div>
+
+<h2 id="angle" data-short="Angular resolution">Angular resolution: the antenna is the limit</h2>
+<p>Where is the target in angle? The antenna beam has a width $\theta_{3dB}\approx70\lambda/D$ degrees (chapter 11): a target anywhere in the beam gives an echo. A 3° beam at 100 km is $100\times0.052=5.2$ km wide, so <em>cross-range resolution</em> is poor compared with the range resolution, which can be 15 m. That mismatch is why aircraft on a radar screen look like wide arcs, and why synthetic aperture radar (chapter 14) exists.</p>
+
+<h2 id="equation" data-short="The radar equation">The radar equation: how far can it see?</h2>
+<p>Take the transmitted power density at the target, $S_t=P_tG/(4\pi R^2)$ (chapter 4). The target intercepts it and re-radiates some of it back; its “size” as a reflector is the <strong>radar cross section</strong> $\sigma$ in m² (chapter 15): the echo power density back at the radar is $S_t\sigma/(4\pi R^2)$. The antenna captures $A_e=G\lambda^2/4\pi$ of that:</p>
+<div class="eq">$$P_r=\frac{P_tG^2\lambda^2\sigma}{(4\pi)^3R^4}\qquad\Rightarrow\qquad R_{max}=\left[\frac{P_tG^2\lambda^2\sigma}{(4\pi)^3S_{min}L}\right]^{1/4}$$</div>
+<p>The crucial thing is the fourth power of $R$: the signal spreads twice (out, then back). It means <strong>range grows only as the fourth root of power</strong>: to see twice as far you need 16× the transmitter power (or 4× the antenna gain, since $G$ appears squared). A bird (0.001 m²) and a jumbo jet (100 m²) differ by 10⁵ in σ, and in detection range by only $10^{5/4}=18$. The widget lets you try it with real values.</p>
+<div data-widget="radar-equation"></div>
+
+<h3 id="noise">What limits $S_{min}$? Noise.</h3>
+<p>Every receiver has thermal noise power $N=kT_0BF$ with Boltzmann’s constant $k=1.38\times10^{-23}$, $T_0=290$ K, bandwidth $B$ and noise figure $F$. At 1 MHz bandwidth, $kT_0B=4\times10^{-15}$ W ($-114$ dBm); add a 4 dB noise figure and a required SNR of 13 dB for reliable detection and $S_{min}\approx-97$ dBm. That’s what the radar “hears” at its maximum range. A modest 100 kW transmitter and a good antenna can detect a 5 m² target at 100+ km, where the echo is $10^{-13}$ W: a ten-trillionth of a watt. Narrower bandwidth (longer pulses or more integration) lowers $N$, which is the same reason GPS and deep-space links work (chapter 9).</p>
+<h3 id="detect">Detection: signal or noise?</h3>
+<p>The receiver output is a noisy voltage. A <strong>threshold</strong> separates “target” from “no target”. Set it too low and noise spikes cause <em>false alarms</em>; too high and weak targets are missed. Practical radars use <strong>constant false alarm rate</strong> (CFAR) processing, which measures the local noise level and sets the threshold a fixed amount above it, and <strong>integrate</strong> many pulses (each hit adds, noise only averages) to dig out weak signals: with $n$ pulses the SNR improves by up to $n$.</p>
+
+<h2 id="ppi" data-short="The radar screen">The radar screen</h2>
+<p>The classic display is the <strong>PPI</strong>, the plan-position indicator: a map with the radar at the centre, the sweep rotating with the antenna, and blips where echoes arrive. Try it: turn the beamwidth up (arcs get wider), the detection range down, and switch the clutter on. The conventional aircraft show far out; the stealth fighter, the drone and the bird flock are visible only up close.</p>
+<div data-widget="ppi-scope"></div>
+<p>The “clutter” is echoes from things you do not want: ground, sea, rain, birds, wind turbines. Chapter 13 shows how Doppler processing separates the moving from the stationary.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Range $R=ct/2$; 6.67 µs per km of range.</li>
+<li>Range resolution $c\tau/2=c/2B$; unambiguous range $c/2\text{PRF}$; blind range $c\tau/2$; duty cycle $\tau\text{PRF}$.</li>
+<li>Pulse compression gives the energy of a long pulse with the resolution of a short one.</li>
+<li>Angular resolution is the beamwidth $\approx70\lambda/D$°.</li>
+<li>Radar equation: $P_r\propto P_tG^2\lambda^2\sigma/R^4$. Doubling the range costs 16× the power.</li>
+<li>Detection is limited by thermal noise $kTBF$; thresholds, CFAR and integration set false alarms and sensitivity.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"An echo returns 400 µs after the pulse. How far is the target?","o":["12 km","30 km","60 km","120 km"],"a":2,"why":"R = ct/2 = 3×10⁸ × 400×10⁻⁶ / 2 = 60 km (or 6.67 µs per km: 400/6.67 = 60)."},
+ {"q":"A radar has PRF 2000 Hz. What is the largest unambiguous range?","o":["37.5 km","75 km","150 km","300 km"],"a":1,"why":"c/(2·PRF) = 3×10⁸ / 4000 = 75 km."},
+ {"q":"What range resolution does a 2 µs pulse give?","o":["30 m","300 m","3 km","3 m"],"a":1,"why":"cτ/2 = 3×10⁸ × 2×10⁻⁶ / 2 = 300 m."},
+ {"q":"To double the maximum range of a radar (all else equal), you must increase transmit power by…","o":["2×","4×","8×","16×"],"a":3,"why":"R ∝ P^(1/4): a factor 2 in range needs 2⁴ = 16 in power."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>So far we have only used the <em>time</em> of the echo. Its <em>frequency</em> carries information too: how fast the target is moving. Chapter 13: Doppler, the PRF puzzle, and the continuous-wave radar in your car.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

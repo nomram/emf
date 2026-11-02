@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3 · Electromagnetism: induction &amp; Maxwell — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Faraday's law, Lenz's law, displacement current, Maxwell's four equations, and why light is an electromagnetic wave.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 3 · Fields from scratch</span>
+<h1>Electromagnetism: induction &amp; Maxwell</h1>
+<div class="meta"><span>~30 min</span><span>4 widgets</span><span>the chapter where the wave appears</span></div>
+<p class="lede">Chapters 1 and 2: currents make magnetic fields. This chapter is the other direction, and the punchline. A <em>changing</em> magnetic field makes an electric field. Put the two directions together and you get a field that can sustain itself in empty space, travelling at the speed of light.</p>
+
+<h2 id="faraday" data-short="Faraday: B makes E">Faraday: a changing B makes an E</h2>
+<p>In 1831 Michael Faraday pushed a magnet into a coil and saw a galvanometer needle jump. Hold the magnet still and nothing. Pull it out and the needle jumps the other way. The rule:</p>
+<div class="eq">$$\mathcal E=-N\frac{d\Phi_B}{dt},\qquad \Phi_B=\int\vec B\cdot d\vec A\quad(\text{webers})$$</div>
+<p>$\Phi_B$ is the <strong>magnetic flux</strong>, the amount of $\vec B$ passing through the loop. $\mathcal E$ is an electromotive force, a voltage you can measure. $N$ is the number of turns, since each turn adds its own. The <strong>minus sign</strong> is <strong>Lenz’s law</strong>: the induced current makes a field that <em>opposes</em> the change in flux. (If it didn’t, you’d get something for nothing: a perpetual motion machine.)</p>
+<div data-widget="faraday"></div>
+<p>Everything that makes electricity from motion is this equation. A power-station generator spins coils in a magnetic field; a transformer uses one coil’s changing field to drive a second; a wireless charger and an induction cooktop do the same through the air; and a <strong>loop antenna</strong> receives a radio wave because the wave’s magnetic field changes through the loop.</p>
+
+<h3 id="transformer">A transformer in one line</h3>
+<p>Two coils share the same changing flux. Each turn sees the same $d\Phi/dt$, so the voltages are in the ratio of turns:</p>
+<div class="eq">$$\frac{V_s}{V_p}=\frac{N_s}{N_p},\qquad V_pI_p\approx V_sI_s$$</div>
+<p>Step up the voltage and the current falls: that’s why the national grid uses 400 kV on long lines, where $I^2R$ losses would otherwise be enormous. It only works with <em>changing</em> flux, which is why transformers need AC and a DC battery produces a single click.</p>
+
+<h2 id="maxwell" data-short="Maxwell's missing piece">Maxwell’s missing piece</h2>
+<p>By 1860 the laws looked like this. Charges make $\vec E$ (Gauss). There are no magnetic charges (Gauss for B). Changing $\vec B$ makes $\vec E$ (Faraday). Currents make $\vec B$ (Ampère). One thing bothered James Clerk Maxwell: Ampère’s law failed for a <em>charging capacitor</em>. Current flows into one plate and out of the other, but no current crosses the gap, so Ampère’s law gave a different answer depending on whether you drew your loop through the wire or through the gap.</p>
+<p>His fix, in 1865: a <strong>changing electric field behaves like a current</strong> (he called it the displacement current) and makes a magnetic field. With that term, the four laws become consistent. Click through them:</p>
+<div data-widget="maxwell-cards"></div>
+
+<h2 id="wave" data-short="The wave appears">The wave appears</h2>
+<p>Now stare at the last two cards together. A changing $\vec B$ makes a circulating $\vec E$. A changing $\vec E$ makes a circulating $\vec B$. Suppose you wiggle a field in one place. It makes the next patch of space change, which makes the one after that change, and so on: a disturbance that carries on by itself, with no wire and no medium. Work through the algebra (below) and the wave equation falls out:</p>
+<div class="eq">$$\nabla^2\vec E=\mu_0\varepsilon_0\frac{\partial^2\vec E}{\partial t^2}\quad\Longrightarrow\quad c=\frac{1}{\sqrt{\mu_0\varepsilon_0}}=2.998\times10^8\ \text{m/s}$$</div>
+<p>Maxwell worked this number out from two table-top constants and found it matched the measured speed of light. He concluded, correctly, that <strong>light is an electromagnetic wave</strong>. Radio, microwaves, X-rays are the same thing at different frequencies; chapter 5 lines them all up.</p>
+<div data-widget="speed-calc"></div>
+
+<details class="deep"><summary>Maths: from the two curl equations to the wave equation</summary><div>
+<p>In empty space with no charges or currents, Faraday and Ampère–Maxwell read $\nabla\times\vec E=-\partial_t\vec B$ and $\nabla\times\vec B=\mu_0\varepsilon_0\partial_t\vec E$. Take the curl of the first:</p>
+<div class="eq">$$\nabla\times(\nabla\times\vec E)=-\partial_t(\nabla\times\vec B)=-\mu_0\varepsilon_0\,\partial_t^2\vec E$$</div>
+<p>The vector identity $\nabla\times(\nabla\times\vec E)=\nabla(\nabla\cdot\vec E)-\nabla^2\vec E$ with $\nabla\cdot\vec E=0$ leaves $-\nabla^2\vec E=-\mu_0\varepsilon_0\,\partial_t^2\vec E$. That is a wave equation with speed $1/\sqrt{\mu_0\varepsilon_0}$. The same steps for $\vec B$ give the same equation.</p>
+</div></details>
+
+<h3 id="anatomy">Anatomy of the wave</h3>
+<p>Take the simplest case, a plane wave travelling along $x$ with $\vec E$ pointing along $z$. Then $\vec H$ points along $y$, and:</p>
+<ul>
+<li>$\vec E$ and $\vec H$ are <strong>in phase</strong> (they peak together) and <strong>perpendicular</strong> to each other and to the direction of travel: it is a <em>transverse</em> wave.</li>
+<li>Their sizes are tied: $E=\eta_0H$ with $\eta_0=377\ \Omega$.</li>
+<li>The direction of travel is that of $\vec E\times\vec H$, the <strong>Poynting vector</strong>, which also gives the power per square metre: $S=\vec E\times\vec H$, so $S=E^2/\eta_0$ (peak) or $E_{rms}^2/377$.</li>
+<li>Frequency and wavelength are tied by $c=f\lambda$.</li>
+</ul>
+<div data-widget="maxwell-wave"></div>
+<div class="callout yellow"><span class="ct">Remember</span>Wave energy is split equally between electric and magnetic fields and flows <em>in the direction E × H</em>. An antenna’s whole job is to start such a wave off (transmit) or to catch the $\vec E$ or $\vec H$ of a passing one (receive).</div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Changing magnetic flux through a loop induces a voltage $\mathcal E=-N\,d\Phi/dt$; Lenz’s minus sign means it opposes the change.</li>
+<li>Maxwell added the displacement current: a changing $\vec E$ makes a $\vec B$ too.</li>
+<li>Four equations: Gauss (E), Gauss for B, Faraday, Ampère–Maxwell.</li>
+<li>They combine into a wave equation with speed $c=1/\sqrt{\mu_0\varepsilon_0}$.</li>
+<li>In the wave $\vec E\perp\vec H\perp$ direction of travel, $E/H=377\ \Omega$, power flows along $\vec E\times\vec H$.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A magnet is held perfectly still inside a coil. The coil voltage is…","o":["maximum","zero","negative","infinite"],"a":1,"why":"EMF = −N dΦ/dt. The flux is large but not changing, so dΦ/dt = 0."},
+ {"q":"What did Maxwell add to Ampère’s law?","o":["The idea that B comes from currents","A term where a changing electric field also produces a magnetic field","A magnetic charge","The speed of light as a constant"],"a":1,"why":"The displacement current ε₀ dΦE/dt. It makes the equations consistent and predicts waves."},
+ {"q":"In a plane radio wave, how are E and H oriented?","o":["Parallel, in phase","Parallel, 90° out of phase","Perpendicular to each other and to the travel direction, in phase","Perpendicular, 90° out of phase"],"a":2,"why":"A free-space plane wave is transverse, with E and H in phase and E/H = 377 Ω."},
+ {"q":"A transformer has 1000 turns on the primary and 100 on the secondary. Primary voltage 230 V AC. Secondary voltage?","o":["2300 V","23 V","230 V","2.3 V"],"a":1,"why":"Vs = Vp·Ns/Np = 230 × 100/1000 = 23 V."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>We have a wave that can travel through empty space. Chapter 4 asks the practical questions: how does a wire make one, what is the difference between the field near the wire and the field far away, and how fast does its strength fade with distance for different kinds of sources?</div>
+</article>
+</main>
+</div>
+</body>
+</html>

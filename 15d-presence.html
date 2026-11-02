@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15d · Radar that senses people: presence, motion &amp; vital signs — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="How millimetre-wave radar detects human presence, gestures, breathing and heartbeat, its limits, privacy and safety.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 15d · Radar</span>
+<h1>Radar that senses people: presence, motion &amp; vital signs</h1>
+<div class="meta"><span>~40 min</span><span>2 widgets</span><span>from smart lights to breathing monitors</span></div>
+<p class="lede">Radar is leaving the airport. A chip the size of a fingernail, with antennas printed on top of it, can tell whether a room is occupied, whether the person in it is walking or asleep, and even measure their breathing from across the bed, without any camera. It is the same FMCW radar of chapter 13, at 60 GHz, and the physics is a short step from what you already know.</p>
+
+<h2 id="why" data-short="Why radar">Why use radar to sense people?</h2>
+<ul>
+<li><strong>Privacy:</strong> a radar image shows blobs and motion, not faces or clothing. No camera in the bathroom or bedroom.</li>
+<li><strong>Works in the dark, smoke and steam</strong>; unaffected by lighting; not fooled by a photograph.</li>
+<li><strong>Through thin covers:</strong> it can see through a blanket, a plastic housing or a car seat cover.</li>
+<li><strong>Tiny and cheap:</strong> “radar on a chip” (60 GHz and 77 GHz FMCW transceivers with integrated antennas from several semiconductor companies) cost a few dollars, with power consumption of tens of milliwatts and transmit power around 10 mW.</li>
+<li><strong>Sensitive to the smallest movements</strong> (millimetres, and below with phase processing).</li>
+</ul>
+<p>Consumer examples are public: gesture sensing in phones (Google’s Soli radar, 60 GHz, introduced in a 2019 phone), presence sensors for smart homes, hospital and elder-care monitors that detect falls and sleep, automotive “child-presence detection” and seat-occupancy sensing (which safety agencies reward or require in new cars), and people counters. Most use FMCW at 60–64 GHz or 77 GHz with several transmit and receive channels (MIMO, chapters 18–19).</p>
+
+<h2 id="presence" data-short="Presence detection">Presence: moving, still and asleep</h2>
+<p>A presence radar builds a <strong>range–angle map</strong> (range from the beat frequency, chapter 13; angle from the phase difference across a small receive array, chapter 18) and then asks, bin by bin, what <em>changes</em>. Three situations:</p>
+<ol>
+<li><strong>Walking:</strong> a large Doppler shift ($f_d=2v/\lambda$ is about 400 Hz for 1 m/s at 60 GHz) and a big change in the range bin: easy; the range is limited by the radar equation (chapter 12) to about 10 m with a small sensor.</li>
+<li><strong>Sitting still:</strong> small movements of arms, head and torso give weak, slowly varying signals; typical range of a few metres to 6–8 m. It needs clutter removal: all the static furniture is subtracted, and what is left is the person.</li>
+<li><strong>Asleep or very still:</strong> only breathing remains, a movement of a few millimetres at 0.2–0.4 Hz: that is detectable by the phase of the echo at short distances (about 3–4 m typically).</li>
+</ol>
+<p>Place the people in the room below, click on them to change their state, add a wall, and see what the sensor decides. The ranges are scaled from typical datasheet-level figures with the radar equation, so use them as guidance, not specifications:</p>
+<div data-widget="presence-radar"></div>
+
+<h2 id="vital" data-short="Vital signs">Breathing and heartbeat from the phase</h2>
+<p>A radar measures distance to a fraction of a wavelength by looking at the <strong>phase</strong> of its echo. A target that moves by $x$ changes the round-trip path by $2x$, and the phase by</p>
+<div class="eq">$$\Delta\varphi=\frac{4\pi\,x}{\lambda}$$</div>
+<p>At 60 GHz ($\lambda=5$ mm) a 1 mm movement is 2.5 rad, nearly half a turn: very easy to see. Breathing moves the chest by a few millimetres (published measurements: about 1–5 mm for the torso, larger for deep breaths), the heartbeat moves the skin above the heart by only 0.3–0.6 mm, a rotation of about 0.75–1.5 rad at 60 GHz. Take that phase signal over time, remove the slow drift, and take its spectrum: a peak at 0.2–0.4 Hz (12–24 breaths per minute) and a smaller one at 1–1.5 Hz (60–90 beats per minute). Heartbeat estimation is harder: smaller amplitude, close to breathing harmonics, and corrupted by any body movement. Try it:</p>
+<div data-widget="vital-signs-radar"></div>
+<h3 id="limits">Limits and failure modes</h3>
+<ul>
+<li><strong>Range:</strong> breathing detection works to a few metres; accurate heart-rate readings are usually demonstrated within about 1–2 m on a still subject. Anything that moves (the person, a fan, a curtain, a pet) can mask or mimic the signal.</li>
+<li><strong>Several people:</strong> separated by range and angle bins; two people in the same bin are mixed. More antennas and larger bandwidth help.</li>
+<li><strong>Multipath:</strong> reflections off walls create “ghost” people at the mirror positions (turn the ghosts on in the room widget). Algorithms use tracking and consistency to suppress them.</li>
+<li><strong>Through walls:</strong> at 60 GHz most walls are nearly opaque (chapter 6), so those sensors work within a room. Lower frequencies (a few GHz: ultra-wideband sensing, Wi-Fi channel-state sensing) pass through walls at the price of poor resolution.</li>
+<li><strong>Accuracy and clinical use:</strong> consumer sensors are not medical devices; medical-grade respiration monitoring needs validation.</li>
+</ul>
+
+<h2 id="wifi" data-short="Other RF sensing">Related ideas: Wi-Fi and UWB sensing</h2>
+<p>The same principle works with signals already in the air. <strong>Wi-Fi sensing</strong> analyses how the channel (the complex gain of each subcarrier) between a router and a device changes when someone walks or breathes in the room: motion changes the multipath, so the phase and amplitude of each subcarrier wobble. It gives presence and activity information without any new hardware, with coarse resolution. <strong>Ultra-wideband</strong> (UWB, 3–10 GHz, pulses of ns or less) gives centimetre ranging, used for precise positioning (phones, car keys) and short-range radars that can see through light walls. These are cousins of the passive radar in chapter 15c.</p>
+
+<h2 id="safety" data-short="Safety, privacy, ethics">Safety, privacy and ethics</h2>
+<ul>
+<li><strong>Exposure is tiny.</strong> A 10 mW EIRP source gives $S=P/(4\pi r^2)\approx0.8$ mW/m² at 1 m, over 10 000 times below the public exposure limit (about 10 W/m² at these frequencies, chapter 17). Non-ionising and non-heating at this level (chapter 5a).</li>
+<li><strong>Privacy:</strong> although there is no image of a face, occupancy, sleep and health patterns are personal data. Consent, local storage and clear notices matter.</li>
+<li><strong>Misuse:</strong> through-wall presence sensors can be used for surveillance: regulations and device design (limited range, frequency) matter.</li>
+<li><strong>Regulation:</strong> 60 GHz and 77 GHz bands have specific licence-exempt rules (power limits, indoor or automotive use).</li>
+</ul>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Millimetre-wave FMCW radars on a chip measure range, angle and motion; presence is detected from Doppler or micro-motion.</li>
+<li>The echo phase gives $\Delta\varphi=4\pi x/\lambda$: millimetre chest motion is radians at 60 GHz, so breathing and (with care) heartbeat can be read.</li>
+<li>Limits: short range, motion artefacts, multipath ghosts, walls; the detection range depends on the state (walking &gt; sitting &gt; asleep &gt; vital signs).</li>
+<li>The exposure is orders of magnitude below limits; privacy and consent are the real issues.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A chest moves 1 mm at 60 GHz (λ = 5 mm). What is the phase change of the echo?","o":["0.25 rad","1 rad","≈ 2.5 rad","≈ 12 rad"],"a":2,"why":"Δφ = 4πx/λ = 4π(1 mm)/(5 mm) = 2.5 rad."},
+ {"q":"Why is heart-rate measurement harder than breathing detection?","o":["Hearts are further","The skin displacement is ≈ 10× smaller and lies near breathing harmonics and body motion","Hearts are not moving","Radar cannot see hearts"],"a":1,"why":"0.3–0.6 mm vs 1–5 mm, often masked by harmonics of the breathing signal and any movement."},
+ {"q":"Which state of a person needs the strongest echo to detect?","o":["Walking","Sitting","Reading vital signs while still","They are all the same"],"a":2,"why":"Vital-sign extraction uses millimetre phase changes, requiring more SNR and a stationary subject."},
+ {"q":"Why can multipath produce ghost people in a presence radar?","o":["Radio waves reflect off walls and return along longer paths","The radar is broken","Ghosts exist","Frequency changes"],"a":0,"why":"A reflection off a side wall makes an echo that looks like a second person at a mirror position."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Radar, radio and navigation all work in a contested radio environment: others can interfere, accidentally or on purpose. Chapter 15a is about that world: electronic warfare, how links protect themselves (hopping, spreading, directional antennas), and why some drones now fly on a thread of glass fibre.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>18 · Phased arrays — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="The array factor, beam steering by phase, grating lobes, tapering, planar arrays, true-time delay, AESA, digital beamforming and adaptive nulling.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 18 · Hero level</span>
+<h1>Phased arrays</h1>
+<div class="meta"><span>~50 min</span><span>4 widgets</span><span>beams without moving parts</span></div>
+<p class="lede">A dish must be turned by a motor to aim it. An array of small antennas aims itself by <em>timing</em>. With nothing moving, a phased array can swing a beam across the sky in microseconds, split into many beams, and put a blind spot exactly where interference arrives. It is the double slit of chapter 5b, multiplied, engineered and put to work.</p>
+
+<h2 id="af" data-short="The array factor">Many antennas, one pattern</h2>
+<p>Put $N$ identical antennas in a line, spacing $d$. Each radiates with its own amplitude $w_n$ and phase. In a direction $\theta$ from broadside the wave from element $n$ has travelled an extra distance $nd\sin\theta$, a phase lag of $nkd\sin\theta$. The total far field is the element’s own pattern times the <strong>array factor</strong>:</p>
+<div class="eq">$$AF(\theta)=\sum_{n=0}^{N-1}w_n\,e^{\,jn\,kd\,(\sin\theta-\sin\theta_0)},\qquad k=\frac{2\pi}{\lambda}$$</div>
+<p>I wrote $\sin\theta_0$ because the element currents were given a progressive phase $-nkd\sin\theta_0$: all terms are then in step at $\theta=\theta_0$, the main beam. <strong>Change the phase and you move the beam.</strong> That is the whole idea; it is the same bright-where-the-paths-add rule as in Young’s slits ($d\sin\theta=m\lambda$ again). For uniform weights the sum is $\dfrac{\sin(N\psi/2)}{N\sin(\psi/2)}$ with $\psi=kd(\sin\theta-\sin\theta_0)$.</p>
+<p>Key results (uniform, broadside): beamwidth $\approx0.886\,\lambda/(Nd)$ rad, first sidelobe −13.3 dB, directivity $\approx2Nd/\lambda$ for a line, and for a plane of $N$ elements of area $A=Nd^2$, $D\approx4\pi A/\lambda^2$ (the same as any aperture, chapter 9). Build one:</p>
+<div data-widget="array-1d"></div>
+
+<h2 id="gl" data-short="Grating lobes">Grating lobes: why λ/2?</h2>
+<p>$AF$ depends on $u=\sin\theta$ and repeats with period $\lambda/d$ in $u$. Real directions fill only $-1\le u\le1$, so if $d>\lambda/2$ the repeats begin to creep in: <strong>grating lobes</strong>, extra full-strength beams in unwanted directions. To keep them out over a scan of $\pm\theta_{max}$ you need $d\le\lambda/(1+\sin\theta_{max})$: $\lambda/2$ for ±90°, 0.54 λ for ±60°. (A sparse array with big gaps is not wrong, it can form narrow beams from few elements, but its grating lobes must be dealt with, as in radio telescopes, chapter 19.) This is also why <strong>higher frequency means many more elements</strong> in a given aperture: the element count for a fixed aperture grows as $f^2$.</p>
+
+<h2 id="taper" data-short="Tapering and scan loss">Tapering, scan loss and sidelobes</h2>
+<ul>
+<li><strong>Taper</strong> (smaller amplitude at the edges) lowers sidelobes dramatically (Hamming −43 dB, Chebyshev to any chosen level) but widens the beam and loses 0.5–2 dB of gain. Low sidelobes mean less interference and less clutter picked up from unwanted directions, important for radar and EW resilience (chapter 15a).</li>
+<li><strong>Scan loss</strong>: seen from angle $\theta_0$ the aperture looks smaller by $\cos\theta_0$, so gain drops as $\cos\theta_0$ and the beam widens as $1/\cos\theta_0$. At 60° that costs 3 dB for the aperture alone (and more with the element pattern). So a flat array covers about ±60°; a full-sky radar uses three or four faces, like a pyramid.</li>
+<li><strong>Mutual coupling</strong>: neighbouring elements radiate into each other and change impedance with scan angle: a real design problem that active impedance matching must handle.</li>
+</ul>
+
+<h2 id="planar" data-short="Planar arrays">Steering in two dimensions</h2>
+<p>A flat grid of $N_x\times N_y$ elements gives a pencil beam that can be pointed in azimuth and elevation. For a rectangular grid the pattern is the product of a row factor and a column factor. View the sky as a disc in direction cosines $(u,v)$ and aim the beam by dragging:</p>
+<div data-widget="array-2d"></div>
+
+<h2 id="hw" data-short="Hardware: how it is built">Hardware: from PESA to AESA to digital</h2>
+<ul>
+<li><strong>Passive ESA (PESA).</strong> One powerful transmitter feeds all elements through a network of phase shifters (ferrite or diode). Early systems (1960s–80s). The single transmitter and the losses in the feed limit power, and one failure kills the radar.</li>
+<li><strong>Active ESA (AESA).</strong> A <strong>transmit/receive (T/R) module</strong> sits behind every element: a power amplifier (typically gallium arsenide or gallium nitride), a low-noise amplifier, a phase shifter and an attenuator, all in a small package (a few watts per module, thousands of modules). Advantages: higher total power with no feed loss, lower noise, graceful degradation (a few failed modules barely change the beam), wideband and multi-function operation, and the ability to hop frequency pulse to pulse (chapter 15a). The same technology is in Starlink terminals and in 5G base stations.</li>
+<li><strong>Digital beamforming (DBF).</strong> Each element (or small subarray) has its own receiver and analog-to-digital converter, so the phases and weights are applied in software. You can then form <em>many simultaneous beams</em> from the same data, adaptively null interference, and re-weight after the fact. The cost is data rate: a 1000-element array at 1 GHz bandwidth is terabits per second of raw samples, hence subarrays and clever processing.</li>
+<li><strong>Hybrid beamforming</strong> (5G mmWave): analog phase shifters inside subarrays, digital combining across them, to balance cost and flexibility.</li>
+</ul>
+<h3 id="ttd">Wide bandwidth and squint</h3>
+<p>A phase shifter gives the right phase only at one frequency. If the signal has a bandwidth, the beam direction changes with frequency (<strong>squint</strong>), so a wideband pulse is smeared across the sky. The fix is <strong>true-time delay</strong>: switchable lengths of line or fibre that provide a real <em>time</em> delay, the same at all frequencies. Compare them:</p>
+<div data-widget="beam-steer"></div>
+
+<h2 id="null" data-short="Adaptive nulling">Listening in only one direction: adaptive nulling</h2>
+<p>With digital beamforming you can do something remarkable on <em>receive</em>: measure the signals arriving at the elements and compute weights that give the wanted direction unit gain and drive the response to zero in the directions of unwanted signals. With $N$ elements you can null up to $N-1$ directions. This is how GPS anti-interference antennas, radar sidelobe cancellers, satellite ground stations and modern cellular receivers protect themselves (a “resilient link” in the sense of chapter 15a). In the widget, add interferers in the pattern’s sidelobes and watch the nulls follow them:</p>
+<div data-widget="null-steer"></div>
+<div class="callout"><span class="ct">The price of adaptivity</span>Nulling uses degrees of freedom (the array “spends” elements on nulls), requires a good estimate of the interference covariance, adapts in milliseconds, not instantly, and loses a few dB of signal if an interferer sits close to the wanted direction. Rules of thumb: you need more elements than interferers; narrow beams and low sidelobes make nulling easier; and a very close interferer behaves like part of the signal.</div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Array factor $AF=\sum w_ne^{jnkd(\sin\theta-\sin\theta_0)}$; the progressive phase steers the beam to $\theta_0$.</li>
+<li>Beamwidth ≈ $0.886\lambda/(Nd\cos\theta_0)$; gain $\propto$ area in wavelengths squared; scan loss $\cos\theta_0$.</li>
+<li>Spacing $d\le\lambda/2$ avoids grating lobes for full-hemisphere scan.</li>
+<li>Taper lowers sidelobes at the expense of beamwidth.</li>
+<li>PESA: one transmitter; AESA: a T/R module per element; digital beamforming: a receiver per element, enabling multiple beams and adaptive nulling.</li>
+<li>Phase shifters squint with frequency; true-time delay does not.</li>
+<li>Adaptive weights (MVDR) put nulls on interferers: up to $N-1$ of them.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What spacing avoids grating lobes for scanning ±90°?","o":["d ≤ λ/4","d ≤ λ/2","d ≤ λ","d ≤ 2λ"],"a":1,"why":"d ≤ λ/(1+|sin θmax|) = λ/2 at θmax = 90°."},
+ {"q":"A broadside array is steered to 60°. By what factor does its beam broaden (for fixed size)?","o":["1×","1/cos 60° = 2×","cos 60° = 0.5×","4×"],"a":1,"why":"The array looks smaller from the side by cos θ0, so the beam widens by 1/cosθ0 = 2."},
+ {"q":"What is a benefit of an AESA over a passive ESA?","o":["Only one transmitter","A T/R module behind every element: lower losses, graceful degradation, higher total power","No phase shifters","No antennas"],"a":1,"why":"Each element has its own amplifier, so a few failures matter little and there are no feed losses."},
+ {"q":"Why does a phase-shifter array show beam squint?","o":["The shifter gives a fixed phase, but the required phase per element depends on frequency","Phase shifters are slow","The elements overheat","The wave speed changes"],"a":0,"why":"A true delay τ gives phase 2πfτ, which scales with f, but a shifter holds the phase fixed, so the beam direction changes with frequency."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Now the last chapter: arrays on the grandest scales (battleship radars, ionospheric heaters, satellite constellations, 5G MIMO, and radio telescopes that link dishes across continents to make a lens the size of the Earth).</div>
+</article>
+</main>
+</div>
+</body>
+</html>

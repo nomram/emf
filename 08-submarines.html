@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8 · Talking to submarines — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Why radio dies in seawater, how ELF and VLF reach submarines, why their antennas are enormous, and the other ways (laser, satellite, acoustic).">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 8 · Spectrum &amp; matter</span>
+<h1>Talking to submarines</h1>
+<div class="meta"><span>~30 min</span><span>2 widgets</span><span>the cleverest corner of low-frequency radio</span></div>
+<p class="lede">A ballistic-missile submarine hides because the ocean is opaque to almost everything: light, radar, GPS, Wi-Fi. But a submarine that never hears from home cannot receive its orders. The solution is some of the longest-wavelength radio ever used, with antennas tens of kilometres long and a data rate that would embarrass a telegraph. Everything you learned in chapters 3–7 comes together here.</p>
+
+<h2 id="problem" data-short="The problem">The problem: seawater is a conductor</h2>
+<p>Seawater contains about 3.5 % dissolved salt, which splits into ions that move freely, giving a conductivity of $\sigma\approx4$ S/m (a thousand million times more than dry soil). Chapter 6 showed what that does: the wave is attenuated to $1/e$ in the skin depth</p>
+<div class="eq">$$\delta=\frac{1}{\sqrt{\pi f\mu_0\sigma}}\approx\frac{250}{\sqrt f}\ \text{m}\qquad(f\text{ in Hz})$$</div>
+<div class="table-wrap"><table class="data">
+<tr><th>Frequency</th><th>Band</th><th class="num">Skin depth δ</th><th class="num">Loss per metre</th></tr>
+<tr><td>76 Hz</td><td>ELF</td><td class="num">29 m</td><td class="num">0.3 dB</td></tr>
+<tr><td>1 kHz</td><td>ULF</td><td class="num">8 m</td><td class="num">1.1 dB</td></tr>
+<tr><td>24 kHz</td><td>VLF</td><td class="num">1.6 m</td><td class="num">5.4 dB</td></tr>
+<tr><td>1 MHz</td><td>MF</td><td class="num">0.25 m</td><td class="num">35 dB</td></tr>
+<tr><td>100 MHz</td><td>VHF</td><td class="num">≈ 2–3 cm</td><td class="num">≈ 300 dB</td></tr>
+<tr><td>2.4 GHz</td><td>UHF</td><td class="num">≈ 1 cm</td><td class="num">≈ 900 dB</td></tr>
+</table></div>
+<p>Every extra skin depth costs 8.7 dB. A submarine 10 m down needs a signal that arrives at the surface $10^{n}$ times stronger than the receiver’s noise, with $n=(10/\delta)\times0.87$. At 76 Hz the sea is a modest obstacle; at 24 kHz it is a serious one; at Wi-Fi frequencies the signal is gone before it has gone a hand’s width. <strong>Lower frequency, deeper reach.</strong> That is the entire strategy.</p>
+<div data-widget="seawater-depth"></div>
+<p>The table under the widget gives the reach for any budget you set. Two cautions: light and sound budgets are very different from radio ones (a laser link typically has 30–60 dB to spend, not 100, and an acoustic link also loses signal by <em>spreading</em>, which this table ignores). And look at the last column: <strong>the deepest signals carry the least data</strong>.</p>
+
+<h2 id="tradeoff" data-short="Depth vs data rate">The price: very little data</h2>
+<p>A carrier at 76 Hz can only change by a tiny amount per second. Information theory (Shannon) says the maximum data rate is</p>
+<div class="eq">$$C=B\log_2\!\left(1+\frac{S}{N}\right)$$</div>
+<p>with $B$ the bandwidth. A channel can only use a fraction of its carrier frequency, say 1–10 %: at 76 Hz that is 1–8 Hz. At 24 kHz, 240–2400 Hz. At 100 MHz, 1–10 MHz. And the signal-to-noise ratio is low because the receiver is far below the surface and natural noise (lightning around the world, which is strongest in VLF/ELF) is large. Real figures:</p>
+<ul>
+<li><strong>ELF (76/82 Hz):</strong> on the order of one bit every few seconds, or a few characters per minute. The messages were short coded groups (“bell-ringer” signals) that tell the submarine to <em>come up closer to the surface and listen to a faster channel</em>.</li>
+<li><strong>VLF (15–30 kHz):</strong> 50–300 bit/s, enough for teletype-like orders. Reception requires the submarine to be within about 10–20 m of the surface, trailing a floating wire antenna or buoy, which limits stealth and speed.</li>
+<li><strong>HF/UHF/satellite:</strong> kilobits to megabits per second, but only when the antenna is out of the water.</li>
+</ul>
+
+<h2 id="antennas" data-short="The giant antennas">Why the antennas are so enormous</h2>
+<p>An antenna radiates well when its size is a decent fraction of the wavelength. At 76 Hz, $\lambda=c/f=3945$ km, comparable to the width of the continental US. A half-wave dipole would be 1970 km long. So engineers build a short antenna and live with the consequences: $R_{rad}=20\pi^2(L/\lambda)^2$ is a fraction of an ohm, wire and ground losses in comparison are ohms, and nearly all input power is wasted as heat. Try the numbers:</p>
+<div data-widget="elf-antenna"></div>
+<p>The US Navy’s ELF system (Clam Lake, Wisconsin and Republic, Michigan, 1989–2004) was literally two tens-of-kilometres-long grounded cables running through forest, with megawatt-class power supplies; Russia’s ZEVS (82 Hz) near Murmansk is of a similar kind. VLF stations such as NAA in Cutler, Maine (24 kHz, about 1.8 MW) use huge “top-loaded umbrella” antennas hung from masts nearly 300 m tall, simply because it is easier to build wide than tall. Airborne VLF relays (the US E-6B “TACAMO” aircraft) trail an antenna wire several kilometres long behind a banking aircraft to make a vertical radiator.</p>
+
+<div class="callout violet"><span class="ct">Why can ELF/VLF go around the world?</span>The space between the Earth’s conducting surface (ocean and ground) and the conducting ionosphere (60–90 km up) forms a <strong>waveguide</strong> for waves with wavelengths larger than the height. In it ELF attenuates at only about 1–2 dB per 1000 km. That is why a single transmitter in Wisconsin could be heard under the Pacific, and why the Earth–ionosphere cavity <em>rings</em> at its natural frequencies: the Schumann resonances. A perfect-cavity estimate of the lowest is $c/2\pi R_{\oplus}\cdot\sqrt2\approx10.6$ Hz; the measured value is 7.83 Hz, then 14, 20, 26 Hz, excited by about 50 lightning strokes per second worldwide.</div>
+
+<h2 id="others" data-short="Other ways">The other ways to reach a submarine</h2>
+<table class="data">
+<tr><th>Method</th><th>How it works</th><th>Limits</th></tr>
+<tr><td>Come up and use satellite or HF</td><td>Raise a mast or buoy above the surface (seconds to minutes); high data rates.</td><td>Reveals position (radar, ESM), restricts the submarine.</td></tr>
+<tr><td>Trailing-wire / buoy VLF</td><td>A floating antenna on a tether near the surface picks up VLF while the hull stays deep.</td><td>Slow; the sub must go slowly, and shallow.</td></tr>
+<tr><td>Blue-green laser from a satellite or aircraft</td><td>Seawater’s absorption minimum is at 450–500 nm, so a pulse scanned over the ocean reaches 100+ m. Studied since the 1980s.</td><td>Clouds, turbulence, and the beam needs to find the sub.</td></tr>
+<tr><td>Acoustic modem / sonar</td><td>Sound goes thousands of km at low frequency (chapter 7), a few km at 10 kHz, with 100 bit/s to 10 kbit/s.</td><td>Needs a transmitter in the water; sound is slow (1.5 km/s) and noisy; gives away position.</td></tr>
+<tr><td>Quantum / neutrino ideas</td><td>Neutrinos pass through the Earth. Experimentally demonstrated for a few bits only.</td><td>Detectors the size of mountains: not practical.</td></tr>
+</table>
+<p>The modern answer is therefore “layers”: ELF/VLF to say “come up”, then a high-speed channel when the submarine chooses to surface its antenna. Notice how this uses every idea in Part II: penetration (6), sound vs radio (7), photon and band gaps (5a), and antennas and bandwidth (9, 11).</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Seawater is a conductor: skin depth $\delta\approx250/\sqrt f$ m. Lower frequency → deeper reach, loss ≈ 8.7 dB per skin depth.</li>
+<li>ELF (76–82 Hz) reaches tens to hundreds of metres, VLF (15–30 kHz) about 10–20 m; higher frequencies only reach the surface.</li>
+<li>Bandwidth is a fraction of the carrier, so depth is traded for data rate: ELF is a few characters per minute.</li>
+<li>Short antennas have $R_{rad}\propto(L/\lambda)^2$, so ELF/VLF stations are among the largest structures ever built and extremely inefficient.</li>
+<li>The Earth–ionosphere waveguide lets ELF/VLF travel worldwide with low loss.</li>
+<li>Laser, acoustic and satellite links complement the low-frequency “wake-up call”.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Skin depth in seawater at 76 Hz is about…","o":["3 cm","3 m","30 m","300 m"],"a":2,"why":"δ ≈ 250/√76 ≈ 29 m."},
+ {"q":"Why is ELF’s data rate so low?","o":["The Navy chooses it so","Bandwidth is a small fraction of a very low carrier frequency, and the signal is weak","Seawater delays the signal","ELF is digital only"],"a":1,"why":"At 76 Hz, even 5 % bandwidth is only ≈ 4 Hz, so the information rate is a few bits per second at best, and much less with a low signal-to-noise ratio."},
+ {"q":"A 50 km antenna at 76 Hz is only 0.013 wavelengths long. What does this mean for efficiency?","o":["It is ≈ 100 % efficient","Radiation resistance is tiny compared with loss resistance, so almost all power is wasted","It cannot radiate at all","It radiates in one direction"],"a":1,"why":"R_rad ∝ (L/λ)² ≈ 0.03 Ω; loss resistance of ground and wire is far larger."},
+ {"q":"Which electromagnetic signal gets deepest in clear ocean water?","o":["Radio at 100 MHz","Infrared at 10 µm","Blue-green light at ~480 nm","Wi-Fi at 5 GHz"],"a":2,"why":"Water’s absorption minimum for light is in the blue-green, giving ~100 m reach."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>All of these systems depend on antennas. Part III begins with the question we’ve been circling: what is an antenna, and how do we measure whether one is any good?</div>
+</article>
+</main>
+</div>
+</body>
+</html>

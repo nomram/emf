@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7 · Hearing, whales, bats &amp; eyes — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Sound versus radio, human hearing, whale and bat frequencies, the deep sound channel, and what animals see.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 7 · Spectrum &amp; matter</span>
+<h1>Hearing, whales, bats &amp; eyes</h1>
+<div class="meta"><span>~30 min</span><span>2 widgets</span><span>a different kind of wave, with the same maths</span></div>
+<p class="lede">Radio waves are not the only waves we talk to each other with. Whales sing across oceans, bats map caves in the dark, elephants rumble through the ground. Sound follows the same wave rules as radio (frequency, wavelength, interference, diffraction), but it is a completely different thing. Knowing the difference explains <em>why submarines need such odd radio systems</em>, and it gives you a feel for frequency that will make antennas and radar easier.</p>
+
+<h2 id="difference" data-short="Sound is not radio">Sound is not radio</h2>
+<div class="table-wrap"><table class="data">
+<tr><th></th><th>Sound</th><th>Radio / light</th></tr>
+<tr><td>What waves?</td><td>Pressure and motion of the <strong>material itself</strong> (air molecules, water, rock)</td><td>Electric and magnetic <strong>fields</strong></td></tr>
+<tr><td>Needs a medium?</td><td>Yes, no sound in a vacuum</td><td>No, travels through vacuum</td></tr>
+<tr><td>Speed</td><td>343 m/s in air, 1480 m/s in seawater, ≈ 5000 m/s in steel</td><td>300 000 000 m/s in vacuum</td></tr>
+<tr><td>Wave type</td><td>Longitudinal in fluids (push-pull along travel)</td><td>Transverse (E, H ⟂ travel)</td></tr>
+<tr><td>In seawater</td><td><strong>Travels very well</strong> (up to thousands of km)</td><td>Dies within metres</td></tr>
+<tr><td>Wavelength at 1 kHz</td><td>34 cm in air, 1.5 m in water</td><td>300 km</td></tr>
+<tr><td>Polarisation</td><td>None in fluids</td><td>Yes</td></tr>
+</table></div>
+<p>The master formula is the same, $\lambda=v/f$, but the speed $v$ is a million times smaller for sound, so for the same frequency the wavelength is a million times shorter. A 20 Hz whale call has a 70 m wavelength in water; a 20 Hz electromagnetic wave would be 15 000 km long. That huge difference in scale is why we treat them in different chapters and why antennas for sound (a loudspeaker, a whale’s head) are so much smaller than antennas for radio at the same frequency.</p>
+<p>The speed of sound is set by stiffness and density: $v=\sqrt{B/\rho}$, with $B$ the bulk modulus. Water is both stiffer and denser than air. Stiffness wins, so sound is four times faster in water, and nearly 15 times faster in steel.</p>
+
+<h2 id="hearing" data-short="Human hearing">Human hearing</h2>
+<p>A healthy young human hears from about 20 Hz to 20 kHz: <strong>10 octaves</strong>, a ratio of 1000. Sensitivity is best at 2–5 kHz (the range of consonants in speech and of a baby’s cry), and everything is measured relative to the quietest sound we can detect, a pressure variation of just 20 micropascals, one five-billionth of atmospheric pressure. Loudness is in decibels of sound pressure level:</p>
+<div class="eq">$$L_p=20\log_{10}\frac{p}{20\ \mu\text{Pa}}\ \text{dB SPL}$$</div>
+<div class="table-wrap"><table class="data">
+<tr><th>Sound</th><th class="num">dB SPL</th></tr>
+<tr><td>Threshold of hearing</td><td class="num">0</td></tr>
+<tr><td>Rustling leaves, quiet room</td><td class="num">20–30</td></tr>
+<tr><td>Normal conversation</td><td class="num">60</td></tr>
+<tr><td>Busy traffic</td><td class="num">80</td></tr>
+<tr><td>Hearing damage after hours of exposure</td><td class="num">85+</td></tr>
+<tr><td>Rock concert</td><td class="num">110</td></tr>
+<tr><td>Pain threshold, jet engine at 30 m</td><td class="num">130–140</td></tr>
+</table></div>
+<p>The range of sound power we can hear is $10^{14}$ to one, which is why a logarithmic scale is necessary. Every 10 dB is a factor of 10 in power; every 6 dB a factor of 2 in pressure. That is the same decibel idea used in radio.</p>
+
+<h2 id="animals" data-short="Hearing and vision across animals">Hearing and vision across species</h2>
+<p>Evolution tuned each animal’s senses to its own world. Switch between the hearing and the vision tabs, hover over a bar, and play the tone generator to find your own limits (a typical 25-year-old stops hearing at about 17–18 kHz, which is why teenagers can hear a mosquito-tone ringtone that adults can’t).</p>
+<div data-widget="animal-senses"></div>
+<div class="callout"><span class="ct">The pattern</span><p><strong>Bigger animals use lower frequencies</strong>, for the same reason that long antennas are needed for long wavelengths. An animal can only produce and direct a wave efficiently if its “antenna” (mouth, head, body) is a decent fraction of a wavelength, and it can only echolocate an object if the wavelength is smaller than the object. A bat hunting a 3 mm mosquito needs 3 mm waves, so 100 kHz. A blue whale, 25 m long, sings at 20 Hz where the wavelength is 75 m, because that is what travels 1000 km.</p></div>
+
+<h2 id="sofar" data-short="The deep sound channel">The deep sound channel: whales and SOFAR</h2>
+<p>Sound speed in the ocean depends on temperature and pressure. Near the surface it is warm and fast; going down, temperature falls and so does the speed; below about 1 km the temperature stops falling but pressure keeps rising, and the speed climbs again. So there is a <em>minimum</em> at 1000–1300 m depth, the <strong>SOFAR channel</strong> (SOund Fixing And Ranging). A wave always bends toward the slower region, so a sound launched near that depth is bent back whenever it tries to leave. It is trapped, spreading sideways only in two dimensions, and loses strength only as $1/r$ instead of $1/r^2$.</p>
+<p>Add that low-frequency sound is barely absorbed by seawater (we compute it below), and you get the famous result: a 20 Hz blue whale call can be heard across an ocean basin. During the Cold War the US Navy ran hydrophone arrays on this principle; in 1960 a small charge was detected 19 000 km away.</p>
+<div data-widget="sofar"></div>
+<div class="callout violet"><span class="ct">Dark-side of the ocean’s fame</span>Today the same channel carries ship noise. Since the 1960s ocean low-frequency background noise has risen by about 3 dB per decade in some areas, which shrinks the “hearing range” of whales from thousands of kilometres to hundreds. Radio engineers know the same effect as raising the <em>noise floor</em>.</div>
+
+<h2 id="eyes" data-short="Light in water">Light: the exception in water</h2>
+<p>We have seen that radio waves die in seawater within metres and sound goes far. Visible light is the one electromagnetic exception: water’s absorption has a minimum at 450–500 nm (blue-green). Clear ocean water lets blue light travel about 100 m (one e-fold in ≈ 30 m), while red is gone in the first 10 m, which is why everything looks blue underwater and why deep-sea fish see only blue-green. Chapter 8 returns to this for submarine laser communication.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Sound is a pressure wave in matter (343 m/s in air, 1480 m/s in seawater); radio is an electromagnetic wave. $\lambda=v/f$ for both.</li>
+<li>Human hearing spans 20 Hz–20 kHz and ≈ 120 dB, so a logarithmic (dB) scale is natural.</li>
+<li>Animals match frequency to body size and to the job: whales (10–40 Hz) for range, bats and dolphins (50–150 kHz) for resolution, elephants use ground-borne infrasound.</li>
+<li>The SOFAR channel traps low-frequency sound near 1 km depth, giving ocean-wide range.</li>
+<li>In seawater sound travels far, radio dies fast; blue-green light is the only EM exception.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What is the wavelength of a 20 Hz whale call in seawater (speed ≈ 1480 m/s)?","o":["7.4 m","74 m","740 m","7.4 km"],"a":1,"why":"λ = v/f = 1480/20 = 74 m."},
+ {"q":"Why can low-frequency sound travel so far in the ocean?","o":["It is faster","Seawater absorbs it very weakly, and the deep sound channel traps it","It becomes radio","It goes through the seabed"],"a":1,"why":"Absorption rises with f² roughly; at 20 Hz it is about 0.003 dB/km, and the SOFAR channel prevents spreading in the vertical direction."},
+ {"q":"A bat needs to detect a 5 mm insect. Which frequency makes best sense?","o":["50 Hz","1 kHz","68 kHz","10 MHz"],"a":2,"why":"λ at 68 kHz in air ≈ 343/68000 = 5 mm, comparable to the insect: it scatters the sound back."},
+ {"q":"Which is true of sound but NOT of radio?","o":["It can travel through a vacuum","It needs a material medium","It travels at 3×10⁸ m/s","It has a polarisation"],"a":1,"why":"Sound is a motion of the material itself."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Sound goes where radio cannot, but sound is slow, and no one can send a message from a plane to a submarine in the middle of the ocean by sonar. So how <em>do</em> we talk to a submarine? Chapter 8: ELF, VLF, and some of the largest antennas ever built.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

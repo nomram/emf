@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2 · E, D, H, B &amp; the hand rules — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="The four field quantities E, D, H, B, how materials change them, the Lorentz force, and the right-hand rules.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 2 · Fields from scratch</span>
+<h1>E, D, H, B &amp; the hand rules</h1>
+<div class="meta"><span>~30 min</span><span>4 widgets</span><span>the vocabulary of the whole subject</span></div>
+<p class="lede">Textbooks use four field letters and students rightly ask “why four?”. The short answer: two fields describe what charges and currents <em>do</em>, and two describe what we <em>put in</em>. Once that is clear, the rest is bookkeeping.</p>
+
+<h2 id="e" data-short="The electric field E">The electric field $\vec E$</h2>
+<p>A charge $q$ changes the space around it. Put a second charge $q_0$ nearby and it feels a force. We define the field as “force per unit test charge”: $\vec E=\vec F/q_0$, measured in volts per metre (V/m). For a single point charge:</p>
+<div class="eq">$$E=\frac{1}{4\pi\varepsilon_0}\frac{q}{r^2},\qquad \varepsilon_0=8.854\times10^{-12}\ \mathrm{F/m}$$</div>
+<p>$\varepsilon_0$ is the <strong>permittivity of free space</strong>: how easily a vacuum lets an electric field form. Again the $1/r^2$ of a point source. Where there is a voltage $V$ across a gap $d$ the field is roughly $E=V/d$. A 230 V mains plug pin spaced 1 cm from the next has about 23 kV/m between them, and air breaks down near 3 MV/m, so there is plenty of margin.</p>
+
+<h2 id="b" data-short="The magnetic field B">The magnetic field $\vec B$</h2>
+<p>Chapter 1 gave us $\vec B$ as “what a current makes”. It has a definition by its effect, too. A charge $q$ moving with velocity $\vec v$ through a field $\vec B$ feels:</p>
+<div class="eq">$$\vec F=q\,(\vec E+\vec v\times\vec B)\qquad\text{(the Lorentz force)}$$</div>
+<p>The cross product $\vec v\times\vec B$ has size $vB\sin\theta$ and points <strong>perpendicular to both</strong>. That is the right-hand rule: point your fingers along $\vec v$, curl them toward $\vec B$, and your thumb shows the force on a positive charge.</p>
+<div data-widget="hand-rules"></div>
+<p>Because the force is always sideways to the motion it does <strong>no work</strong>: a magnetic field can bend a path but never change the speed. So what does a charge do in a uniform field? It goes round in a circle:</p>
+<div class="eq">$$r=\frac{mv}{|q|B},\qquad f_c=\frac{|q|B}{2\pi m}$$</div>
+<p>The <strong>cyclotron frequency</strong> $f_c$ doesn’t depend on speed. That’s the principle of the cyclotron accelerator, and of the magnetron in a microwave oven. For an electron $f_c\approx 28\ \text{GHz per tesla}$, so a magnet of about 0.09 T gives 2.45 GHz.</p>
+<div data-widget="particle-b"></div>
+<h3 id="wire-force">Force on a wire</h3>
+<p>A current is lots of moving charges, so a wire of length $L$ carrying $I$ in a field $\vec B$ feels $\vec F=I\,\vec L\times\vec B$. That is the whole of an electric motor: current in a magnetic field makes a force, the force makes torque. Two parallel wires with currents in the <em>same</em> direction attract (each sits in the other’s field), opposite currents repel. The definition of the ampere used to rest on exactly that.</p>
+
+<h2 id="hb" data-short="Why four letters? D and H">Why four letters? $\vec D$ and $\vec H$</h2>
+<p>Put a block of glass in an electric field and its atoms stretch into tiny dipoles, which add their own field. Put iron in a magnetic field and its atomic loops line up, which adds a lot more. So engineers split the story in two:</p>
+<div class="table-wrap"><table class="data">
+<tr><th></th><th>Electric</th><th>Magnetic</th></tr>
+<tr><td><strong>“Total field”</strong> (what a test charge feels)</td><td>$\vec E$ (V/m)</td><td>$\vec B$ (tesla, T)</td></tr>
+<tr><td><strong>“Applied” field</strong> (what the free charges / wires set up)</td><td>$\vec D$ (C/m²)</td><td>$\vec H$ (A/m)</td></tr>
+<tr><td>Material law, linear case</td><td>$\vec D=\varepsilon\vec E=\varepsilon_0\varepsilon_r\vec E$</td><td>$\vec B=\mu\vec H=\mu_0\mu_r\vec H$</td></tr>
+<tr><td>Vacuum</td><td>$\vec D=\varepsilon_0\vec E$</td><td>$\vec B=\mu_0\vec H$</td></tr>
+<tr><td>General</td><td>$\vec D=\varepsilon_0\vec E+\vec P$ ($\vec P$: polarisation)</td><td>$\vec B=\mu_0(\vec H+\vec M)$ ($\vec M$: magnetisation)</td></tr>
+</table></div>
+<p>In words: <strong>H is “how hard I am driving”</strong> (set by amp-turns: $\oint\vec H\cdot d\vec l=I_{\text{free}}$), and <strong>B is “what I got”</strong>. Water has $\varepsilon_r\approx80$ (so it stores a lot of electric field), glass about 6, air 1.0006. For magnetism $\mu_r\approx1$ for almost everything, except iron and its relatives, where $\mu_r$ can be thousands. Radio engineers mostly work with $\vec E$ and $\vec H$ in air, where $\vec B=\mu_0\vec H$ and $\vec D=\varepsilon_0\vec E$, so the pair is interchangeable up to a constant.</p>
+<div class="callout violet"><span class="ct">One number links E and H in a wave</span>For a wave in free space the ratio is fixed: $E/H=\eta_0=\sqrt{\mu_0/\varepsilon_0}\approx377\ \Omega$. That “impedance of free space” returns in chapter 4 and in every antenna. A field of 1 V/m in a wave means $H=1/377=2.65$ mA/m.</div>
+
+<h2 id="coil" data-short="Coils & electromagnets">Coils and electromagnets</h2>
+<p>One loop is a weak magnet. Wind many turns into a coil and the fields of all the loops add inside. For a long coil: $B=\mu_0\mu_r NI/L$ where $N/L$ is the number of turns per metre. Slide in an iron core ($\mu_r\sim$ thousands) and the field jumps by that factor, which is why electromagnets, relays, speakers and transformers all have iron or ferrite inside.</p>
+<div data-widget="solenoid-field"></div>
+
+<h2 id="bh" data-short="Magnetic materials">Magnetic materials, saturation and memory</h2>
+<p>The linear law $B=\mu H$ is a good start but not the whole truth for iron. Push $H$ up and $B$ eventually <strong>saturates</strong>: every atomic magnet is already lined up, so there is nothing more to gain. Reduce $H$ to zero and some magnetisation stays behind (<strong>remanence</strong> $B_r$), which is what makes a permanent magnet. You need a reverse field $H_c$ (the <strong>coercivity</strong>) to wipe it out. Run $H$ up and down and you trace a loop whose area is the heat lost per cycle. Choose materials below and compare a transformer steel with a permanent magnet.</p>
+<div data-widget="bh-curve"></div>
+<div class="callout"><span class="ct">Why this matters for radio</span>An antenna rod of ferrite ($\mu_r$ in the hundreds) concentrates the radio wave’s magnetic field into a coil, so an AM pocket radio can use a small coil instead of a 100 m wire. Ferrite is chosen because its loop is narrow (low loss) even at megahertz.</div>
+
+<h2 id="energy" data-short="Energy in fields">Fields hold energy</h2>
+<p>Every bit of space with a field in it stores energy. Per cubic metre:</p>
+<div class="eq">$$u_E=\tfrac12\varepsilon E^2,\qquad u_B=\tfrac12\,\frac{B^2}{\mu}=\tfrac12 \mu H^2$$</div>
+<p>In a travelling wave both are equal. For a 1 V/m wave: $u_E=\tfrac12(8.85\times10^{-12})(1)=4.4$ pJ/m³ and the same again in $B$. That tiny density, carried at the speed of light, is enough for a radio: $S=cu=3\times10^8\cdot8.8\times10^{-12}=2.65$ mW/m².</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>$\vec E$ (V/m) is force per unit charge; $\vec B$ (T) acts on moving charge via $\vec F=q\vec v\times\vec B$, always sideways.</li>
+<li>$\vec D$ and $\vec H$ are the “applied” fields; $\vec D=\varepsilon\vec E$ and $\vec B=\mu\vec H$ in simple materials.</li>
+<li>A charge in a uniform $\vec B$ circles at $f_c=|q|B/2\pi m$; add $\vec E$ and the circle drifts at $E/B$.</li>
+<li>Coils and cores multiply $\vec B$; iron saturates and has memory (hysteresis).</li>
+<li>In free space a wave has $E/H=377\ \Omega$.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A positive charge moves to the right through a magnetic field pointing into the page. The force on it is…","o":["to the right","up the page","down the page","out of the page"],"a":1,"why":"Take x right, y up, z out of the page. v = +x, B = −z (into the page). v × B = x̂ × (−ẑ) = +ŷ: up the page. For an electron it would be down."},
+ {"q":"Which quantity can a magnetic field change for a moving charge?","o":["Its speed","Its kinetic energy","Its direction of motion","Its mass"],"a":2,"why":"F ⟂ v, so no work is done: speed and energy are unchanged, only direction."},
+ {"q":"What is the main difference between B and H?","o":["They are unrelated","H is what you drive with amp-turns; B is the resulting flux density in the material","B only exists in vacuum","H is measured in tesla"],"a":1,"why":"B = μ0(H + M): H is the applied field, B includes the material’s magnetisation."},
+ {"q":"For an electromagnetic wave in free space E/H equals…","o":["1 Ω","c","377 Ω","μ0"],"a":2,"why":"η0 = √(μ0/ε0) ≈ 377 Ω."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Currents make magnetic fields. In chapter 3 we turn it around: changing magnetic fields make electric fields and currents (Faraday), and James Clerk Maxwell closes the loop and discovers that light is an electromagnetic wave.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

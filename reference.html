@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulas, glossary &amp; sources — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Constants, key formulas by chapter, a glossary, and sources for the guide.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Resources</span>
+<h1>Formulas, glossary &amp; sources</h1>
+<p class="lede">A one-page cheat sheet. Each formula points to the chapter where it is explained and where you can play with it.</p>
+
+<h2 id="constants" data-short="Constants">Constants</h2>
+<div class="table-wrap"><table class="data">
+<tr><th>Quantity</th><th>Symbol</th><th class="num">Value</th></tr>
+<tr><td>Speed of light</td><td>$c$</td><td class="num">2.998 × 10⁸ m/s</td></tr>
+<tr><td>Permeability of free space</td><td>$\mu_0$</td><td class="num">4π × 10⁻⁷ H/m</td></tr>
+<tr><td>Permittivity of free space</td><td>$\varepsilon_0$</td><td class="num">8.854 × 10⁻¹² F/m</td></tr>
+<tr><td>Impedance of free space</td><td>$\eta_0$</td><td class="num">376.73 Ω ≈ 120π</td></tr>
+<tr><td>Planck constant</td><td>$h$</td><td class="num">6.626 × 10⁻³⁴ J·s</td></tr>
+<tr><td>Boltzmann constant</td><td>$k_B$</td><td class="num">1.381 × 10⁻²³ J/K</td></tr>
+<tr><td>Elementary charge / electron mass</td><td>$e$, $m_e$</td><td class="num">1.602 × 10⁻¹⁹ C, 9.109 × 10⁻³¹ kg</td></tr>
+<tr><td>Thermal noise density at 290 K</td><td>$kT_0$</td><td class="num">−174 dBm/Hz</td></tr>
+<tr><td>Speed of sound: air / seawater</td><td></td><td class="num">343 / 1480 m/s</td></tr>
+<tr><td>1 eV</td><td></td><td class="num">1.602 × 10⁻¹⁹ J; photon of 1 eV: λ = 1240 nm</td></tr>
+</table></div>
+
+<h2 id="formulas" data-short="Formulas by chapter">Key formulas by chapter</h2>
+<h3>I · Fields</h3>
+<ul>
+<li><strong>1.</strong> $B=\dfrac{\mu_0I}{2\pi r}$ (long wire); $B_z=\dfrac{\mu_0Ia^2}{2(a^2+z^2)^{3/2}}$ (loop axis); Larmor $P=\dfrac{q^2a^2}{6\pi\varepsilon_0c^3}$.</li>
+<li><strong>2.</strong> $\vec F=q(\vec E+\vec v\times\vec B)$; $r=\dfrac{mv}{|q|B}$, $f_c=\dfrac{|q|B}{2\pi m}$; $\vec D=\varepsilon\vec E$, $\vec B=\mu\vec H$; $u=\tfrac12\varepsilon E^2+\tfrac12\mu H^2$.</li>
+<li><strong>3.</strong> $\mathcal E=-N\,d\Phi/dt$; $c=1/\sqrt{\mu_0\varepsilon_0}$; $E/H=\eta_0$; $S=E^2/\eta_0$.</li>
+<li><strong>4.</strong> $S=\dfrac{P_tG}{4\pi r^2}$; $E_{rms}=\dfrac{\sqrt{30P_tG}}{r}$; near-field boundary $\lambda/2\pi$; far field $2D^2/\lambda$.</li>
+</ul>
+<h3>II · Spectrum &amp; matter</h3>
+<ul>
+<li><strong>5.</strong> $c=f\lambda$; $E=hf$; $\lambda_{peak}=2898\ \mu\text{m K}/T$.</li>
+<li><strong>5a.</strong> $E_n=-13.6\ \text{eV}/n^2$; $KE=E_\gamma-E_{bind}$; $I=I_0e^{-\mu x}$.</li>
+<li><strong>5b.</strong> $y_m=m\lambda L/d$; $\lambda_{dB}=h/p$; $V^2+K^2\le1$.</li>
+<li><strong>6.</strong> skin depth $\delta=1/\sqrt{\pi f\mu\sigma}$; $\tan\delta=\sigma/\omega\varepsilon$; loss $=8.686\,x/\delta$ dB.</li>
+<li><strong>7.</strong> $L_p=20\log_{10}(p/20\,\mu\text{Pa})$; $v=\sqrt{B/\rho}$.</li>
+<li><strong>8.</strong> seawater $\delta\approx250/\sqrt f$ m; $R_{rad}=20\pi^2(L/\lambda)^2$; $C=B\log_2(1+S/N)$.</li>
+</ul>
+<h3>III · Antennas</h3>
+<ul>
+<li><strong>9.</strong> half-wave dipole $73\ \Omega$, $D=1.64$ (2.15 dBi), $L\approx143/f_\text{MHz}$ m; $D=4\pi U_{max}/P_{rad}$; $A_e=G\lambda^2/4\pi$; Friis $P_r=P_tG_tG_r\big(\tfrac{\lambda}{4\pi d}\big)^2$; FSPL $=20\log d+20\log f-147.55$.</li>
+<li><strong>10.</strong> $\Gamma=\dfrac{Z_L-Z_0}{Z_L+Z_0}$; VSWR $=\dfrac{1+|\Gamma|}{1-|\Gamma|}$; RL $=-20\log|\Gamma|$; quarter-wave transformer $Z_T=\sqrt{Z_0Z_L}$; L-match $Q=\sqrt{R_{hi}/R_{lo}-1}$.</li>
+<li><strong>11.</strong> HPBW$\approx70\lambda/D$°; dish $G=\eta(\pi D/\lambda)^2$; horn $G=\eta4\pi A/\lambda^2$; Ruze loss $e^{-(4\pi\varepsilon/\lambda)^2}$.</li>
+<li><strong>11a.</strong> radio horizon $d\approx4.12(\sqrt{h_1}+\sqrt{h_2})$ km; plasma $f_p=8.98\sqrt{N_e}$ Hz; MUF$=f_c\sec\varphi$; Carson $BW=2(\Delta f+f_m)$.</li>
+</ul>
+<h3>IV · Radar &amp; resilience</h3>
+<ul>
+<li><strong>12.</strong> $R=ct/2$; $\Delta R=c\tau/2$; $R_u=c/2\text{PRF}$; $P_r=\dfrac{P_tG^2\lambda^2\sigma}{(4\pi)^3R^4}$; $N=kT_0BF$.</li>
+<li><strong>13.</strong> $f_d=2v_r/\lambda$; $v_u=\lambda\text{PRF}/4$; $R_uv_u=c\lambda/8$; FMCW $f_b=2RB/(cT_c)$, $\Delta R=c/2B$.</li>
+<li><strong>14.</strong> SAR cross-range $\approx D/2$; $L_{syn}=R\lambda/D$; rain $\gamma=kR^\alpha$ dB/km.</li>
+<li><strong>15.</strong> $\sigma_{sphere}=\pi r^2$ (optical), $9\pi r^2x^4$ (Rayleigh); plate $4\pi A^2/\lambda^2$; corner $4\pi a^4/3\lambda^2$; range $\propto\sigma^{1/4}$.</li>
+<li><strong>15a.</strong> processing gain $G_p=R_{chip}/R_{bit}$; MVDR $\mathbf w=\mathbf R^{-1}\mathbf a/(\mathbf a^H\mathbf R^{-1}\mathbf a)$.</li>
+<li><strong>15b.</strong> detection range $R_{max}=\left[\dfrac{P_tG^2\lambda^2\sigma}{(4\pi)^3kT_0BF\,\text{SNR}}\right]^{1/4}$ (range $\propto\sigma^{1/4}$); weather $\eta=\dfrac{\pi^5}{\lambda^4}|K|^2Z$, $Z=\sum D^6$ (dBZ).</li>
+<li><strong>15c.</strong> bistatic $P_r=\dfrac{P_tG_tG_r\lambda^2\sigma_b}{(4\pi)^3R_t^2R_r^2}$; forward scatter $\sigma_{fs}=4\pi A^2/\lambda^2$; processing gain $\approx B\,T$.</li>
+<li><strong>15d.</strong> echo phase $\Delta\varphi=4\pi x/\lambda$; micro-Doppler $f_d=2v/\lambda$; power density $S=P/4\pi r^2$.</li>
+</ul>
+<h3>V · EMP</h3>
+<ul>
+<li><strong>16.</strong> $E(t)=E_0k(e^{-\alpha t}-e^{-\beta t})$; bandwidth $\approx1/t_{rise}$; wire resonances $f_n=nc/2L$; SE $\approx20\log(\lambda/2l)$ for a slot, absorption $8.686\,t/\delta$.</li>
+<li><strong>16a.</strong> below-cutoff attenuation ≈ 32 dB per diameter (round) or 27.3 dB per width (rectangular); cutoff circular $f_c=0.586\,c/D$, rectangular $f_c=c/2a$; shield absorption $8.686\,t/\delta$ dB; slot leakage $20\log(\lambda/2l)$; transfer impedance $V=Z_tI_s$ with a pigtail $Z\approx j\omega L_p$ (≈ 10 nH/cm).</li>
+<li><strong>16b.</strong> light travel 1 AU $=499$ s; geomagnetically induced current $I=E\,L/R$; dipole field $B_{eq}=31.2\,\mu\text{T}/L^3$, L-shell $r=L\cos^2\lambda$; gyro-frequency $f_g=qB/2\pi m$; loss cone $\sin^2\alpha_{LC}=B_{eq}/B_{mirror}$.</li>
+<li><strong>17.</strong> dielectric heating $p=2\pi f\varepsilon_0\varepsilon''E^2$; cavity modes $f=\tfrac c2\sqrt{(m/a)^2+(n/b)^2+(p/d)^2}$; Hull cutoff $B_c=\dfrac{\sqrt{8mV/e}}{b(1-a^2/b^2)}$.</li>
+</ul>
+<h3>VI · Arrays</h3>
+<ul>
+<li><strong>18.</strong> $AF=\sum w_ne^{jnkd(\sin\theta-\sin\theta_0)}$; $d\le\lambda/(1+|\sin\theta_{max}|)$; beamwidth $0.886\lambda/(Nd\cos\theta_0)$; scan loss $\cos\theta_0$.</li>
+<li><strong>19.</strong> virtual array $N\times M$; interferometer $\theta\approx\lambda/B_{max}$.</li>
+</ul>
+
+<h2 id="decibels" data-short="Decibels">Decibels at a glance</h2>
+<div class="table-wrap"><table class="data">
+<tr><th>dB</th><th class="num">Power ratio</th><th class="num">Field ratio</th></tr>
+<tr><td>3</td><td class="num">2</td><td class="num">1.41</td></tr>
+<tr><td>6</td><td class="num">4</td><td class="num">2</td></tr>
+<tr><td>10</td><td class="num">10</td><td class="num">3.16</td></tr>
+<tr><td>20</td><td class="num">100</td><td class="num">10</td></tr>
+<tr><td>30</td><td class="num">1000</td><td class="num">31.6</td></tr>
+<tr><td>60</td><td class="num">10⁶</td><td class="num">1000</td></tr>
+</table></div>
+<p>dBm = dB relative to 1 mW (0 dBm = 1 mW, 30 dBm = 1 W); dBi = gain relative to an isotropic antenna; dBd = relative to a dipole (0 dBd = 2.15 dBi); dBsm = RCS relative to 1 m².</p>
+
+<h2 id="glossary" data-short="Glossary">Glossary</h2>
+<dl class="prose" style="max-width:78ch">
+<dt><strong>AESA</strong></dt><dd>Active electronically scanned array: a transmit/receive module behind every element.</dd>
+<dt><strong>Aperture</strong></dt><dd>The effective area that collects or radiates a wave; sets beamwidth and gain.</dd>
+<dt><strong>Array factor</strong></dt><dd>The pattern of a set of identical antennas, ignoring the element’s own pattern.</dd>
+<dt><strong>Balun</strong></dt><dd>Balanced-to-unbalanced transformer.</dd>
+<dt><strong>Beamwidth (HPBW)</strong></dt><dd>Angle between half-power (−3 dB) points of the main lobe.</dd>
+<dt><strong>Chirp</strong></dt><dd>A signal whose frequency changes steadily with time.</dd>
+<dt><strong>Clutter</strong></dt><dd>Unwanted radar echoes from ground, sea, rain, birds.</dd>
+<dt><strong>Decoherence</strong></dt><dd>Loss of quantum interference through interaction with the environment.</dd>
+<dt><strong>Directivity / gain</strong></dt><dd>Concentration of radiated power in a direction vs an isotropic radiator; gain includes efficiency.</dd>
+<dt><strong>Doppler shift</strong></dt><dd>Change in frequency from relative motion.</dd>
+<dt><strong>EIRP</strong></dt><dd>Transmit power times antenna gain.</dd>
+<dt><strong>EMP</strong></dt><dd>Electromagnetic pulse: a brief, broadband, intense transient.</dd>
+<dt><strong>FMCW</strong></dt><dd>Frequency-modulated continuous-wave radar.</dd>
+<dt><strong>Frequency hopping</strong></dt><dd>Jumping the carrier through a pseudo-random sequence of channels.</dd>
+<dt><strong>Bistatic radar</strong></dt><dd>Radar whose transmitter and receiver are at different places; passive versions use transmitters of opportunity.</dd>
+<dt><strong>CME</strong></dt><dd>Coronal mass ejection: a cloud of magnetised plasma thrown out by the Sun, arriving in about 1–3 days.</dd>
+<dt><strong>dBZ</strong></dt><dd>Logarithmic unit of weather-radar reflectivity factor Z.</dd>
+<dt><strong>Dst index</strong></dt><dd>Measure of the ring-current disturbance of Earth’s magnetic field during a geomagnetic storm, in nanotesla.</dd>
+<dt><strong>GIC</strong></dt><dd>Geomagnetically induced current: quasi-DC current driven in power lines and pipelines by a storm.</dd>
+<dt><strong>Grating lobe</strong></dt><dd>An extra main-beam-like lobe from array spacing larger than λ/2.</dd>
+<dt><strong>Hull cutoff</strong></dt><dd>Magnetic field above which electrons in a magnetron cannot reach the anode.</dd>
+<dt><strong>L-shell</strong></dt><dd>Label of the magnetic field line crossing the equator at L Earth radii; organises the Van Allen belts.</dd>
+<dt><strong>I/Q</strong></dt><dd>In-phase and quadrature components of a signal; a complex number per sample.</dd>
+<dt><strong>Ionisation</strong></dt><dd>Removal of an electron from an atom or molecule.</dd>
+<dt><strong>Ionosphere</strong></dt><dd>Layer of the upper atmosphere with free electrons that refracts HF radio waves.</dd>
+<dt><strong>Interferometer</strong></dt><dd>An array whose element pairs (baselines) measure Fourier components of the sky.</dd>
+<dt><strong>LPI</strong></dt><dd>Low probability of intercept: designed to be hard to detect.</dd>
+<dt><strong>MIMO</strong></dt><dd>Multiple-input multiple-output: several transmit and receive antennas.</dd>
+<dt><strong>MUF</strong></dt><dd>Maximum usable frequency for skywave reflection.</dd>
+<dt><strong>Micro-Doppler</strong></dt><dd>Small Doppler modulations from moving parts of a target such as limbs, rotor blades or a chest.</dd>
+<dt><strong>Null</strong></dt><dd>Direction of zero response in a pattern.</dd>
+<dt><strong>PRF / PRI</strong></dt><dd>Pulse repetition frequency / interval.</dd>
+<dt><strong>Polarisation</strong></dt><dd>Direction of the electric field of a wave.</dd>
+<dt><strong>Processing gain</strong></dt><dd>Improvement in signal-to-interference from spreading, $R_{chip}/R_{bit}$.</dd>
+<dt><strong>RCS (σ)</strong></dt><dd>Radar cross section in m²: how strongly a target reflects.</dd>
+<dt><strong>SAA</strong></dt><dd>South Atlantic Anomaly: the region where the inner Van Allen belt dips closest to Earth.</dd>
+<dt><strong>SAR</strong></dt><dd>Synthetic aperture radar.</dd>
+<dt><strong>SDR</strong></dt><dd>Software-defined radio: digitise early, process in software.</dd>
+<dt><strong>Solar flare</strong></dt><dd>Sudden release of magnetic energy on the Sun; classes A, B, C, M, X by peak soft X-ray flux.</dd>
+<dt><strong>Skin depth</strong></dt><dd>Depth at which a wave in a conductor falls to 1/e.</dd>
+<dt><strong>SOFAR channel</strong></dt><dd>Deep ocean sound channel that traps low-frequency sound.</dd>
+<dt><strong>Spread spectrum</strong></dt><dd>Using far more bandwidth than the data needs, for robustness or secrecy.</dd>
+<dt><strong>Standing wave</strong></dt><dd>Fixed pattern formed by forward and reflected waves; VSWR measures its contrast.</dd>
+<dt><strong>Van Allen belts</strong></dt><dd>Doughnut-shaped regions of charged particles trapped by Earth’s magnetic field: inner (protons) and outer (electrons).</dd>
+<dt><strong>VSWR</strong></dt><dd>Voltage standing-wave ratio.</dd>
+<dt><strong>Waveguide (below cutoff)</strong></dt><dd>Hollow tube carrying a wave above its cutoff frequency; below cutoff it blocks waves while letting fibres or air through.</dd>
+<dt><strong>Feedthrough capacitor</strong></dt><dd>A capacitor mounted through a shield wall, with almost no lead inductance, used to filter lines at the entry point.</dd>
+<dt><strong>Transfer impedance</strong></dt><dd>Ratio of the voltage induced on a cable’s inner conductor to the shield current, a measure of a cable shield’s quality.</dd>
+<dt><strong>Wavefunction</strong></dt><dd>Complex amplitude whose squared magnitude gives probability.</dd>
+</dl>
+
+<h2 id="sources" data-short="Sources">Sources and further reading</h2>
+<p>Numbers in this guide are from standard references; check the original for design work. Textbooks: D. Griffiths, <em>Introduction to Electrodynamics</em>; R. Feynman, <em>Lectures on Physics</em>, vol. II; J. Kraus &amp; R. Marhefka, <em>Antennas for All Applications</em>; C. Balanis, <em>Antenna Theory</em>; D. Pozar, <em>Microwave Engineering</em>; M. Skolnik, <em>Introduction to Radar Systems</em>; M. Richards, <em>Fundamentals of Radar Signal Processing</em>; E. Knott, J. Shaeffer &amp; M. Tuley, <em>Radar Cross Section</em>; D. Adamy, <em>EW 101</em>; K. Davies, <em>Ionospheric Radio</em>; The ARRL Handbook; A. Thompson, J. Moran &amp; G. Swenson, <em>Interferometry and Synthesis in Radio Astronomy</em>; R. Urick, <em>Principles of Underwater Sound</em>.</p>
+<p>Standards and data: ITU-R P.2040 (building materials), P.838 (rain attenuation), P.525 (free-space loss), P.676 (gas absorption); ICNIRP 2020 RF exposure guidelines; IEC 61000-2-9 (HEMP environment), IEC 61000-4-2 (ESD); IEC 60335-2-25 (microwave ovens); IEEE Std 521 (radar letter bands). Radar data: M. Skolnik’s RCS table as reproduced in open university course notes; NOAA Radar Operations Center WSR-88D technical pages; NOAA Space Weather Prediction Center scales (R, S, G) and storm archives; published automotive and drone radar measurement papers; stealth RCS figures in the media are unverified claims. Facilities: HAARP (University of Alaska Fairbanks, gi.alaska.edu/haarp), Event Horizon Telescope Collaboration (<em>Astrophysical Journal Letters</em> 875, 2019; 930, 2022), ALMA, NRAO’s VLA, LOFAR, SKA Observatory.</p>
+<p>The guide’s math (Mie scattering, array factors, Boris pushers, Hertzian-dipole fields, Liénard–Wiechert fields, ray tracing in the Munk profile) is implemented directly in the interactive widgets, in plain JavaScript, which you can read in <code>js/widgets/</code>.</p>
+</article>
+</main>
+</div>
+</body>
+</html>

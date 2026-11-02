@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15b · Radar in the real world: public data — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Published radar cross sections from open sources, public parameters of weather, airport, marine and automotive radars, and what each radar can see.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 15b · Radar</span>
+<h1>Radar in the real world: public data</h1>
+<div class="meta"><span>~35 min</span><span>1 big data widget</span><span>only open, unclassified numbers</span></div>
+<p class="lede">So far we computed radar cross sections from formulas. Now let’s look at what has actually been <em>measured and published</em>, and combine it with the public parameters of real radars to ask: how far could this radar see that target? Everything on this page comes from textbooks, standards, agency technical documents and open papers. Military radar performance and stealth RCS values are classified, and anything quoted in the media about them is flagged as unverified.</p>
+
+<h2 id="sources" data-short="Where the numbers come from">Where the numbers come from</h2>
+<ul>
+<li><strong>The classic table.</strong> Merrill Skolnik’s <em>Introduction to Radar Systems</em> contains a table of typical microwave-band RCS values that has been reproduced in countless university lecture notes (it is the one in MIT’s radar course material and on many open sites): insect $10^{-5}$ m², bird $10^{-2}$, man 1, bicycle 2, small single-engine aircraft 1, small fighter 2, large fighter 6, medium airliner 20, large airliner 40, jumbo jet 100, automobile 100, pickup truck 200, small open boat 0.02, small pleasure boat 2, cabin cruiser 10, conventional winged missile 0.5.</li>
+<li><strong>Automotive radar literature</strong> (77 GHz): pedestrians −8 to 0 dBsm, cyclists about 0–7 dBsm, cars 10–20 dBsm, trucks 20–30 dBsm.</li>
+<li><strong>Drone detection papers</strong> (X-band measurements): consumer quadcopters about 0.01–0.03 m² (−20 to −15 dBsm), with rotor blades adding characteristic micro-Doppler.</li>
+<li><strong>Bird radar studies</strong>: small birds $10^{-3}$–$10^{-2}$ m². Flocks, insect swarms and rain add up into “angels” and weather echoes.</li>
+<li><strong>Space surveillance</strong>: public descriptions say that ground radars in the US Space Surveillance Network track objects down to about 10 cm in low orbit; smaller debris is detected only by special radars.</li>
+<li><strong>Stealth aircraft</strong>: the figures quoted in magazines and encyclopaedias (for example, about 0.025 m² for the F-117, about 0.1 m² for the B-2, and “marble to golf ball” for modern fighters) are <em>claims or estimates</em>, not published measurements. The real values depend on frequency, direction and condition, and are not public.</li>
+</ul>
+<div class="callout warn"><span class="ct">How to read an RCS number</span>An RCS in a table is a <em>single number from a whole pattern</em>. It is usually the value seen at microwave frequencies and from a typical direction. Ranges of 20 dB are normal for the same object: a car seen from behind is much larger than from the front, and a bird flapping its wings varies from instant to instant.</div>
+
+<h2 id="radars" data-short="Real radar parameters">Public parameters of real radars</h2>
+<p>For the calculator we need a few numbers for each radar: peak power, antenna gain, frequency, bandwidth and receiver noise. These are the ones published in agency documents and datasheets:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Radar</th><th>Band</th><th>Peak power</th><th>Antenna</th><th>Notes (public sources)</th></tr>
+<tr><td>US NEXRAD WSR-88D weather radar</td><td>S, 2.7–3.0 GHz</td><td>≈ 750 kW at the transmitter, ≈ 500 kW at the antenna</td><td>8.5 m dish, 45.5 dBi, beam ≈ 0.93°</td><td>NOAA Radar Operations Center technical information: pulses of 1.57 µs and 4.7 µs; reflectivity range 460 km, Doppler 230 km</td></tr>
+<tr><td>Airport surveillance (ASR-9 class)</td><td>S, 2.7–2.9 GHz</td><td>≈ 1 MW</td><td>≈ 34 dBi fan beam</td><td>Advertised range about 60 nautical miles (111 km); approximate</td></tr>
+<tr><td>Marine navigation radar</td><td>X, 9.4 GHz</td><td>4–25 kW</td><td>0.6–2.4 m scanner, 25–32 dBi</td><td>Pulses 0.05–1 µs</td></tr>
+<tr><td>Automotive long-range radar</td><td>W, 76–77 GHz</td><td>≈ 10 mW (EIRP up to ≈ 50 dBm)</td><td>Patch arrays, ≈ 25–30 dBi</td><td>FMCW, up to 4 GHz bandwidth; range ≈ 250 m</td></tr>
+<tr><td>Police speed radar</td><td>K, Ka</td><td>mW to tens of mW</td><td>Small horn</td><td>CW Doppler</td></tr>
+</table></div>
+<p>(These numbers are only for educational comparison. They are not specifications of any particular unit.)</p>
+
+<h2 id="widget" data-short="Who can see what">Who can see what? Compare targets and radars</h2>
+<p>Pick a radar and a category. Each bar shows the published range of the target’s RCS; the table gives the detection range for the radar’s public parameters, computed with the radar equation of chapter 12 (13 dB SNR, clear air, line of sight, no clutter). Click on a row for the details. Then switch the radar and watch which targets appear or vanish.</p>
+<div data-widget="rcs-database"></div>
+<div class="callout"><span class="ct">Things the table teaches</span><ul>
+<li>A weather radar with 750 kW and a 45 dBi antenna sees a small bird or drone at a few tens of kilometres, but only because it is so powerful; an automotive radar is a different class entirely.</li>
+<li><strong>Range goes as RCS<sup>1/4</sup></strong>: a 10 000× difference in RCS between a jumbo jet and a bird means only a 10× difference in detection range.</li>
+<li>For a small X-band radar the main cause of missed targets is <em>clutter</em> (ground, sea, rain), not noise: that is why Doppler filtering (chapter 13) matters.</li>
+<li>Frequencies matter: the Rayleigh scaling of chapter 15 means insects and raindrops are seen better by short-wavelength radars; large, resonant targets by long-wavelength radars.</li>
+</ul></div>
+
+<h2 id="weather" data-short="Weather as targets">Rain, snow and the weather radar equation</h2>
+<p>Rain is a cloud of billions of small spheres. For a volume of drops much smaller than the wavelength (Rayleigh region, chapter 15), the radar sees the sum of their cross-sections per unit volume, $\eta=\tfrac{\pi^5}{\lambda^4}|K|^2Z$, with $|K|^2\approx0.93$ for water and $Z=\sum D^6$ the <strong>reflectivity factor</strong>. Meteorologists quote $Z$ in dBZ: light rain is about 20 dBZ, heavy rain 40–50 dBZ, hail above 55–60 dBZ. A drop twice as big counts 64 times more: that is why hail stands out and drizzle is invisible. The same radar equation (with the volume of the pulse instead of a single target) is the “weather radar equation”.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Open RCS tables (Skolnik and automotive and drone papers) give microwave typical values: insect $10^{-5}$ m² to jumbo jet 100 m², with a ±10 dB spread.</li>
+<li>Stealth RCS values in the press are unverified claims.</li>
+<li>Published parameters of weather, airport, marine and automotive radars let you compute detection ranges with the radar equation.</li>
+<li>Range scales as $\sigma^{1/4}$; clutter, not noise, is usually the limit in practice.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Why is the RCS of a car a range (10–100 m²) rather than a single number?","o":["Radar is inaccurate","RCS depends strongly on aspect angle, frequency and polarisation","Cars are all different","The speed changes it"],"a":1,"why":"A flat rear, wheel arches and a corner-reflector-like shape give strong aspect dependence; microwave and 77 GHz values differ too."},
+ {"q":"Skolnik’s table lists a bird at about 0.01 m² and a jumbo jet at 100 m². By how much does detection range differ for the same radar?","o":["≈ 10×","≈ 100×","≈ 10 000×","≈ 1.4×"],"a":0,"why":"Range ∝ σ^(1/4). The ratio 10 000 gives 10 000^(1/4) = 10."},
+ {"q":"Which statement about published RCS values for stealth aircraft is right?","o":["They are measured and public","Figures in the media are claims or estimates; real values are classified and depend on direction and band","They are always below 1 m²","They are the same at every frequency"],"a":1,"why":"Official measurements are not published. Use only as unverified, order-of-magnitude statements."},
+ {"q":"What does a weather radar measure from rain?","o":["Reflectivity factor Z, dominated by the largest drops (∝ D⁶)","Only wind","The temperature","The colour of clouds"],"a":0,"why":"Z = ΣD⁶ per unit volume, quoted in dBZ; with Doppler the radar also measures wind."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>A radar normally supplies its own illumination. What if a radar used someone else’s transmitter instead, such as a TV mast, a cell tower, or a constellation of satellites? That is passive bistatic radar, and chapter 15c asks whether a satellite internet constellation could work as a giant one.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

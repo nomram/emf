@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safety &amp; scope — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="What this guide covers, what it deliberately does not, and the real safety limits around radio, microwaves and high voltage.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+<span class="eyebrow">Start</span>
+<h1>Safety &amp; scope</h1>
+<p class="lede">This is a guide to understanding waves, not to building transmitters or weapons. Reading is safe. The real world has a few sharp edges, listed here.</p>
+
+<h2 id="scope" data-short="What we cover">What this guide covers, and what it leaves out</h2>
+<p>We explain the physics and the engineering behind antennas, radar, EMPs and the microwave oven. We do <strong>not</strong> give build instructions for jammers, EMP devices, high-power microwave sources or anything meant to damage other people’s equipment. Several chapters use real numbers (power, frequency, shielding) because understanding needs them, not because the guide wants you to reproduce a device.</p>
+
+<h2 id="rf" data-short="Radio exposure">Radio and microwave exposure</h2>
+<ul>
+<li>Radio waves below the ultraviolet are <strong>non-ionising</strong>: a single photon has too little energy to break chemical bonds. The risk is <em>heating</em>, which depends on power density and frequency. Chapter 5 shows the numbers.</li>
+<li>Do not stand in front of a radar, a high-power transmitter or the feed of a dish while it is on. Public exposure limits exist (ICNIRP, IEEE C95.1) and are typically a few W/m² to tens of W/m² in the microwave range.</li>
+<li>Transmitting on most frequencies needs a licence. Unlicensed bands (Wi-Fi, ISM, some low-power devices) have strict power limits.</li>
+</ul>
+
+<h2 id="hv" data-short="High voltage">Microwave ovens and mains</h2>
+<div class="callout danger"><span class="ct">Never open a microwave oven</span>The high-voltage capacitor behind the cover can hold a lethal charge after unplugging. Chapter 17 explains how an oven works so that you do not need to open one.</div>
+
+<h2 id="ethics" data-short="Law and ethics">Law and ethics</h2>
+<p>Deliberately interfering with radio communications (jamming), GPS or aviation is illegal almost everywhere and can endanger lives. Treat the interference examples in this guide as explanations of why a problem happens and how to protect against it.</p>
+</article>
+</main>
+</div>
+</body>
+</html>

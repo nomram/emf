@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16 · EMP: the fast, broad burst — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="What an electromagnetic pulse is, natural and man-made sources (lightning, ESD, solar storms, nuclear E1/E2/E3), how pulses couple into cables, and how shielding, filtering and surge protection work.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 16 · EMP</span>
+<h1>EMP: the fast, broad burst</h1>
+<div class="meta"><span>~40 min</span><span>3 widgets</span><span>sources, spectra, coupling and protection</span></div>
+<div class="safety-strip"><b>Scope:</b> this chapter is about understanding and <em>protecting against</em> electromagnetic pulses. It describes physics and defences, not how to make a pulse source. See <a href="safety.html">Safety &amp; scope</a>.</div>
+<p class="lede">Everything so far has been a <em>narrow-band</em> wave: a clean sine at one frequency, with an antenna tuned to it. An <strong>electromagnetic pulse</strong> is the opposite: a single, brief, enormous burst that contains <em>all</em> frequencies at once. It needs no tuned antenna, because somewhere in that broad spectrum every wire finds a frequency it likes.</p>
+
+<h2 id="what" data-short="What is an EMP?">What is an EMP?</h2>
+<p>An EMP is a short transient of electric and magnetic fields, with a rise time from nanoseconds to microseconds and duration from nanoseconds to seconds, strong enough to induce damaging voltages or currents in conductors. By the Fourier relation (a short pulse ⇔ a wide band), its <strong>bandwidth is about 1/(rise time)</strong>: a 2.5 ns rise means energy out to ≈ 100 MHz–1 GHz. The energy is usually small; what hurts is the <em>voltage</em> and the speed: a transistor’s gate oxide fails at 10–100 V, and a cable a few metres long can pick up hundreds of volts from a strong pulse in a few nanoseconds, faster than most protection can react.</p>
+<h3 id="sources">Where pulses come from</h3>
+<div class="table-wrap"><table class="data">
+<tr><th>Source</th><th>Time scale</th><th>What it does</th></tr>
+<tr><td><strong>Electrostatic discharge (ESD)</strong></td><td>ns rise, ~100 ns long, 5–30 A</td><td>A spark between you and a doorknob. Kills exposed chips in assembly lines and on connectors.</td></tr>
+<tr><td><strong>Lightning (LEMP)</strong></td><td>µs rise, 100 µs–ms long, tens of kA</td><td>Direct strikes and nearby strikes induce large surges on power and telecom lines up to kilometres away.</td></tr>
+<tr><td><strong>Switching and arcs</strong></td><td>ns–µs</td><td>Relays, motors, ignition systems and faulty connections produce fast transients that splatter radio noise (and interfere with AM radio).</td></tr>
+<tr><td><strong>Solar storm (geomagnetic)</strong></td><td>seconds–hours</td><td>A coronal mass ejection compresses Earth’s magnetic field; the slowly changing field induces quasi-DC currents (GICs) in long power lines and pipelines.</td></tr>
+<tr><td><strong>Nuclear high-altitude EMP (HEMP)</strong></td><td>ns to minutes, three components</td><td>A burst 30–400 km up illuminates a continent-sized area. See below.</td></tr>
+<tr><td><strong>Other intentional sources</strong></td><td>ns–µs</td><td>Experimental pulsed-power and high-power-microwave devices exist as military research. This guide does not cover how they are made.</td></tr>
+</table></div>
+
+<h2 id="shape" data-short="Time and frequency">A pulse in time and in frequency</h2>
+<p>A convenient model for a fast transient is the <strong>double exponential</strong> $E(t)=E_0k(e^{-\alpha t}-e^{-\beta t})$: a fast rise at rate $\beta$, a slower decay at rate $\alpha$. Its Fourier spectrum is flat up to $\alpha/2\pi$, then falls at 20 dB/decade up to $\beta/2\pi$, then at 40 dB/decade. Choose the three pulses below and see how different their spectra are:</p>
+<div data-widget="emp-waveform"></div>
+<p>Observe: the standard nuclear E1 test pulse has a 2.5 ns rise and about 23 ns duration; its spectrum is flat to 6 MHz and still strong at 100 MHz. Lightning is a thousand times slower: its energy sits at kHz–MHz, so protection devices that handle lightning are too slow for E1. A static spark is shortest of all, but carries very little energy.</p>
+
+<h2 id="nuclear" data-short="The three parts of HEMP">The nuclear high-altitude pulse: E1, E2, E3</h2>
+<p>A nuclear burst high above the atmosphere releases gamma rays that knock electrons out of air molecules (the Compton effect, chapter 5a). These electrons spiral in the Earth’s magnetic field (chapter 2) and radiate a coherent pulse. The result is not one pulse but three, overlapping in time and different in effect:</p>
+<div class="table-wrap"><table class="data">
+<tr><th></th><th>E1 (“fast”)</th><th>E2 (“intermediate”)</th><th>E3 (“slow”, MHD)</th></tr>
+<tr><td>Time</td><td>&lt; 1 µs</td><td>1 µs – 1 s</td><td>1 s – several minutes</td></tr>
+<tr><td>Field (peak)</td><td>up to ≈ 50 kV/m</td><td>up to ≈ 100 V/m (lightning-like)</td><td>up to a few V/km geo-electric field</td></tr>
+<tr><td>Mechanism</td><td>Gamma-ray Compton electrons in the Earth’s field</td><td>Scattered gammas and inelastic neutron interactions</td><td>Distortion of the geomagnetic field by the fireball: like a very severe solar storm</td></tr>
+<tr><td>Frequency content</td><td>MHz–GHz</td><td>kHz–MHz</td><td>millihertz</td></tr>
+<tr><td>Main victims</td><td>Electronics directly: microprocessors, radios, control systems</td><td>Lines and equipment (as lightning), though surge protection helps</td><td>Long power lines, transformers, pipelines (induced DC saturates transformers)</td></tr>
+</table></div>
+<p>The classic observation was the 1962 <em>Starfish Prime</em> test: a 1.4 Mt burst at 400 km over the Pacific, which knocked out street lights and telephone links in Hawaii 1400 km away and damaged satellites. Most 1960s electronics were vacuum tubes and thick-gate transistors; modern integrated circuits are far more fragile in terms of voltage, but also far better protected at the I/O pins. How serious an event would be for today’s civil infrastructure is debated: it depends on yield, altitude and location, and what is hardened. <strong>E3</strong> is similar in kind to a natural geomagnetic storm, which has caused real outages: the 1989 storm blacked out Québec in 90 seconds; the October 2003 “Halloween storms” caused a blackout in Malmö in southern Sweden and damaged transformers in South Africa; the 1859 Carrington event burned telegraph offices. Space-weather forecasting (NOAA, SMHI/ESA) gives hours to a day of warning, enough for grid operators to take mitigating steps.</p>
+
+<h2 id="coupling" data-short="How pulses get in">How the pulse gets into equipment</h2>
+<p>Three routes, in order of importance:</p>
+<ol>
+<li><strong>Cables and wires</strong> (“back door”): every conductor is a long antenna. Power lines, network cables, antenna feeds and even long printed-circuit traces carry the pulse to the equipment. The longer the wire, the lower its resonances; a pulse excites all of them. This is the main entry for HEMP and lightning.</li>
+<li><strong>Antennas</strong> (“front door”): a radio’s own antenna is, by design, an efficient collector in its band; the pulse’s energy in that band is delivered to a sensitive receiver front end.</li>
+<li><strong>Apertures and seams</strong>: through holes, gaps, ventilation grilles and imperfect gaskets in the enclosure.</li>
+</ol>
+<div data-widget="emp-coupling"></div>
+
+<h2 id="protect" data-short="Protection">Protection: keep it out, drain it away, don’t be a long wire</h2>
+<p>Pulse protection is a <em>layered</em> problem, with the layers working from the outside in:</p>
+<ol>
+<li><strong>Shield</strong> the equipment: a continuous conducting enclosure (a Faraday cage) so the fields never reach the inside. The shield must be unbroken: continuous welded seams, conductive gaskets, wave-guide-below-cutoff tubes for air and cables (honeycomb vents), filtered penetrations.</li>
+<li><strong>Filter and clamp every conductor that enters.</strong> A low-pass filter blocks the pulse’s high frequencies; a <em>surge arrester</em> (gas discharge tube for big currents but slow; metal-oxide varistor, medium; TVS diode, fast but small) shorts the surge to ground when the voltage exceeds a threshold. A good protector is a cascade: slow-and-big at the entrance, fast-and-small close to the chip.</li>
+<li><strong>Ground and bond well</strong>: a low-impedance single-point reference so the energy has somewhere to go.</li>
+<li><strong>Use fibre-optic links</strong> for long runs: glass has nothing to resonate (chapter 15a).</li>
+<li><strong>Keep spares and make recovery easy</strong>: a spare unit stored in a metal cabinet is itself protected.</li>
+</ol>
+<p>Next, the shield. How does a metal box with a few holes behave? The answer has two parts (absorption in the metal and leakage through apertures) and the weakest wins:</p>
+<div data-widget="faraday-cage"></div>
+<div class="callout"><span class="ct">The rules of thumb for a Faraday cage</span><ul>
+<li>Openings must be <strong>much smaller than the shortest wavelength you want to stop</strong> (the pulse’s 100 MHz–1 GHz means 30 cm–3 m: a cm-sized gap leaks less than 30 dB).</li>
+<li>A <strong>long thin slot</strong> leaks more than a round hole of the same area: it’s the <em>length</em> that counts.</li>
+<li>For <strong>low-frequency magnetic fields</strong> (50 Hz, E3) thin metal is ineffective: you need thick steel or special high-permeability (mu-metal) layers.</li>
+<li>Every wire that passes through the cage must be filtered at the wall, otherwise it carries the pulse inside like a hidden antenna. (Chapter 16a shows how, including how to charge a device inside a shielded box.)</li>
+</ul></div>
+<div class="callout danger"><span class="ct">Myth check</span><p>Don’t put a phone (or anything) in a microwave oven “to protect it from an EMP”: the cage has a door seal designed for 2.45 GHz, not for the 10–300 MHz of a pulse, and if the oven is switched on by accident it will destroy the phone. A properly closed all-metal box (an ammunition can with a good lid, a purpose-built shielded bag) is a better, though still imperfect, shield. Also: cars and aircraft are partial Faraday cages, which is why people are generally safe in a car in a lightning storm and why a lightning strike on an aircraft passes along the skin.</p></div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>An EMP is a short, broadband transient; its bandwidth is about 1/(rise time).</li>
+<li>Sources: ESD, lightning, switching, solar storms, nuclear HEMP (E1 fast, E2 intermediate, E3 slow), plus intentional pulsed sources.</li>
+<li>Damage comes from voltage and speed rather than energy: a few joules per m² of E1 can induce hundreds of volts on a metre of wire.</li>
+<li>Cables and antennas are the main entry paths because a broadband pulse finds each conductor’s resonance ($f_n=nc/2L$).</li>
+<li>Defence: shield, filter, clamp, ground, use fibre, and mind every opening: SE is limited by the weakest of metal absorption and aperture leakage.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A pulse has a rise time of 2 ns. Roughly what bandwidth does it contain?","o":["500 kHz","5 MHz","500 MHz","50 GHz"],"a":2,"why":"Bandwidth ≈ 1/(rise time) = 1/(2 ns) = 500 MHz."},
+ {"q":"Which component of a nuclear HEMP is most like a very strong solar storm?","o":["E1","E2","E3","All three equally"],"a":2,"why":"E3 is the slow magnetohydrodynamic component, seconds to minutes, inducing quasi-DC currents in long power lines like a geomagnetic storm."},
+ {"q":"Why can a metal mesh with 2 mm holes shield microwaves (12 cm) but still let you see through it?","o":["Light is not an EM wave","The holes are far smaller than 12 cm but far larger than the wavelength of light","Mesh absorbs radio","The glass behind it does the shielding"],"a":1,"why":"A hole much smaller than λ does not let a wave through; for light (0.5 µm) the same hole is huge."},
+ {"q":"Which protection device is typically fastest and used closest to a chip?","o":["Gas discharge tube","TVS (transient-voltage-suppression) diode","Fuse","Circuit breaker"],"a":1,"why":"TVS diodes clamp within picoseconds-nanoseconds but handle little energy; gas tubes handle big currents but react slowly."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Chapter 16a goes deep into the box itself: the limits of a Faraday cage, waveguides, and how cables, power and charging cross a shield. After that, a <em>long, intentional, tightly controlled</em> burst of microwaves, in a cage with a see-through door, that you use every day? Chapter 17: the microwave oven, and whether it counts as an EMP (it doesn’t, but it teaches almost everything).</div>
+</article>
+</main>
+</div>
+</body>
+</html>

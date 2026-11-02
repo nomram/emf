@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>17 · Case study: the microwave oven — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="How a microwave oven works: the magnetron, the resonant cavity, standing waves, dielectric heating, shielding and Wi-Fi interference, and why it is not an EMP.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 17 · EMP</span>
+<h1>Case study: the microwave oven</h1>
+<div class="meta"><span>~40 min</span><span>3 widgets</span><span>a caged storm in your kitchen</span></div>
+<div class="safety-strip"><b>Safety:</b> never open, modify or run an oven with the door damaged. The power supply contains a high-voltage capacitor (kilovolts) that can be lethal after unplugging. Never run it empty, and never put metal or a phone inside. This chapter is for understanding only.</div>
+<p class="lede">Your kitchen holds a 1 kW, 2.45 GHz radio transmitter inside a metal cage with a see-through door. It ties together almost every idea in this guide: electrons spiralling in a magnetic field (chapter 2), resonance and standing waves (chapters 9–10), absorption by water (chapter 6), skin depth and apertures (chapter 16), the ISM band (chapter 11a) and radar-style radio hardware. And yes: we will ask whether it is an <em>EMP</em>.</p>
+
+<h2 id="how" data-short="How it works">How an oven works</h2>
+<p>The chain is simple. <strong>Mains</strong> (230/120 V) → a <strong>high-voltage supply</strong> (an iron transformer, capacitor and diode that give about 4 kV DC, or a modern inverter) → the <strong>magnetron</strong>, a vacuum tube that turns it into about 700–1200 W of 2.45 GHz microwaves at about 65–70 % efficiency → a <strong>waveguide</strong> (a rectangular metal duct that carries the wave without radiating it) → the <strong>cooking cavity</strong>, a resonant metal box, with a <strong>stirrer or turntable</strong> to even out the pattern. The door is a metal mesh plus a <strong>choke</strong> (a quarter-wave trench around the edge that turns the gap into an open circuit for 2.45 GHz) and at least two interlock switches that cut power if it opens.</p>
+
+<h2 id="why" data-short="Why water and 2.45 GHz?">Why does it heat food?</h2>
+<p>Water, fat and sugar molecules are <strong>polar</strong>: they have a positive and a negative end (chapter 2: $\vec P$, polarisation). In an oscillating electric field, they try to align with it, flipping 4.9 billion times per second. The rotation is not free (hydrogen bonds with the neighbours resist it) and the friction turns field energy into heat. That is <strong>dielectric heating</strong>, with power per unit volume</p>
+<div class="eq">$$p=2\pi f\,\varepsilon_0\,\varepsilon''\,E^2\qquad(\varepsilon''=\text{dielectric loss factor})$$</div>
+<p>Water has $\varepsilon''\approx10$ at 2.45 GHz; ice has $\varepsilon''\approx0.003$ (the molecules are locked in, so a frozen block heats slowly and unevenly); dry plastic and ceramic, close to zero (they stay cool); metals reflect the waves, as chapter 6 showed. Dissolved salt adds conduction loss and makes the outside heat faster.</p>
+<p>The choice of 2.45 GHz is a compromise, not a resonance of water (which is a broad lossy relaxation near 20 GHz). Lower frequencies penetrate deeper but need larger cavities and have less absorption; higher frequencies heat only the surface. At 2.45 GHz the power falls to $1/e$ in about 1–2 cm of water, so a steak is cooked at the surface by microwaves and deeper by conduction. It is also in the ISM band (chapter 11a), where unlicensed industrial and domestic use is permitted. Industrial dryers often use 915 MHz for deeper penetration.</p>
+
+<h2 id="cavity" data-short="Hot spots">Standing waves: hot spots and cold spots</h2>
+<p>The oven cavity is a resonant box of about 30 × 30 × 20 cm, roughly 2.5 wavelengths across, so many modes can resonate near 2.45 GHz. Each mode is a standing-wave pattern with nodes (no field: cold) and antinodes (strong field: hot) a half-wavelength (6.1 cm) apart. Pick a mode below and you will see the regular dots; switch to the mixed mode and the turntable to see why real ovens use them.</p>
+<div data-widget="microwave-cavity"></div>
+<div class="callout tip"><span class="ct">Experiment: measure the speed of light with chocolate</span>Remove the turntable (or stop it), cover a plate with a flat layer of marshmallows, chocolate or cheese, and run the oven for about 20 seconds. Melted spots appear about 6 cm apart. Measure the distance $d$ between the centres: half a wavelength. Then $c=2\,d\,f$ with $f=2.45$ GHz from the rating plate. Typical results land within 5 % of $3\times10^8$ m/s. (Don’t run it empty, and keep the plate non-metallic.)</div>
+
+<h2 id="magnetron" data-short="The magnetron">The magnetron: a vacuum tube from WWII</h2>
+<p>The magnetron was invented by the British physicists John Randall and Harry Boot in 1940 for radar (chapter 12): a way to produce kilowatts to megawatts of microwaves from a small tube, which made airborne radar possible. In 1945 Percy Spencer at Raytheon noticed that a magnetron melted a chocolate bar in his pocket; the first microwave oven (the “Radarange”) followed. Inside, a hot central cathode emits electrons; a ring-shaped anode with resonant cavities surrounds it at about 4 kV; a permanent magnet applies a field along the axis. Electrons feel $\vec F=q(\vec E+\vec v\times\vec B)$ (chapter 2) and spiral. If $B$ is above the <strong>Hull cutoff</strong>, $B_c=\dfrac{\sqrt{8mV/e}}{b\,(1-a^2/b^2)}$, they are turned back before reaching the anode and form a rotating spoke pattern that sweeps past the cavity openings, feeding energy into them. The frequency is set by the cavities (a few centimetres in size: resonators scale with $\lambda$). Simulate it:</p>
+<div data-widget="magnetron"></div>
+
+<h2 id="shield" data-short="Shielding and leakage">The cage: shielding and leakage</h2>
+<p>The door shows chapter 16 in action: holes of 1–2 mm are much smaller than the 12.2 cm wavelength, so each hole is far below cutoff and only a trickle gets through; but they are enormous compared with the 0.5 µm of visible light, so you can see inside. Standards limit leakage of a new oven to 1 mW/cm² and in use to 5 mW/cm² at 5 cm from the surface (IEC 60335-2-25 and the US FDA rule: 5 mW/cm² at 5 cm), well under the 10 W/m² ≈ 1 mW/cm² that the ICNIRP guidelines give for public exposure at 2.45 GHz, and the power density falls as $1/r^2$ with distance. Worn gaskets, bent doors and food stuck in the seal are the ways leakage rises. Use the shielding calculator of chapter 16 with the “microwave-oven door” example to explore it.</p>
+
+<h2 id="wifi" data-short="Wi-Fi interference">The ISM neighbour: your oven and your Wi-Fi</h2>
+<p>An oven shares the band with Wi-Fi (2.4–2.4835 GHz) and Bluetooth. It is a legal “incidental radiator”: its power is huge and its leakage is tiny, but still far above a Wi-Fi receiver’s threshold of picowatts. Because the magnetron is powered from the mains, it works only on half of each mains cycle (10 ms on, 10 ms off at 50 Hz) and its frequency wanders over tens of MHz as it heats. The result: stutter in video calls while the popcorn pops, mostly on the mid-band channels. Try it:</p>
+<div data-widget="wifi-oven"></div>
+
+<h2 id="emp" data-short="Is it an EMP?">So: is the microwave oven an EMP?</h2>
+<p>No, and the comparison is the best way to remember what an EMP <em>is</em>:</p>
+<div class="table-wrap"><table class="data">
+<tr><th></th><th>Microwave oven</th><th>Nuclear E1 pulse</th><th>Radar pulse</th></tr>
+<tr><td>Waveform</td><td>Continuous wave, 2.45 GHz, on/off at 50–60 Hz</td><td>Single transient, 2.5 ns rise, 23 ns long</td><td>Repeated pulses, µs long, at one carrier</td></tr>
+<tr><td>Bandwidth</td><td>≈ 20–50 MHz around 2.45 GHz (narrow)</td><td>Broadband: 1 MHz – 1 GHz</td><td>≈ 1/τ around its carrier</td></tr>
+<tr><td>Where the field is</td><td>Inside a closed metal cage: ≈ kV/m</td><td>Everywhere over a continent: ≈ 50 kV/m</td><td>In a narrow beam</td></tr>
+<tr><td>Outside the box</td><td>Milli- to micro-watts per cm²: &lt; 5 mW/cm² at 5 cm, far less beyond</td><td>—</td><td>—</td></tr>
+<tr><td>Why it hurts electronics</td><td>It doesn’t, by design: shielded</td><td>Induces voltage spikes in every wire</td><td>Only if you stand in the beam</td></tr>
+</table></div>
+<p>What matters is <strong>bandwidth, speed and confinement</strong>. The oven’s energy is steady and narrow-band and the cage holds it in; an EMP is a brief, broadband, <em>unconfined</em> burst. Inside the oven the field strength is of the same order as the E1 peak for the whole minute it runs, but nothing outside feels it: this is exactly what shielding is for. The oven also gives three real lessons for EMP protection. First, <strong>apertures decide</strong>: a metal cage works until you open a door of the wrong size. Second, <strong>enclosures resonate</strong>: any metal box has cavity modes, and a pulse containing every frequency will excite them inside it (chapter 17’s widget), which is why shielded rooms are lined with absorber. Third, <strong>filter anything that penetrates the wall</strong>: the oven’s own mains cord has a filter so that the magnetron’s noise does not travel out through the wiring.</p>
+<div class="callout violet"><span class="ct">Cousins and warnings</span>The magnetron is the ancestor of far more powerful microwave sources (relativistic magnetrons, vircators) that military laboratories have studied for decades as “high-power microwave” devices, producing short bursts of gigawatts. This guide doesn’t cover how they are made, and adapting an oven’s parts for any such purpose is dangerous (lethal voltages, X-rays from high-voltage tubes), illegal in many places when used to interfere with radio services, and has no real use. If you are curious about the technology, the safest route is theory (this chapter) and simulation.</div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>An oven: mains → HV supply → magnetron (≈ 1 kW, 2.45 GHz) → waveguide → resonant cavity with turntable/stirrer; door mesh + choke + interlocks.</li>
+<li>Heating is dielectric: $p=2\pi f\varepsilon_0\varepsilon''E^2$; water heats, ice and dry plastic don’t, metal reflects; penetration in water ≈ 1–2 cm.</li>
+<li>Standing-wave hot spots are $\lambda/2=6.1$ cm apart: measure $c=2df$ with chocolate.</li>
+<li>The magnetron works because $B$ exceeds the Hull cutoff, so electrons orbit and drive the cavities; the frequency is set by the cavities.</li>
+<li>Mesh holes (≈ 2 mm) are far below cutoff for 12.2 cm but huge for light: shielding and a see-through door.</li>
+<li>Ovens leak a little in the 2.4 GHz band and pulse at the mains rate, so Wi-Fi channels 6–11 suffer.</li>
+<li>An oven is not an EMP: narrow-band, confined, repeating; an EMP is a broadband, unconfined transient.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What is the main reason a microwave oven’s door mesh stops microwaves but lets you see in?","o":["Light is not electromagnetic","Holes are much smaller than the 12 cm wavelength, but much larger than the wavelength of light","Glass blocks microwaves","The mesh absorbs microwaves only"],"a":1,"why":"Holes ≪ λ block the wave (below waveguide cutoff); for light (0.5 µm) the same holes are huge."},
+ {"q":"Hot spots in a microwave oven are about 6 cm apart. What does this say about the wavelength?","o":["λ ≈ 3 cm","λ ≈ 6 cm","λ ≈ 12 cm","λ ≈ 24 cm"],"a":2,"why":"Hot spots are half a wavelength apart, so λ ≈ 12 cm, consistent with 2.45 GHz."},
+ {"q":"Why does a frozen block of food heat poorly at first?","o":["Ice has a low dielectric loss factor: its water molecules cannot rotate freely","Ice reflects microwaves","Ice is a metal","The oven only heats the surface"],"a":0,"why":"In ice the molecules are locked in the crystal; ε'' ≈ 0.003 vs ≈ 10 for liquid water."},
+ {"q":"Which statement best explains why a microwave oven is NOT an EMP?","o":["It is too weak","It is a continuous narrow-band source confined in a metal cage, not a brief broadband unconfined burst","It uses 2.45 GHz and EMPs only 50 Hz","It does not use electricity"],"a":1,"why":"EMPs are defined by speed, broad bandwidth and unconfined fields. The oven has none of these outside its cage."},
+ {"q":"What happens to the electrons in a magnetron when B exceeds the Hull cutoff?","o":["They travel faster to the anode","They are bent back and orbit as a rotating cloud, feeding energy into the cavities","They stop moving","They radiate X-rays"],"a":1,"why":"Above B_c the magnetic force turns electrons back before they reach the anode; the rotating spokes drive the resonant cavities."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>You have all the pieces: waves, antennas, radar, and shielding. The last part turns to the most powerful idea in antenna engineering: a <em>phased array</em>, many simple antennas working together, which can steer a beam in microseconds, form nulls on interference, and, in huge systems, even image a black hole.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

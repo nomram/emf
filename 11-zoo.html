@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11 · The antenna zoo — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Dipole, monopole, loop, Yagi, log-periodic, helix, patch, horn, dish and phased array: patterns, gain, size and where each is used.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 11 · Antennas</span>
+<h1>The antenna zoo</h1>
+<div class="meta"><span>~40 min</span><span>2 widgets</span><span>13 antenna types, from a wire to a dish</span></div>
+<p class="lede">Every antenna is trying to do one of a few things: radiate in all horizontal directions, or in one direction; work on one frequency or on many; be tiny, cheap, or enormous. Here is the whole family, with real patterns computed from the formulas of the last three chapters.</p>
+
+<h2 id="zoo" data-short="Meet the zoo">Meet the zoo</h2>
+<p>Choose any antenna below. The top panel shows its construction, the two polar plots show how it radiates in its two principal planes, and the readouts show gain, beamwidth, impedance and (using the frequency slider) its real physical size. Start with the monopole, then the Yagi: slide the number of elements and watch the beam tighten.</p>
+<div data-widget="antenna-zoo"></div>
+
+<h2 id="families" data-short="The families">The families, and why they look the way they do</h2>
+<h3>1 · Omnidirectional wire antennas</h3>
+<p><strong>Dipole, monopole, folded dipole, whip.</strong> Radiate equally in all horizontal directions but not up or down (a doughnut). Ideal for broadcasting and mobile communication, where the other end may be anywhere. Gain 2–5 dBi at most. Everything you can build from a piece of wire at one wavelength or less.</p>
+<h3>2 · Loops: the magnetic antenna</h3>
+<p>A small loop responds to the magnetic field of a wave (Faraday: chapter 3), so it is largely deaf to local electric noise, which is why direction-finders, AM radios (the ferrite rod) and RFID readers use them. A <em>large</em> loop (circumference ≈ λ) behaves like a directional antenna (about 3 dBi) whose maximum is perpendicular to the loop.</p>
+<h3>3 · Parasitic arrays: Yagi–Uda and log-periodic</h3>
+<p>Hidetsugu Yagi and Shintaro Uda (1926) noticed that a <em>passive</em> rod near a driven element is excited by it and re-radiates with a phase set by its length. A slightly <em>longer</em> rod (the reflector) lags in phase and pushes the radiation forward; a slightly <em>shorter</em> one (a director) leads and draws it forward. Add several directors and the beam sharpens to as much as 12–15 dBi. The price is bandwidth of a few percent. If you need many frequencies at once, the <strong>log-periodic dipole array</strong> (LPDA) is a chain of dipoles whose length and spacing grow by a constant ratio: at each frequency a “resonant band” of dipoles acts like a Yagi, and 10:1 bandwidth is possible at 7–9 dBi gain.</p>
+<h3>4 · Circular polarisation: the helix</h3>
+<p>A wire wound as a corkscrew one wavelength per turn radiates along its axis in “axial mode”, producing circular polarisation with gain growing with the number of turns, about 10.8 dBi + 10 log(N/4). It is the choice for satellite links (no polarisation alignment), amateur satellite tracking and deep-space telemetry.</p>
+<h3>5 · Planar antennas: patch, slot, PIFA</h3>
+<p>Etch a copper rectangle on a circuit board: you have a <strong>patch</strong>. It is resonant when its length is half a wavelength <em>in the dielectric</em>, so high-permittivity boards shrink it. Gain is 6–8 dBi, the beam is broad, and bandwidth is small (a few percent). Phones use a variant called the <strong>PIFA</strong> (planar inverted-F antenna), tucked into a few cm³ and often tuned electronically across bands. GPS and Wi-Fi antennas in your laptop are patches or printed inverted-F designs. A <strong>slot</strong> is the complement of a dipole: a narrow slit in a metal sheet, which radiates like a dipole with $\vec E$ and $\vec H$ swapped (Babinet’s principle); aircraft use flush slots.</p>
+<h3>6 · Aperture antennas: horn and dish</h3>
+<p>At microwave frequencies the natural antenna is a hole that the wave leaves through. A flared waveguide, the <strong>horn</strong>, is wideband and predictable ($G=\eta4\pi A/\lambda^2$), so it is used as a calibration standard and as the feed of a reflector. A <strong>parabolic dish</strong> collects the whole wave front over its aperture and focuses it on a small feed. Its beamwidth is about $70\lambda/D$ degrees and gain $\eta(\pi D/\lambda)^2$. Use the dish widget below to see the geometry and the effect of surface errors.</p>
+<div data-widget="dish"></div>
+<div class="callout"><span class="ct">What the numbers say</span>A 60 cm satellite-TV dish at 12 GHz: $D/\lambda=24$, gain ≈ 36 dBi, beamwidth ≈ 3°. That is why dishes must be pointed accurately at a geostationary satellite. A 70 m deep-space dish at 8.4 GHz has 74 dBi and a beam only about 0.04° wide, a fourteenth of the Moon’s apparent diameter. Surface roughness matters once it approaches λ/16: for 8.4 GHz (λ = 3.6 cm) that is 2 mm over a 70 m dish.</div>
+<h3>7 · Arrays: many antennas working together</h3>
+<p>Identical elements fed with controlled phases form a beam whose direction can be changed <em>electronically</em>. That is the phased array of chapters 18–19: the same idea as a Yagi, but with every element driven. The last widget in the zoo selection lets you steer one.</p>
+
+<h2 id="size" data-short="Size scales with wavelength">Size always scales with wavelength</h2>
+<p>An antenna’s shape only depends on its size <em>in wavelengths</em>. So the same design works at any frequency if you scale it up or down. Compare a half-wave dipole across the radio world:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Use</th><th class="num">Frequency</th><th class="num">λ</th><th class="num">Half-wave dipole</th></tr>
+<tr><td>Submarine ELF</td><td class="num">76 Hz</td><td class="num">3945 km</td><td class="num">≈ 1900 km</td></tr>
+<tr><td>AM radio</td><td class="num">1 MHz</td><td class="num">300 m</td><td class="num">≈ 142 m</td></tr>
+<tr><td>Ham 40 m band</td><td class="num">7.1 MHz</td><td class="num">42 m</td><td class="num">≈ 20 m</td></tr>
+<tr><td>FM broadcast</td><td class="num">100 MHz</td><td class="num">3 m</td><td class="num">≈ 1.4 m</td></tr>
+<tr><td>GSM / 4G (900 MHz)</td><td class="num">900 MHz</td><td class="num">33 cm</td><td class="num">≈ 16 cm</td></tr>
+<tr><td>Wi-Fi 2.4 GHz</td><td class="num">2.4 GHz</td><td class="num">12.5 cm</td><td class="num">≈ 5.9 cm</td></tr>
+<tr><td>Automotive radar</td><td class="num">77 GHz</td><td class="num">3.9 mm</td><td class="num">≈ 1.8 mm</td></tr>
+<tr><td>Fibre optics (light)</td><td class="num">193 THz</td><td class="num">1.55 µm</td><td class="num">≈ 0.7 µm</td></tr>
+</table></div>
+<p>That last row is real: optical “nano-antennas” of gold, a few hundred nanometres long, are made and used to couple light into tiny detectors. The principle is identical.</p>
+
+<h2 id="choose" data-short="Choosing">How to choose an antenna</h2>
+<div class="table-wrap"><table class="data">
+<tr><th>You need…</th><th>Choose</th><th>You pay with…</th></tr>
+<tr><td>All directions, simple, cheap</td><td>Dipole / monopole / whip</td><td>Low gain (2–5 dBi)</td></tr>
+<tr><td>To point at one station, narrow band</td><td>Yagi–Uda</td><td>Size, bandwidth, you must aim it</td></tr>
+<tr><td>Many frequencies, modest gain</td><td>Log-periodic</td><td>Gain per size</td></tr>
+<tr><td>Circular polarisation</td><td>Helix, crossed dipoles, patch with two feeds</td><td>Complexity</td></tr>
+<tr><td>Thin, printed, in a product</td><td>Patch / PIFA / slot</td><td>Bandwidth, efficiency</td></tr>
+<tr><td>Very high gain at microwaves</td><td>Dish / horn / lens</td><td>Size, aiming</td></tr>
+<tr><td>Fast beam steering, many beams</td><td>Phased array</td><td>Cost, power, complexity</td></tr>
+<tr><td>A tiny antenna at low frequency</td><td>Loop, ferrite rod</td><td>Efficiency and bandwidth (see chapter 8)</td></tr>
+</table></div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Wire antennas: omnidirectional, low gain. Parasitic and log-periodic arrays: directional, 7–15 dBi. Helix: circular polarisation.</li>
+<li>Planar antennas are thin and printable but narrow-band; aperture antennas (horn, dish) give high gain by being many wavelengths wide.</li>
+<li>Beamwidth ≈ $70\lambda/D$°, gain ≈ $\eta(\pi D/\lambda)^2$: every doubling of diameter gives +6 dB and halves the beam.</li>
+<li>Antenna sizes scale with λ: from 1900 km at 76 Hz to 0.7 µm for light.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What do you gain when you double the diameter of a dish (same frequency)?","o":["+3 dB gain, half the beamwidth","+6 dB gain, half the beamwidth","+12 dB gain, quarter the beamwidth","nothing"],"a":1,"why":"Gain ∝ D² so doubling D multiplies gain by 4 (+6 dB); beamwidth ∝ 1/D so it halves."},
+ {"q":"Why do many phones and GPS receivers use patch or PIFA antennas?","o":["They have the highest gain","They are thin, printable and fit inside a product","They work at all frequencies","They need no ground plane"],"a":1,"why":"Planar antennas are flat and cheap to make with the circuit board, at the cost of bandwidth."},
+ {"q":"In a Yagi–Uda antenna, what does the reflector do?","o":["It receives the signal","It is slightly longer than the driven element and re-radiates with a phase that pushes the beam forward","It absorbs the power behind","It is the feed"],"a":1,"why":"The reflector is a passive rod; its current lags and the combination sends radiation forward, away from itself."},
+ {"q":"Which antenna would you pick to receive signals from a satellite whose polarisation orientation changes?","o":["Short dipole","Helix (circular polarisation)","Horn","Loop"],"a":1,"why":"A circularly polarised helix receives any linear polarisation orientation with a fixed 3 dB loss."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Antennas get a great deal more interesting once you use them in the real world: ham radio, software-defined radios, bouncing signals off the ionosphere around the curve of the Earth, and even heating the ionosphere itself. Chapter 11a.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

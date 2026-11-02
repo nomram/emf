@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16b · Space weather: solar flares, storms &amp; the Van Allen belts — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Solar flares, CMEs, geomagnetic storms and induced currents, radio blackouts, GNSS effects, the Van Allen radiation belts, and how nuclear EMPs compare with natural space weather.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 16b · EMP</span>
+<h1>Space weather: solar flares, storms &amp; the Van Allen belts</h1>
+<div class="meta"><span>~45 min</span><span>3 widgets</span><span>the natural EMP</span></div>
+<p class="lede">An EMP does not need a bomb. The Sun produces its own electromagnetic pulses (a flash of X-rays in minutes, a cloud of magnetised plasma in days) and Earth’s magnetic field captures energetic particles in two doughnut-shaped belts around the planet. This chapter links the natural “space weather” to the man-made pulses of chapter 16: same physics, different time scales.</p>
+
+<h2 id="sun" data-short="The Sun's outbursts">The Sun’s three kinds of outburst</h2>
+<table class="data">
+<tr><th>Event</th><th>What it is</th><th>Arrives after</th><th>Effects</th></tr>
+<tr><td><strong>Solar flare</strong></td><td>Sudden release of magnetic energy in an active region: X-rays, UV, radio bursts</td><td>8 min 20 s (the speed of light)</td><td>Ionises the sunlit ionosphere: <strong>HF radio blackout</strong> (R-scale), GNSS and LF navigation degradation</td></tr>
+<tr><td><strong>Solar energetic particles</strong></td><td>Protons and ions accelerated by flares and CME shocks</td><td>15 min to hours</td><td><strong>Radiation storm</strong> (S-scale): astronaut dose, satellite electronics (single-event upsets), polar HF absorption, high-altitude flights</td></tr>
+<tr><td><strong>Coronal mass ejection (CME)</strong></td><td>A billion-tonne cloud of magnetised plasma</td><td>15 hours to 3 days (300–3000 km/s)</td><td><strong>Geomagnetic storm</strong> (G-scale): aurora, induced currents in power lines, satellite drag, GNSS errors</td></tr>
+</table>
+<p>The three differ by <em>how fast they travel</em>: a flare’s light at $c$, particles at a large fraction of $c$, plasma at roughly 1/300 of $c$. A single active region can produce all three in sequence. The widget shows what a flare of a chosen class does, and the Sun–Earth timeline:</p>
+<div data-widget="solar-flare"></div>
+<h3 id="scales">NOAA’s three scales</h3>
+<div class="table-wrap"><table class="data">
+<tr><th>Scale</th><th>Driven by</th><th>Levels</th></tr>
+<tr><td><strong>R</strong>: radio blackouts</td><td>Peak X-ray flux of the flare</td><td>R1 (M1) · R2 (M5) · R3 (X1) · R4 (X10) · R5 (X20)</td></tr>
+<tr><td><strong>S</strong>: solar radiation storms</td><td>Flux of ≥ 10 MeV protons</td><td>S1 (minor) … S5 (extreme)</td></tr>
+<tr><td><strong>G</strong>: geomagnetic storms</td><td>Planetary Kp index</td><td>G1 (Kp 5) · G2 (Kp 6) · G3 (Kp 7) · G4 (Kp 8) · G5 (Kp 9)</td></tr>
+</table></div>
+<p>One event can be R3, then S2, then G4 over a few days. Forecasts come from the NOAA Space Weather Prediction Center and from agencies and institutes in Europe (including SMHI and ESA’s space weather service), using satellites at the L1 point (a million miles upstream) that give about 15–60 minutes of warning of the actual solar-wind arrival, and the coronagraph images of a CME that give 1–3 days.</p>
+
+<h2 id="radio" data-short="What it does to radio">What it does to radio and navigation</h2>
+<ul>
+<li><strong>HF blackouts (flares).</strong> X-rays raise the electron density in the D layer (chapter 11a), which absorbs shortwave. The effect is strongest at midday and fades with the flare (minutes to hours). VHF and above are essentially unaffected. Aircraft on oceanic routes that rely on HF have to use satellite links.</li>
+<li><strong>Ionospheric scintillation and total-electron-content changes (storms).</strong> GNSS signals cross the ionosphere (chapter 11a, $f_p$): storms make the electron content vary rapidly, causing errors of metres or even loss of lock; precision farming, surveying and aviation approaches are affected. Starlink and other low-orbit satellites feel increased atmospheric drag as storms heat and expand the upper atmosphere; in February 2022 a moderate storm caused the loss of dozens of newly launched Starlink satellites before they could raise their orbit.</li>
+<li><strong>Polar-cap absorption (proton storms)</strong> blocks HF routes over the poles; polar flights are rerouted.</li>
+<li><strong>Radar and radio astronomy</strong> see solar radio bursts as interference in the 10 cm–1 m range (a flare is a powerful radio source).</li>
+</ul>
+
+<h2 id="storm" data-short="Storms and power grids">Geomagnetic storms and the power grid</h2>
+<p>When a CME arrives it compresses the magnetosphere and, if its magnetic field points southward, connects to Earth’s field and pours energy into it. Rings of current around the Earth and great currents in the aurora change the ground magnetic field by hundreds of nanotesla in minutes: this is the <strong>Dst index</strong>. By Faraday’s law (chapter 3) a changing magnetic field induces an electric field in the ground, and long conductors respond with <strong>geomagnetically induced currents</strong> (GIC): quasi-DC current in power lines, transformer neutrals and pipelines. It is exactly the physics of the slow E3 pulse of chapter 16.</p>
+<div data-widget="storm-gic"></div>
+<p>Three well-documented events: the <strong>Carrington event</strong> of 1859 (telegraph systems failed worldwide); the <strong>March 1989</strong> storm that collapsed the Hydro-Québec grid in about 90 seconds; and the <strong>October 2003</strong> “Halloween” storms that caused a short blackout in Malmö in southern Sweden and damaged transformers in South Africa. The strong storm of May 2024 produced auroras at low latitudes and GNSS disturbances, but no widespread grid failure, a sign that operators and forecasting have improved. On 23 July 2012 a Carrington-class CME passed through Earth’s orbit and missed the planet by about nine days.</p>
+
+<h2 id="vanallen" data-short="The Van Allen belts">The Van Allen belts</h2>
+<p>Earth’s magnetic field is approximately a dipole. A charged particle in it does three things at once (chapter 2): it <strong>gyrates</strong> around the field line, <strong>bounces</strong> between mirror points near the poles where the field is stronger, and <strong>drifts</strong> around the Earth. Particles with suitable pitch angles stay trapped for months to years: the <strong>Van Allen radiation belts</strong>, discovered in 1958 by James Van Allen’s instruments on Explorer 1. Two main populations:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Belt</th><th>Where (equatorial, approximate)</th><th>Particles</th><th>Behaviour</th></tr>
+<tr><td><strong>Inner belt</strong></td><td>≈ 1000–6000 km altitude (L ≈ 1.5–2.5), dips to ≈ 200 km over the South Atlantic Anomaly</td><td>Protons of tens to hundreds of MeV, from cosmic-ray collisions with the atmosphere</td><td>Stable over years</td></tr>
+<tr><td><strong>Slot</strong></td><td>≈ 10 000–15 000 km (L ≈ 2.5–3.5)</td><td>Few energetic particles</td><td>Fills during big storms</td></tr>
+<tr><td><strong>Outer belt</strong></td><td>≈ 13 000–40 000+ km (L ≈ 3.5–7)</td><td>Electrons up to several MeV</td><td>Swells and collapses within hours to days with storms</td></tr>
+</table></div>
+<p>(Sources give somewhat different boundaries; the belts move with solar activity.) Explore a field line and a particle:</p>
+<div data-widget="van-allen"></div>
+<h3 id="orbits">Orbits and radiation</h3>
+<ul>
+<li><strong>Low orbit</strong> (ISS at ≈ 420 km, Starlink at ≈ 550 km) lies below the belts, except over the <strong>South Atlantic Anomaly</strong>, where Earth’s tilted, off-centre dipole is weak and the inner belt reaches down to the satellites: spacecraft there see single-event upsets and astronauts see flashes in their eyes.</li>
+<li><strong>Navigation satellites</strong> (GPS at 20 200 km altitude, Galileo at 23 200 km) <em>orbit inside the outer belt</em>, so they carry radiation-hardened electronics and shielding.</li>
+<li><strong>Geostationary satellites</strong> (35 786 km) sit near the outer edge and see electron storms; deep-dielectric charging has killed satellites.</li>
+<li><strong>Crewed missions to the Moon</strong> cross the belts quickly: the dose is modest, which is how Apollo astronauts passed them safely, though a long stay in the belts would not be.</li>
+</ul>
+<div class="callout danger"><span class="ct">When a bomb fills the belts</span><p>In 1958 (Operation Argus) and on 9 July 1962 (Starfish Prime, a 1.4 megaton explosion 400 km above the Pacific) nuclear detonations injected electrons into the belts. The 1962 artificial belt persisted for months to years and is said to have damaged or destroyed as many as a third of the satellites then in low orbit, among them Telstar 1, launched the day after the blast, which failed in 1963. It is also the event that produced the HEMP effects seen in Hawaii, 1400 km away (chapter 16). Natural belts can be as hazardous to satellites during storms, but a nuclear injection is different: it is sudden, hard to forecast and long-lived.</p></div>
+
+<h2 id="compare" data-short="Natural vs nuclear">Natural space weather versus a nuclear EMP</h2>
+<div class="table-wrap"><table class="data">
+<tr><th></th><th>Solar flare + CME</th><th>Nuclear HEMP</th></tr>
+<tr><td>Fast pulse (E1-like: ns–µs)</td><td><strong>No</strong>: the Sun gives no nanosecond pulse at the ground (solar radio bursts add noise in the GHz band)</td><td>Yes: E1, ≈ 50 kV/m</td></tr>
+<tr><td>Intermediate (E2-like)</td><td>No</td><td>Yes (lightning-like)</td></tr>
+<tr><td>Slow (E3-like: seconds–minutes)</td><td><strong>Yes</strong>: geomagnetic storms, GIC of tens to hundreds of amps in extreme cases</td><td>Yes: E3 with a larger, faster, more localised disturbance</td></tr>
+<tr><td>Radiation belts</td><td>Variable, with storms</td><td>Lasting artificial belt (months–years)</td></tr>
+<tr><td>Warning</td><td>Hours to days (CME), minutes (flare)</td><td>None</td></tr>
+<tr><td>Frequency</td><td>Several per solar cycle (11 years)</td><td>—</td></tr>
+</table></div>
+<p>The practical consequence is an engineering one: <strong>power-grid hardening against GIC</strong> (neutral-blocking devices, transformer designs, operating procedures) addresses both natural storms and the slow component of HEMP; <strong>E1 protection</strong> (shielding, filtering, surge arresters, chapters 16 and 16a) addresses only the human-made fast pulse and ordinary lightning.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Flares reach Earth at $c$ (8 min), energetic protons in minutes to hours, CMEs in 15–72 hours.</li>
+<li>Flare class (A…X) and NOAA scales R, S and G summarise radio-blackout, radiation and geomagnetic effects.</li>
+<li>Flare X-rays ionise the D layer and black out HF; storms perturb the ionosphere and GNSS and induce GIC in power lines: $I=EL/R$.</li>
+<li>The Van Allen belts are particles trapped in Earth’s dipole field (gyration, bounce, drift): inner protons, outer electrons, with a slot between.</li>
+<li>GNSS satellites orbit within the outer belt; the SAA brings the inner belt down to LEO.</li>
+<li>Nuclear bursts can inject particles into the belts (Argus, Starfish Prime). Space weather resembles E3 but not E1.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Which part of a solar eruption arrives at Earth first, and how soon?","o":["The CME plasma, after about 15 minutes","The X-rays and ultraviolet light, after 8 minutes 20 seconds","Protons, after a day","The aurora, after an hour"],"a":1,"why":"Electromagnetic radiation travels at c over 1 AU in 499 seconds."},
+ {"q":"A flare peaks at X1. Which NOAA radio-blackout level is that?","o":["R1","R2","R3","R5"],"a":2,"why":"R1 = M1, R2 = M5, R3 = X1, R4 = X10, R5 = X20."},
+ {"q":"A geoelectric field of 8 V/km acts along a 400 km line with a loop resistance of 4 Ω. What is the approximate GIC?","o":["8 A","80 A","800 A","8000 A"],"a":2,"why":"I = EL/R = 8 × 400 / 4 = 800 A (an upper-end planning scenario)."},
+ {"q":"Which satellites orbit inside the outer Van Allen belt?","o":["The ISS and Starlink","GPS and Galileo navigation satellites","Geostationary satellites only","None"],"a":1,"why":"GPS (≈ 20 200 km) and Galileo (≈ 23 200 km) are in the heart of the outer electron belt and need radiation hardening."},
+ {"q":"What does a solar storm NOT produce at ground level that a nuclear HEMP does?","o":["A slow, quasi-DC geoelectric field","A nanosecond-scale E1 pulse of tens of kV/m","Aurora","Induced currents in pipelines"],"a":1,"why":"Natural space weather has the slow E3-like component, not an E1."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Chapter 17 brings the story home to the kitchen: the microwave oven, a cage that keeps a large field in, and why it is not an EMP.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

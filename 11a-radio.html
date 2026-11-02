@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11a · Radio in practice: ham, SDR &amp; skywave — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="How radios work, amateur radio, software-defined radio, bouncing signals off the ionosphere and around the curved Earth, and the HAARP ionospheric research array.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 11a · Antennas</span>
+<h1>Radio in practice: ham, SDR &amp; skywave</h1>
+<div class="meta"><span>~45 min</span><span>4 widgets</span><span>radios, ham radio, SDR, the curve of the Earth, the ionosphere, HAARP</span></div>
+<p class="lede">You now have antennas, lines and links. This chapter puts them in a radio, then does what every radio amateur does: throws a signal at the sky and sees how far it goes. It ends with the best-known (and most misunderstood) research antenna in the world.</p>
+
+<h2 id="radio" data-short="Inside a radio">What is inside a radio?</h2>
+<p>All radios, from a garage-door fob to a deep-space transponder, have the same skeleton. <strong>Transmitter:</strong> an oscillator makes a clean carrier at frequency $f_c$; a <em>modulator</em> imprints the message on it; a power amplifier boosts it; a filter removes harmonics; the matching network and the line feed the antenna. <strong>Receiver:</strong> the antenna picks up microvolts among a sea of other signals; a filter selects the band; a low-noise amplifier (LNA) boosts it without adding much noise; then a <em>mixer</em> shifts it to a fixed lower frequency, where good, sharp filters are easy; a <em>demodulator</em> recovers the message.</p>
+<h3 id="mod">Modulation: putting the message on the carrier</h3>
+<table class="data">
+<tr><th>Type</th><th>What changes</th><th>Bandwidth</th><th>Used for</th></tr>
+<tr><td>CW (Morse)</td><td>carrier on/off</td><td>~100–500 Hz</td><td>Weak-signal ham radio: the narrower the filter, the less noise gets in</td></tr>
+<tr><td>AM</td><td>carrier <em>amplitude</em>: $s=(1+m\cos\omega_mt)\cos\omega_ct$</td><td>$2f_m$ (≈ 10 kHz for broadcast)</td><td>AM radio, aircraft voice</td></tr>
+<tr><td>SSB</td><td>only one sideband sent, carrier suppressed</td><td>≈ 2.7 kHz</td><td>HF voice: 3× the range of AM for the same power</td></tr>
+<tr><td>FM</td><td>carrier <em>frequency</em> follows the message</td><td>Carson: $2(\Delta f+f_m)$, 180–200 kHz for broadcast</td><td>FM radio, walkie-talkies: immune to amplitude noise, high quality</td></tr>
+<tr><td>PSK / QAM / OFDM</td><td>phase and amplitude steps coding bits</td><td>kHz → hundreds of MHz</td><td>Wi-Fi, 4G/5G, digital TV, GPS (BPSK), FT8</td></tr>
+</table>
+<p>The most useful picture of any of these is in <strong>I/Q</strong> form: the signal is a point rotating in a plane, with $I$ the in-phase component and $Q$ the quadrature component. AM changes the radius, FM the speed of rotation, PSK jumps the angle. The SDR widget below shows exactly that.</p>
+<div class="callout"><span class="ct">Superheterodyne: the trick</span>Multiply two frequencies $f_1$ and $f_2$ in a mixer and you get $f_1\pm f_2$. Mix every station against a tunable local oscillator and you can convert <em>any</em> station to the same intermediate frequency (IF, e.g. 455 kHz for AM, 10.7 MHz for FM), where one fixed, very selective filter does the work. Edwin Armstrong’s 1918 superheterodyne receiver is in nearly every radio built since. A software-defined radio just replaces the IF and everything after it with numbers.</div>
+
+<h2 id="ham" data-short="Ham radio">Amateur (“ham”) radio</h2>
+<p>Amateur radio is a licensed hobby with its own slices of spectrum, from 136 kHz up to hundreds of GHz, where individuals may build and operate transmitters. You take an exam on technical knowledge, operating practice and regulations, and receive a call sign (such as W1AW in the US, G… in the UK, SM… in Sweden, DL… in Germany). Power limits vary by country and licence class, typically 100 W to 1 kW or more on HF. Hams are the people who discovered that the “useless” shortwave bands bounce around the world, and still run experiments commercial radio doesn’t: weak-signal digital modes, moonbounce, satellites, repeater networks, and emergency communications when the telephone system fails.</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Band (wavelength)</th><th>Frequency</th><th>Character</th></tr>
+<tr><td>160 m</td><td>1.8–2 MHz</td><td>“Top band”: night-time long distance, huge antennas</td></tr>
+<tr><td>80/40 m</td><td>3.5–4 / 7–7.3 MHz</td><td>Night-time DX, regional by day, workhorse nets</td></tr>
+<tr><td>20 m</td><td>14 MHz</td><td>The DX band: worldwide contacts, day and early evening</td></tr>
+<tr><td>10 m</td><td>28 MHz</td><td>Opens at solar maximum; even low power goes round the world</td></tr>
+<tr><td>6 m / 2 m</td><td>50 / 144 MHz</td><td>Line of sight, plus sporadic-E, meteor scatter, tropo ducting, moonbounce</td></tr>
+<tr><td>70 cm</td><td>430–440 MHz</td><td>Repeaters, satellites, handhelds</td></tr>
+<tr><td>13 cm, 3 cm…</td><td>2.3 GHz and up</td><td>Microwave experimenters; EME with dishes</td></tr>
+</table></div>
+<p>A flavour of what hams do with physics from this guide: <strong>FT8</strong>, a digital mode that decodes at a signal-to-noise ratio of −21 dB (in 2.5 kHz): a 100 W signal and a wire in a tree can reach the other side of the world (chapter 9’s link budget plus lots of coding). <strong>EME</strong> (“moonbounce”) bounces a signal off the Moon: the path loss is more than 250 dB, so it takes dishes or big Yagi arrays and sensitive receivers. And <strong>amateur satellites</strong> (OSCAR) relay conversations from low orbit.</p>
+
+<h2 id="curve" data-short="The curved Earth">The curve of the Earth</h2>
+<p>Above about 30 MHz a radio wave goes straight, but the Earth does not. For two antennas at heights $h_1$ and $h_2$ metres, the line of sight lasts for $d\approx3.57(\sqrt{h_1}+\sqrt{h_2})$ km geometrically, and about 15 % further (4.12 instead of 3.57) in a standard atmosphere, which bends rays slightly toward the ground (the effective Earth radius is 4/3 of the real one). Try the examples below: a handheld to a handheld manages about 12 km; a 300 m FM tower reaches a car 76 km away; an airliner at 10 km altitude sees (and is seen from) about 410 km.</p>
+<div data-widget="radio-horizon"></div>
+<p>The horizon can be beaten in several ways, all used by hams and professionals:</p>
+<ul>
+<li><strong>Diffraction and ground wave:</strong> below about 3 MHz, waves cling to the conducting ground and follow the curvature (AM radio by day, VLF/LF navigation).</li>
+<li><strong>Tropospheric ducting:</strong> warm air over cool air bends VHF/UHF back toward the ground; paths of 500–2000 km appear on FM and TV during high-pressure summer weather.</li>
+<li><strong>Tropospheric scatter:</strong> turbulence scatters a little of a powerful microwave signal over 300–600 km (used by military and oil-rig links).</li>
+<li><strong>Meteor scatter and sporadic-E:</strong> ionised meteor trails and dense clouds in the E layer reflect VHF for seconds to hours.</li>
+<li><strong>The ionosphere (HF skywave):</strong> the next section.</li>
+<li><strong>Relays:</strong> repeaters, satellites, and the Moon.</li>
+</ul>
+
+<h2 id="sky" data-short="Bouncing off the sky">Bouncing off the sky: the ionosphere</h2>
+<p>High above us, the Sun’s ultraviolet and X-rays strip electrons from atoms and make a thin plasma of free electrons and ions between about 60 and 600 km. It forms layers: <strong>D</strong> (60–90 km, daytime only, dense with collisions, absorbs the low HF), <strong>E</strong> (≈ 110 km), and <strong>F</strong> (≈ 200–400 km, splits into F1 and F2 by day, the main reflector). A free-electron gas has a <strong>plasma frequency</strong></p>
+<div class="eq">$$f_p=\frac{1}{2\pi}\sqrt{\frac{N_ee^2}{\varepsilon_0m_e}}\approx8.98\sqrt{N_e}\ \text{Hz}\qquad(N_e\text{ in m}^{-3})$$</div>
+<p>Below $f_p$ a wave cannot enter the plasma: it is reflected (more precisely, refracted back). Above it the wave passes through, slowed. For the F2 layer $N_e\approx10^{11}$–$10^{12}$ m⁻³, so $f_p\approx3$–9 MHz at the peak. For a slanted ray the layer behaves as if its critical frequency were multiplied by the secant of the incidence angle, so a low-angle ray can be reflected at up to ≈ <strong>3.4×</strong> the critical frequency: the <strong>MUF</strong> (maximum usable frequency). Choose the frequency under the MUF and over the D-layer’s absorption (the lowest usable, LUF) and you get a skywave path:</p>
+<div data-widget="skywave"></div>
+<p>Playing with it you will discover the rules of thumb every shortwave listener knows: low-angle rays go farther; higher frequencies reach farther until they escape; by night the D layer disappears so the low bands (80 m, 160 m, AM broadcast) open up; at solar maximum the layers get denser and 10 m opens for worldwide contacts. The signal can come down, bounce off the ground or sea, and go up again: <strong>multi-hop</strong> propagation circles the globe. The <em>skip zone</em> is a silent ring where neither ground wave nor skywave arrives. Ionospheric weather follows the Sun: an 11-year sunspot cycle, flares that produce sudden radio blackouts on the day side, and geomagnetic storms that make aurorae and disturb the F layer.</p>
+
+<h2 id="sdr" data-short="Software-defined radio">Software-defined radio</h2>
+<p>Take the superheterodyne receiver and replace everything after the first mixer with a computer. An <strong>SDR</strong> has an antenna, an amplifier, a mixer that shifts a chosen slice of spectrum to zero frequency (a complex baseband signal, $I+jQ$), and an analog-to-digital converter that samples it at $f_s$ complex samples per second. Everything else (the FFT that draws the spectrum, tuning, filtering, demodulation of AM, FM, SSB, digital modes, decoding aircraft and weather satellites) is software. Because $I/Q$ sampling at $f_s$ captures a bandwidth of $f_s$ (not $f_s/2$), a $2.4$ MS/s radio sees a 2.4 MHz-wide window at once.</p>
+<p>Since 2012 a $30 USB TV-tuner stick (the RTL-SDR) has turned every computer into a wideband receiver, opening a hobby of listening to aircraft ADS-B, weather satellites, trunked radio, ham bands, pagers and the sky. More expensive units transmit too (HackRF, PlutoSDR, USRP) and are used by radio astronomers, researchers and engineers prototyping 5G. Try one here: tune the demo to an FM band, the air band, a ham band and the 2.4 GHz band (watch what the microwave oven does to Wi-Fi); then switch off the anti-alias filter and watch the ghost stations.</p>
+<div data-widget="sdr-demo"></div>
+<div class="callout violet"><span class="ct">The three things to know about every SDR</span><ul>
+<li><strong>Frequency range:</strong> what the tuner can reach (RTL-SDR 24–1766 MHz; add an upconverter for HF).</li>
+<li><strong>Instantaneous bandwidth:</strong> equals the sample rate: 2.4 MHz, 20 MHz, 61 MHz…</li>
+<li><strong>Dynamic range:</strong> ≈ 6 dB per ADC bit: 8 bits ≈ 48 dB. A strong FM station can overload a cheap SDR and create phantom signals everywhere; filters (FM trap, band-pass) fix it.</li></ul></div>
+<p>Legal note: in most countries receiving is permitted but decrypting or acting on private communications is not; transmitting needs a licence for almost any frequency except low-power licence-exempt devices. Check your local rules.</p>
+
+<h2 id="haarp" data-short="HAARP">HAARP: an array that heats the sky</h2>
+<p>The <strong>High-frequency Active Auroral Research Program</strong> (HAARP) in Gakona, Alaska, is an ionospheric research facility built in the 1990s and operated since 2015 by the University of Alaska Fairbanks. Its antenna is a <strong>phased array</strong> (chapter 18) of 180 crossed dipoles on a 12×15 grid covering about 40 acres, fed by a 3.6 MW transmitter system and tunable from 2.7 to 10 MHz. Its beam can be steered electronically and concentrated overhead: effective radiated powers of several hundred megawatts to a few gigawatts, comparable with powerful radars.</p>
+<p>What is it for? Scientists tune it slightly <em>below</em> the local plasma frequency and aim it straight up. The wave is absorbed in a patch of the F2 layer and gives its energy to the free electrons, <strong>warming them by a few hundred kelvin</strong>. That tiny, controlled disturbance lets researchers study how the ionosphere behaves (and so how it affects GPS, HF links and radar), produces faint artificial airglow, and generates plasma waves. A second trick ties back to chapter 8: HAARP can modulate the natural electric current in the aurora (the auroral electrojet) at <strong>ELF frequencies</strong> (a few Hz to kHz), making the current itself an <em>ELF/VLF antenna</em> in the sky, thousands of times bigger than anything on the ground. The calculator below uses public figures.</p>
+<div data-widget="haarp"></div>
+<div class="callout danger"><span class="ct">Separating the physics from the rumours</span><p>HAARP is the subject of many claims (weather control, earthquakes, mind control). The measurements say otherwise. The power density it delivers to the ionosphere is a few <em>thousandths</em> of a watt per square metre, about 1/200 000 of sunlight; the energy per second a hurricane exchanges is ten orders of magnitude larger; and it is absorbed by an extremely thin gas (about a million electrons per cubic centimetre, against 10¹⁹ molecules per cubic centimetre of sea-level air) 200 km up, not in the weather below. Similar heaters operate openly in Norway (EISCAT, Tromsø) and Russia (Sura), and their results are published. It is a sensitive scientific instrument, and a useful example of what an array can do.</p></div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Every radio is a modulator + oscillator + amplifier + antenna (transmit) or antenna + filter + LNA + mixer + demodulator (receive). AM, FM, SSB, CW and digital modes differ in what changes and how much bandwidth they use.</li>
+<li>Amateur radio is a licensed hobby across the spectrum; it teaches propagation, antennas and weak-signal techniques hands-on.</li>
+<li>Line of sight ends at the radio horizon $\approx4.12(\sqrt{h_1}+\sqrt{h_2})$ km; ducting, scatter and the ionosphere go beyond it.</li>
+<li>The ionosphere reflects HF below the plasma frequency $f_p=8.98\sqrt{N_e}$ (times sec φ for slanted rays): MUF, LUF, skip zone and multi-hop.</li>
+<li>An SDR samples a slice of spectrum as wide as its sample rate and does the rest in software; watch for aliasing and overload.</li>
+<li>HAARP is a research phased array that gently heats the F layer; its power density is tiny compared with sunlight.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Why does AM radio often travel much farther at night?","o":["Transmitters run more power","The D layer disappears at night, so the signal is no longer absorbed and is reflected by the F layer","The Earth is rotating","There is less noise from the Sun"],"a":1,"why":"The D layer absorbs low-HF/MF in the day. At night it fades and skywave from the F layer carries the signal far away."},
+ {"q":"A ray hits the F2 layer at a shallow angle. How does the maximum frequency it can be reflected at compare with the layer’s critical frequency?","o":["Lower","The same","Higher (by sec φ, up to ≈ 3.4×)","It cannot be reflected at all"],"a":2,"why":"Oblique incidence lets a higher frequency be turned back: MUF = f_c sec φ."},
+ {"q":"What sample rate must an SDR have to see a 10 MHz-wide slice of spectrum at once?","o":["5 MS/s","10 MS/s (complex I/Q samples)","20 MS/s","100 MS/s"],"a":1,"why":"I/Q sampling at fs complex samples per second covers a bandwidth of fs."},
+ {"q":"Approximately how far is the radio horizon for two antennas at 30 m and 10 m height in a standard atmosphere?","o":["2 km","10 km","35 km","350 km"],"a":2,"why":"d ≈ 4.12(√30 + √10) = 4.12(5.48 + 3.16) ≈ 36 km."},
+ {"q":"What does HAARP do to the ionosphere?","o":["Controls the weather","Heats a patch of F-layer electrons by a few hundred kelvin for study","Creates earthquakes","Ionises the whole atmosphere"],"a":1,"why":"It deposits a tiny amount of energy (a fraction of a percent of sunlight) into the F2 layer, which scientists study."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>So far, our transmitters shouted into the sky and we listened for the signal. What if we listen for the <em>echo</em>? Part IV: radar, starting from a pulse, a clock and a speed of 3×10⁸ m/s.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

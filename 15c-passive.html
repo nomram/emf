@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15c · Passive radar and the Starlink question — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Bistatic and passive radar, forward scatter, and a feasibility calculation for using a satellite internet constellation such as Starlink as an illuminator of opportunity.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 15c · Radar</span>
+<h1>Passive radar and the Starlink question</h1>
+<div class="meta"><span>~30 min</span><span>1 widget</span><span>radar without a transmitter</span></div>
+<p class="lede">The most surprising kind of radar has no transmitter at all. It listens to radio and television stations, cell towers or satellites that are already on the air, and finds aircraft by the <em>echoes</em> of those signals. This chapter explains how it works, then looks at a claim that circulates on social media: that a mega-constellation like Starlink is a “giant radar”. The physics gives a more interesting and more careful answer.</p>
+
+<h2 id="bistatic" data-short="Bistatic and passive radar">Bistatic radar: transmitter and receiver apart</h2>
+<p>A <strong>monostatic</strong> radar has transmitter and receiver together. In a <strong>bistatic</strong> radar they are separated by a <em>baseline</em> $L$; the target at distances $R_t$ (from the transmitter) and $R_r$ (to the receiver) produces an echo whose power is</p>
+<div class="eq">$$P_r=\frac{P_tG_tG_r\lambda^2\sigma_b}{(4\pi)^3\,R_t^2\,R_r^2}$$</div>
+<p>(the monostatic equation with $R^4\to R_t^2R_r^2$ and a <strong>bistatic RCS</strong> $\sigma_b$). In a <strong>passive</strong> bistatic radar (also called passive coherent location, PCL) the transmitter is an <em>illuminator of opportunity</em> that the radar does not control: FM radio, digital TV (DVB-T), mobile networks, Wi-Fi, or satellites. The receiver has two channels: a <strong>reference channel</strong> pointing at the transmitter to capture the clean direct signal, and a <strong>surveillance channel</strong> pointing at the sky to catch echoes. The echo is detected by <strong>cross-correlating</strong> the two channels over many milliseconds to seconds: it appears as a peak at a time delay (a <em>bistatic range</em>, the extra path via the target) and a Doppler shift (the rate at which that path length changes).</p>
+<h3>Why anyone would bother</h3>
+<ul>
+<li><strong>No transmitter</strong>: cheap, no licence, nothing to detect or jam (the receiver emits nothing, chapter 15a).</li>
+<li><strong>Very long integration</strong> gives large processing gain, as for GPS: the wide signal bandwidth $B$ times the dwell time $T$ is the gain ($B\,T$).</li>
+<li><strong>Low-frequency illuminators</strong> (FM at 100 MHz, DAB, DVB-T at 500–800 MHz) have wavelengths comparable to aircraft size, where stealth shaping is weaker (chapter 15).</li>
+<li><strong>Multistatic</strong>: many transmitters and receivers give many viewpoints.</li>
+</ul>
+<h3>Limits</h3>
+<ul>
+<li>Waveform is not designed for radar: the signal’s <em>ambiguity function</em> may have ridges or high sidelobes, and the signal changes with the programme (for FM) or with the traffic (for cell networks).</li>
+<li>The direct signal is far stronger than the echo (by 80–120 dB) and has to be cancelled adaptively.</li>
+<li>Geometry is awkward: close to the baseline (target between transmitter and receiver) the range resolution vanishes, but the echo gets large (forward scatter).</li>
+</ul>
+<div class="callout violet"><span class="ct">Forward scatter</span>When the target crosses the line from transmitter to receiver, it casts a shadow, and the receiver sees a dip and a diffraction pattern. The bistatic RCS in this geometry is $\sigma_{fs}=4\pi A^2/\lambda^2$, where $A$ is the silhouette area: for a 10 m² silhouette at 12 GHz, that is ≈ 83 dBsm, thousands of times bigger than the monostatic value, and <em>independent of stealth shaping or absorbing coatings</em> (a shadow is a shadow). The price: it detects only inside a narrow “fence” (beamwidth ≈ $\lambda/\sqrt A$) along the baseline and gives no range, only presence.</div>
+
+<h2 id="starlink" data-short="The Starlink question">The Starlink question (a sidenote)</h2>
+<p>Every now and then a post goes viral (including on X/Twitter) saying that “Starlink satellites are secretly a giant radar” or that they can “see stealth aircraft”. Let us be careful about what is established and what is not. <strong>I cannot verify any specific tweet</strong>; here are the facts that the open literature supports:</p>
+<ul>
+<li><strong>What Starlink radiates.</strong> The satellites in low orbit (shells around 340–570 km, about 550 km for most of the first generation) transmit user downlinks in <strong>Ku-band, 10.7–12.7 GHz</strong>, gateway links in Ka-band, and receive from user terminals at 14.0–14.5 GHz. Each satellite has phased arrays that form many spot beams; ground terminals are small flat phased arrays. Several thousand satellites are in orbit (the number is growing and has passed several thousand; check a current source).</li>
+<li><strong>It is an illuminator of opportunity, not a radar.</strong> SpaceX has not described any radar function for Starlink. What <em>researchers</em> have published, and what news outlets reported, is feasibility work on using the downlink signals as illuminators for passive radar. Examples in open sources include a 2025 Spanish university thesis (Universidad de Alcalá) concluding that Starlink signals are strong candidates; a US company’s concept called TRIPWIRE for passive wide-area surveillance using spaceborne illuminators; and press reports of a Chinese experiment, in which a small drone stood in for a stealth-fighter-size target and signal disturbances from its rotors were reportedly detected. These are proof-of-concept experiments at short range, not operational systems, and I have not seen the primary paper: look for it if it matters to you.</li>
+<li><strong>Why the claim is plausible.</strong> There are thousands of illuminators in many places, Ku-band has short wavelength (2.5 cm), and the signals are wideband (about 240 MHz channels) and continuous. With long integration one can in principle detect echoes.</li>
+<li><strong>Why “giant radar that sees everything” is an overstatement.</strong> See the budget below: the power on the ground is tiny, the waveform is a communications waveform that hops between beams and satellites, the geometry is mostly bistatic with a large angle (where a stealth shape’s low <em>backscatter</em> does not apply, but echoes are still weak and ambiguous), and tracking requires a tuned receiver and heavy processing. Detecting a drone at a kilometre with a carefully built receiver is a very different thing from continuous surveillance of the sky.</li>
+</ul>
+<p>The calculator uses the passive-radar equation with order-of-magnitude public numbers. Try the scenarios: a drone at 3 km, a person at 1 km, an airliner at 30 km, a claimed-stealth fighter at 5 km, and switch on the forward-scatter geometry.</p>
+<div data-widget="bistatic-starlink"></div>
+<div class="callout"><span class="ct">What the budget shows</span><ul>
+<li>The power flux density at the target is about $10^{-9}$ W/m² ($-90$ dBW/m²): a radar illuminates its target with roughly 10⁸ times more.</li>
+<li>It works only through <strong>processing gain</strong>: $B=240$ MHz times 1 s is 84 dB, less 20–30 dB of real-world losses.</li>
+<li>For a <em>high-gain receive antenna</em> (30–36 dBi) and a few seconds of integration, targets of 1 m² are plausible out to kilometres, airliners to tens of kilometres: consistent with the experiments being short range.</li>
+<li>Very small or stealthy targets drop below threshold unless they are close, or in the forward-scatter fence, where the cross-section is huge.</li>
+</ul></div>
+
+<h2 id="other" data-short="Other things to know">Other things worth knowing</h2>
+<ul>
+<li><strong>Passive radar is real and operational with FM and DVB-T illuminators</strong>: systems exist (for instance, ones based on FM and DAB broadcast signals) for air surveillance, and air-traffic services have trialled it near wind farms and airports.</li>
+<li><strong>Starlink’s phased arrays</strong> are communications arrays (chapters 18–19), not radar arrays; but the same array-factor physics lets them hand off beams in milliseconds.</li>
+<li><strong>Other uses of constellation signals</strong> that are well documented: positioning without GNSS (using the Doppler of the downlink), ionosphere and troposphere sensing, and radio-frequency spectrum monitoring.</li>
+<li><strong>Regulation and ethics</strong>: using a signal for something its operator did not intend raises legal and policy questions, even though receiving a public radio signal is generally legal.</li>
+</ul>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Passive bistatic radar uses illuminators of opportunity, a reference and a surveillance channel, and cross-correlation; $P_r\propto\sigma_b/(R_t^2R_r^2)$.</li>
+<li>Integration gain $B\,T$ makes up for very low signal levels, limited by the waveform and Doppler migration.</li>
+<li>Forward scatter gives a huge cross-section $4\pi A^2/\lambda^2$ but no range.</li>
+<li>Starlink-type downlinks have been studied as illuminators of opportunity; claims of it being a ready-made global stealth detector are not supported by open evidence.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What is the “reference channel” of a passive radar for?","o":["To measure the weather","To capture a clean copy of the illuminator’s direct signal for cross-correlation","To send a signal","To measure the temperature"],"a":1,"why":"Echoes are found by cross-correlating the surveillance channel with the reference."},
+ {"q":"Why does forward scatter give a huge RCS?","o":["The target is closer","The target’s shadow area A creates σ = 4πA²/λ² in the forward direction","Targets are bigger","It uses more power"],"a":1,"why":"Forward scatter is diffraction related to the silhouette, independent of surface coatings."},
+ {"q":"What is the largest practical obstacle to using a satellite communications downlink as a radar illuminator?","o":["It is out of range","Very low power density at the ground and a non-radar waveform, which need long integration and heavy processing","It has no frequency","It is too narrow-band"],"a":1,"why":"Power density at the target is about −90 dBW/m², and the signal hops between beams and satellites."},
+ {"q":"Processing gain of a passive radar is of order…","o":["B + T","B × T, the time-bandwidth product","B / T","T only"],"a":1,"why":"Coherent integration of bandwidth B over time T gives B·T (minus losses)."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Radar does not only watch aircraft and ships. The same ideas, at 60 GHz and smaller, now sit in homes and cars, detecting people, their motion, even their breathing. Chapter 15d: human presence radar.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

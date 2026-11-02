@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6 · What passes through what — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Which frequencies pass through glass, plastic, concrete, soil, rock, seawater and the human body, with skin depth, reflection and a slab calculator.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 6 · Spectrum &amp; matter</span>
+<h1>What passes through what</h1>
+<div class="meta"><span>~35 min</span><span>2 big widgets</span><span>glass, plastic, concrete, soil, rock, seawater, you</span></div>
+<p class="lede">Your phone works inside a wooden house, struggles inside a concrete one, and fails in a basement. A submarine can hear a message at 30 m depth but not at 3 m on the VHF radio. Light goes through your window but not your wall. Same family of waves, wildly different fates. This chapter explains why, with numbers.</p>
+
+<h2 id="how" data-short="Three things can happen">What a wave can do to a material</h2>
+<p>When a wave meets a material one of three things happens, and they add up to 100 % of the power:</p>
+<ol>
+<li><strong>Reflected:</strong> it bounces off the surface. Strong when the material’s “wave impedance” differs a lot from air’s 377 Ω: metals and sea water reflect nearly everything.</li>
+<li><strong>Absorbed:</strong> the wave’s field pushes charges and rotates molecules, and the energy ends up as heat. This is what happens <em>inside</em> a lossy material and decides how deep the wave gets.</li>
+<li><strong>Transmitted:</strong> it comes out the other side, weaker.</li>
+</ol>
+<p>The material is described by two numbers, from chapter 2: the <strong>permittivity</strong> $\varepsilon_r$ (how much it stores electric field, which slows the wave) and the <strong>conductivity</strong> $\sigma$ (how freely charges move, which absorbs the wave). A convenient single measure is the <strong>loss tangent</strong> $\tan\delta=\sigma/\omega\varepsilon$ (how conductive relative to how much it stores):</p>
+<ul>
+<li>$\tan\delta\ll1$: a good <strong>insulator</strong> (dielectric). The wave passes with little loss (dry glass, plastic, ice, dry air).</li>
+<li>$\tan\delta\gg1$: a good <strong>conductor</strong>. The wave is stopped within a short distance, and mostly reflected (metals, seawater at low frequency).</li>
+</ul>
+<p>A material can be both, depending on frequency, because $\omega$ is in the denominator. Seawater has $\tan\delta=\sigma/\omega\varepsilon\approx 4/(2\pi f\cdot80\cdot8.85\times10^{-12})$: at 100 Hz it is about $10^{7}$ (a conductor), at 1 GHz it is about 1, and at 100 GHz it behaves like a lossy dielectric (water molecules rotating). So the same water is a mirror at ELF and a sponge at microwaves.</p>
+
+<h2 id="skin" data-short="Skin depth">Skin depth: how deep a wave goes into a conductor</h2>
+<p>In a good conductor the wave field dies off exponentially: $E(x)=E_0e^{-x/\delta}$. The distance $\delta$ at which the field falls to $1/e$ (37 %) is the <strong>skin depth</strong>:</p>
+<div class="eq">$$\delta=\frac{1}{\sqrt{\pi f\mu\sigma}}\approx\frac{503}{\sqrt{f\,\mu_r\,\sigma}}\ \text{m}\qquad(f\text{ in Hz},\ \sigma\text{ in S/m})$$</div>
+<div class="table-wrap"><table class="data">
+<tr><th>Material</th><th class="num">σ (S/m)</th><th class="num">δ at 50 Hz</th><th class="num">δ at 1 MHz</th><th class="num">δ at 2.45 GHz</th></tr>
+<tr><td>Copper</td><td class="num">5.8×10⁷</td><td class="num">9.3 mm</td><td class="num">66 µm</td><td class="num">1.3 µm</td></tr>
+<tr><td>Aluminium</td><td class="num">3.5×10⁷</td><td class="num">12 mm</td><td class="num">85 µm</td><td class="num">1.7 µm</td></tr>
+<tr><td>Seawater</td><td class="num">4</td><td class="num">35 m</td><td class="num">0.25 m</td><td class="num">≈ 1 cm (dielectric loss too)</td></tr>
+<tr><td>Wet soil</td><td class="num">0.05</td><td class="num">320 m</td><td class="num">2.2 m</td><td class="num">≈ 5 cm</td></tr>
+<tr><td>Human muscle</td><td class="num">0.5</td><td class="num">100 m</td><td class="num">0.71 m</td><td class="num">≈ 2 cm</td></tr>
+</table></div>
+<p>Two lessons. <strong>Higher frequency, shallower:</strong> $\delta\propto1/\sqrt f$. And <strong>good conductors have micrometre skin depths at microwave frequencies</strong>, which is why a thin foil makes a perfect shield for them: the microwave oven needs only a thin metal box. (For 50 Hz magnetic fields you need ≈ cm of metal, which is why transformer shields are thick steel.)</p>
+
+<h2 id="chart" data-short="The whole spectrum">The big picture: which band goes through which material</h2>
+<p>Here is the whole spectrum against twelve everyday materials. Click on any cell for the reason behind it.</p>
+<div data-widget="penetration-chart"></div>
+<p>Patterns worth noticing:</p>
+<ul>
+<li><strong>Low frequencies go through nearly everything non-metallic.</strong> The longer the wavelength, the less the material can “see” the details, and the lower the conductive loss. That is why AM radio works indoors, why mines use through-earth radio, why submarines use ELF.</li>
+<li><strong>The microwave range is a sweet spot</strong> (Wi-Fi, cell phones, TV): it passes through walls and glass well enough, but antennas are small.</li>
+<li><strong>Millimetre waves and above are line-of-sight only</strong>: even a wall or your hand blocks 5G mmWave.</li>
+<li><strong>Light and infrared are blocked by almost everything solid</strong> except glass, plastics and clean water. But light is the <em>only</em> thing (besides low frequencies) that goes well through water.</li>
+<li><strong>X-rays and gamma rays come back</strong> because their photon energy is so high that atoms barely notice them; density and atomic number decide (lead, concrete, bone vs flesh).</li>
+</ul>
+
+<h2 id="calc" data-short="Calculate it">Slab calculator</h2>
+<p>For a number rather than a colour, the calculator below uses the physics above (complex permittivity and the exact two-surface slab formula, including reflection) from 1 Hz to 3 THz. Pick a real-world scenario from the menu, or choose a material, slide the frequency and thickness, and watch the loss in dB. Use the “overlay all materials” checkbox to see why seawater and soil behave so differently from glass.</p>
+<div data-widget="penetration-calc"></div>
+<div class="callout"><span class="ct">Reading decibels</span>3 dB: half the power. 10 dB: a tenth. 20 dB: 1 %. 30 dB: 0.1 %. Wi-Fi works with about 90–100 dB of total path loss, so a 15 dB wall costs you a lot but not everything. A signal with 100 dB of extra loss is gone, whatever the transmitter.</div>
+
+<h2 id="aperture" data-short="Holes and cages">Holes and Faraday cages</h2>
+<p>A metal shield does not need to be solid. A mesh with holes much smaller than the wavelength acts as a solid wall, because the field cannot “squeeze through”. This explains the mesh in the window of a microwave oven: holes of ~2 mm are 60× smaller than the 12 cm wavelength, but 4000 times bigger than a light wavelength, so you can see through them but the microwaves cannot get out. Chapter 16 puts numbers on it with a shielding-effectiveness calculator, and chapter 17 uses it to look inside the oven.</p>
+<div class="callout violet"><span class="ct">Another surprise: mirrors</span>A metal mirror reflects light for the same reason it reflects radio: the free electrons shuffle in response and re-radiate a wave that cancels the incoming one inside the metal. The “skin” is just that re-radiation. A satellite dish and your bathroom mirror are the same device on different scales.</div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>A wave meeting matter is reflected, absorbed or transmitted. Insulators (low $\tan\delta$) transmit; conductors reflect and absorb in a skin depth $\delta=1/\sqrt{\pi f\mu\sigma}$.</li>
+<li>Lower frequency generally penetrates farther; ELF/VLF are the only radio waves that go far into seawater or soil.</li>
+<li>Glass, plastic and dry wood are nearly transparent to radio; concrete costs 10–40 dB at GHz frequencies; water kills microwaves; metal blocks almost everything.</li>
+<li>Visible light is an exception: it passes through glass and clean water; X-rays and gamma pass because the photon energy is high.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Skin depth in a conductor gets smaller when…","o":["frequency goes down","frequency goes up","the wave amplitude goes up","the material is thinner"],"a":1,"why":"δ = 1/√(πfμσ): it falls as 1/√f."},
+ {"q":"Which radio signal can penetrate seawater most deeply?","o":["Wi-Fi at 2.4 GHz","FM at 100 MHz","VLF at 20 kHz","A 28 GHz 5G signal"],"a":2,"why":"Seawater’s skin depth grows as 1/√f; only the lowest frequencies get tens of metres."},
+ {"q":"Why do microwave oven doors have a metal mesh but still let you see in?","o":["The mesh holes are much smaller than the microwave wavelength but much larger than the wavelength of light","The glass is magic","Microwaves cannot be blocked","Light cannot pass through metal"],"a":0,"why":"Holes of ~2 mm ≪ 12 cm block microwaves, but ≫ 0.0005 mm light wavelength, so light passes."},
+ {"q":"A wall attenuates Wi-Fi by 20 dB. What fraction of the power gets through?","o":["50 %","10 %","1 %","0.1 %"],"a":2,"why":"20 dB = a factor 100 in power, so 1 % arrives."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>All of this was about electromagnetic waves. Sound is a different kind of wave, a pressure wave in matter, and it often goes where radio cannot. Chapter 7 compares: human hearing, whales, bats, and the eyes of animals that see colours we cannot.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

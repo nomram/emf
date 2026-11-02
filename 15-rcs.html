@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15 · Seen or unseen: RCS &amp; stealth — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Radar cross section: what it is, how it depends on size, shape and wavelength, and the physics principles behind low-observable design.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 15 · Radar</span>
+<h1>Seen or unseen: RCS &amp; stealth</h1>
+<div class="meta"><span>~35 min</span><span>2 widgets</span><span>why shape and wavelength matter more than size</span></div>
+<p class="lede">The radar equation has one factor that belongs to the <em>target</em>: $\sigma$, the radar cross section. It is not the target’s size. A large smooth sphere can be less visible than a small corner of metal. This chapter explains what $\sigma$ measures, and the physics (not the engineering recipes) behind “low observable” design.</p>
+
+<h2 id="def" data-short="What is RCS?">What is radar cross section?</h2>
+<p>Imagine the target as an antenna that is “illuminated” by the radar’s wave and re-radiates some of it. $\sigma$ is the area of a perfect isotropic scatterer that would return the <em>same</em> power to the radar as the real target:</p>
+<div class="eq">$$\sigma=4\pi R^2\,\frac{S_{\text{reflected at radar}}}{S_{\text{incident at target}}}\qquad[\text{m}^2]\ \text{or}\ 10\log_{10}\sigma\ [\text{dBsm}]$$</div>
+<p>It depends on the target’s material, its size <em>in wavelengths</em>, its shape, the viewing angle and the polarisation. Typical values (for microwave radars):</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Target</th><th class="num">σ (m²)</th><th class="num">dBsm</th></tr>
+<tr><td>Insect</td><td class="num">10⁻⁵ – 10⁻⁴</td><td class="num">−50 – −40</td></tr>
+<tr><td>Small bird</td><td class="num">0.001 – 0.01</td><td class="num">−30 – −20</td></tr>
+<tr><td>Quadcopter drone</td><td class="num">0.01 – 0.1</td><td class="num">−20 – −10</td></tr>
+<tr><td>Person</td><td class="num">≈ 1</td><td class="num">0</td></tr>
+<tr><td>Small aircraft</td><td class="num">≈ 2</td><td class="num">3</td></tr>
+<tr><td>Conventional fighter, front</td><td class="num">1 – 10</td><td class="num">0 – 10</td></tr>
+<tr><td>Airliner</td><td class="num">40 – 100</td><td class="num">16 – 20</td></tr>
+<tr><td>Car, side-on</td><td class="num">≈ 100</td><td class="num">20</td></tr>
+<tr><td>Ship</td><td class="num">10³ – 10⁵</td><td class="num">30 – 50</td></tr>
+<tr><td>Marine radar reflector (corner)</td><td class="num">≈ 10 – 20</td><td class="num">10 – 13</td></tr>
+</table></div>
+<p>(Published values for combat aircraft are classified or speculative; those quoted in the media are rough.) Because of the $1/R^4$ law, detection range depends on $\sigma^{1/4}$: reduce $\sigma$ by a factor 10 and the range falls by only $10^{-1/4}=0.56$; by 1000, to 0.18.</p>
+
+<h2 id="size" data-short="Size vs wavelength">Size relative to wavelength: three regions</h2>
+<p>A target’s RCS depends dramatically on whether it is smaller or bigger than the wavelength. The cleanest example is a perfectly conducting sphere, for which the exact answer is known (the Mie series, which the widget computes):</p>
+<div data-widget="rcs-sphere"></div>
+<ul>
+<li><strong>Rayleigh region</strong> ($r\ll\lambda$): $\sigma\approx9\pi r^2(2\pi r/\lambda)^4\propto\lambda^{-4}$. Halve the wavelength and the echo is 16 times larger. Raindrops (mm) are Rayleigh scatterers at 3–10 cm: the reflectivity of rain goes as drop diameter to the sixth power, summed per unit volume: the weather-radar $Z$.</li>
+<li><strong>Resonance region</strong> ($r\sim\lambda/2\pi$ to $10\lambda/2\pi$): strong, rippling dependence on size and frequency, up to 3.6 times the geometric area.</li>
+<li><strong>Optical region</strong> ($r\gg\lambda$): geometric optics works: $\sigma\to\pi r^2$ for a sphere. Fortunately for design, this is the region where we can <em>shape</em> targets.</li>
+</ul>
+
+<h2 id="shape" data-short="Shape">Shape: mirrors, corners and balls</h2>
+<p>In the optical region a smooth, flat or curved surface acts as a mirror for the radar wave. What matters is where the mirror reflections go:</p>
+<ul>
+<li>A <strong>flat plate</strong> of area $A$ seen face-on gives $\sigma=4\pi A^2/\lambda^2$: for 1 m² at 10 GHz that is $1.4\times10^4$ m² (a mirror pointing back at the source). Tilt it by a few beamwidths of its own pattern (a few degrees!) and the echo drops by 30–40 dB: the lobe has width about $\lambda/a$.</li>
+<li>A <strong>sphere</strong> returns $\pi r^2$ from every direction: no bright spot, but also never dark.</li>
+<li>A <strong>trihedral corner</strong> returns the incoming ray back along its path, from a wide range of angles: $\sigma=4\pi a^4/3\lambda^2$. This is why corner reflectors are used as calibration targets and as boat reflectors, and why right-angled structures (ship decks meeting bulkheads, an aircraft wing joined to a fuselage, a car’s corners) are so visible.</li>
+<li>A <strong>cylinder</strong> is bright broadside and dim end-on.</li>
+</ul>
+<p>Check each in the widget, and compare a “boxy” body with the <em>same</em> faces rotated by 45°.</p>
+<div data-widget="rcs-shapes"></div>
+
+<h2 id="stealth" data-short="What “stealth” means">What “stealth” means physically</h2>
+<p>“Stealth” (low observability) does not mean invisible; it means <em>smaller $\sigma$ in the directions and bands that matter</em>, so that enemy radars detect the aircraft later, at shorter range, with less accuracy. The physics gives a short list of principles, which are all visible in the widget above:</p>
+<ol>
+<li><strong>Shaping</strong>: avoid surfaces and right angles that face the radar. Tilt flat faces so that specular reflections go off in directions away from the source; align edges (wings, tail, doors) to a small set of directions, so the unavoidable spikes concentrate in a few narrow angles. Remove corner reflectors by blending joints and hiding or angling the weapon bays, inlets and engines.</li>
+<li><strong>Radar-absorbent material (RAM) and coatings</strong>: layers of carefully tuned lossy or magnetic material convert part of the incident wave to heat or cancel the reflection by interference (a quarter-wave layer reflects with the opposite phase, like an anti-reflection coating on a lens). They work over a limited band.</li>
+<li><strong>Edges, gaps and cavities</strong>: after the specular spike is dealt with, what remains is diffraction from edges and re-radiation from cavities, such as engine inlets and antenna openings, which must be shielded, bent or screened.</li>
+<li><strong>Management of emissions</strong>: the aircraft’s own radar and radio transmissions are detectable far beyond its reflected echo. A low-probability-of-intercept design (chapter 15a) matters as much as a low RCS.</li>
+</ol>
+<div class="callout"><span class="ct">Why wavelength is the weak point</span><p>These tricks work when the features are <em>larger than the wavelength</em>. Long-wavelength radars (VHF and UHF, with λ of a metre or more, comparable to a wing or fuselage) see the whole airframe in the resonance region, where shaping and thin RAM coatings are much less effective. The same aircraft can look a thousand times larger to a VHF radar than to an X-band one. That is why low-frequency surveillance radars still matter. It is also why stealth is a <em>reduction</em>, not magic: it also doesn’t hide heat, visible light, sound, or the transmissions the platform makes, and it can be countered by <em>multistatic</em> radar (the reflection may be strong at a different angle), passive detection (using other sources) and by arrays that can integrate for a long time.</p></div>
+
+<h2 id="other" data-short="Other things with RCS">Beyond aircraft</h2>
+<ul>
+<li><strong>Birds, insects and bats</strong> are routinely seen by weather and airport radars: nocturnal migration studies and bird-strike warning use them.</li>
+<li><strong>Drones</strong> have tiny RCS, plastic bodies and rotor micro-Doppler: detecting them is an active research area using small-wavelength radars and micro-Doppler classification.</li>
+<li><strong>Wind turbines</strong> are huge, rotating clutter sources that confuse air-traffic radars: the blades’ Doppler looks like aircraft.</li>
+<li><strong>Radar reflectors for safety</strong>: small boats and the masts of offshore wind farms carry corner reflectors so that ships’ radars see them.</li>
+</ul>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>RCS $\sigma$ is the area of an isotropic scatterer giving the same echo; it depends on material, shape, angle, polarisation and size in wavelengths.</li>
+<li>Rayleigh ($\sigma\propto\lambda^{-4}$), resonance and optical regions; a large sphere returns $\pi r^2$; a flat plate $4\pi A^2/\lambda^2$ face-on; a corner reflector $4\pi a^4/3\lambda^2$ over a wide angle.</li>
+<li>Detection range $\propto\sigma^{1/4}$: a 1000× smaller RCS shortens range to 18 %.</li>
+<li>Low-observable design rests on shaping, absorbing materials, edge and cavity control and emission control; it is weakest at long wavelengths.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What happens to the RCS of a very small (Rayleigh) sphere when the radar wavelength is halved?","o":["It doubles","It increases by 4×","It increases by 16×","It does not change"],"a":2,"why":"σ ∝ λ⁻⁴: halving λ gives 2⁴ = 16×."},
+ {"q":"Which shape returns a strong echo over a WIDE range of viewing angles?","o":["Flat plate","Trihedral corner reflector","Knife edge","Smooth cone"],"a":1,"why":"Three mutually perpendicular faces reflect any incoming ray back along its original path."},
+ {"q":"A design cuts RCS by a factor of 10 000. By what factor does the detection range shrink?","o":["10 000","100","10","3.2"],"a":2,"why":"R ∝ σ^(1/4): (10⁻⁴)^(1/4) = 0.1, so the range falls to one tenth."},
+ {"q":"Why can a VHF radar partly defeat shaping-based stealth?","o":["VHF has more power","The aircraft’s features are comparable to the wavelength (resonance region), so shaping rules stop working","VHF reflects off the ionosphere","Absorbers are better at VHF"],"a":1,"why":"Shaping relies on features ≫ λ (optical region); at metre wavelengths the airframe resonates."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>So far RCS came from formulas. Chapter 15b puts real, published numbers on the table (open-source RCS data and the parameters of real radars), then 15c asks whether a satellite constellation could serve as a radar and 15d turns radar on people. After those, chapter 15a covers the contested radio environment: electronic warfare, how links protect themselves (hopping, spreading, directional antennas), and why some drones now fly on a thread of glass fibre.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

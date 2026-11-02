@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13 · Doppler, PRF &amp; FMCW — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Doppler shift, speed measurement, clutter rejection, the PRF dilemma, continuous-wave and FMCW radar.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 13 · Radar</span>
+<h1>Doppler, PRF &amp; FMCW</h1>
+<div class="meta"><span>~40 min</span><span>3 widgets</span><span>speed from frequency, and the radar in your car</span></div>
+<p class="lede">An ambulance siren drops in pitch as it passes. The wave’s frequency changes because the source is moving. A radar echo does the same, and measuring that shift tells you the speed of every target at once, which is how radars ignore mountains and find aircraft.</p>
+
+<h2 id="doppler" data-short="The Doppler shift">The Doppler shift</h2>
+<p>If a target moves <em>toward</em> the radar, each successive wave crest has a shorter trip, so the crests arrive closer together: the echo’s frequency is higher. Moving away, lower. For radar the shift is twice as large as for a one-way source, because the wave is Doppler-shifted once on arrival at the moving target and again when the target re-radiates it:</p>
+<div class="eq">$$f_d=\frac{2v_r}{\lambda}=\frac{2v_rf}{c},\qquad v_r=v\cos\theta$$</div>
+<p>$v_r$ is the <strong>radial</strong> component, along the line of sight. A target crossing perpendicular to the line of sight has $v_r=0$ and no Doppler. At 10 GHz ($\lambda=3$ cm) a jet at 250 m/s gives $f_d=16.7$ kHz: in the audio range, which is why early Doppler radars simply fed it into headphones. One full cycle of the beat corresponds to the target moving $\lambda/2$.</p>
+<div data-widget="doppler-shift"></div>
+<h3 id="uses">What Doppler gives you</h3>
+<ul>
+<li><strong>Speed measurement:</strong> police speed guns (24 GHz K-band or 35 GHz Ka), baseball radar guns, sports and industrial sensors. A cosine error means the gun always reads a little low if not aimed straight along the road.</li>
+<li><strong>Clutter rejection (MTI and pulse-Doppler):</strong> mountains, buildings and the sea have little or no Doppler; aircraft do. Filtering out zero-Doppler echoes (<em>moving target indication</em>) removes most clutter, making a 1 m² aircraft visible over a 10 000 m² hillside, improving sub-clutter visibility by 40–60 dB.</li>
+<li><strong>Weather radar:</strong> the Doppler of raindrops measures wind inside storms; the “hook echo” and rotation signature of a tornado show up as adjacent inbound and outbound velocities.</li>
+<li><strong>Micro-Doppler:</strong> the wobbles of a helicopter’s blades, a person’s swinging arms or a drone’s propellers add characteristic sidebands around the main Doppler line, like a fingerprint. Used to classify targets and to tell a drone from a bird.</li>
+<li><strong>Medical and sleep monitors:</strong> 60 GHz sensors read breathing and heartbeat from chest motion of a millimetre.</li>
+</ul>
+
+<h2 id="prf" data-short="The PRF dilemma">Pulse radar and the PRF dilemma</h2>
+<p>A pulsed radar samples the echo once per pulse, so it sees the Doppler only through those samples. By the sampling theorem (Nyquist) it can recover shifts up to $\pm\text{PRF}/2$, hence an unambiguous speed of $\pm\lambda\,\text{PRF}/4$. Faster targets “wrap around” and look slower, or even stationary: these are the <strong>blind speeds</strong> $v_n=n\lambda\text{PRF}/2$. But raising the PRF lowers the unambiguous range $c/2\text{PRF}$ (chapter 12). Hence the dilemma:</p>
+<div class="eq">$$R_u\cdot v_u=\frac{c}{2\,\text{PRF}}\cdot\frac{\lambda\,\text{PRF}}{4}=\frac{c\,\lambda}{8}\quad\text{(independent of PRF)}$$</div>
+<p>You trade range against speed, but the product is fixed by wavelength alone. At X-band ($\lambda=3$ cm) $R_uv_u=1.1\times10^6$ m²/s: seeing 100 km without ambiguity limits speed to 11 m/s. Radars solve it by <strong>low PRF</strong> (long range, speed ambiguous: air-traffic control), <strong>high PRF</strong> (speed clear, range ambiguous: fighter radar looking for closing targets) or <strong>medium PRF</strong> with several staggered PRFs per dwell, and a bit of number theory to untangle the ambiguities.</p>
+<div data-widget="prf-tradeoff"></div>
+
+<h2 id="cw" data-short="Continuous-wave radar">Continuous-wave (CW) radar</h2>
+<p>You do not need pulses to measure speed. Transmit a steady carrier and listen on a second antenna at the same time; mix the echo with the transmission and the beat is the Doppler tone. This is the cheapest radar: the door opener, the burglar alarm, the speed gun. But a pure CW radar cannot measure range (nothing marks where in time the echo came from), and the receiver sees all the transmitter leakage.</p>
+
+<h2 id="fmcw" data-short="FMCW radar">FMCW: putting range back on a CW radar</h2>
+<p>The fix is to put a <em>mark</em> on the carrier: change its frequency steadily, a <strong>chirp</strong>. An echo from a target at range $R$ returns a time $\tau=2R/c$ later, when the transmitter has moved on in frequency by $S\tau$ ($S$ = sweep rate). Mixing the echo and the transmission gives a constant beat frequency</p>
+<div class="eq">$$f_b=S\tau=\frac{2RS}{c}=\frac{2RB}{cT_c},\qquad \Delta R=\frac{c}{2B},\qquad R_{max}=\frac{c\,f_s}{4S}$$</div>
+<p>Distance becomes a frequency, which a cheap FFT in a small chip converts to a list of ranges. The resolution depends <em>only on the bandwidth</em> $B$: a 77 GHz automotive radar sweeping 4 GHz resolves objects 3.75 cm apart. Doppler shifts the beat slightly; stack many chirps and a second FFT across them gives speed, hence the <strong>range–Doppler map</strong> that car radars use to see pedestrians, cyclists and other cars through rain, fog and darkness, up to 250 m.</p>
+<div data-widget="fmcw"></div>
+<div class="callout"><span class="ct">Why 77 GHz?</span>Short wavelength (3.9 mm) means small antennas with narrow beams on a chip, large bandwidth is allowed (4 GHz around 77 GHz), and the Doppler shift is large for slow targets (1 m/s gives 513 Hz). Rain absorbs about 1–2 dB/km, trivial over 250 m. And arrays of 3–4 transmit and 4 receive antennas form a virtual array of 12–16 elements (chapter 19, MIMO) that gives angular resolution of a few degrees.</div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Doppler shift $f_d=2v_r/\lambda$; zero for crossing targets; sign gives approach vs recession.</li>
+<li>Pulse-Doppler and MTI filters reject stationary clutter: moving targets stand out even over hills.</li>
+<li>Pulse radar: $R_u=c/2\text{PRF}$, $v_u=\pm\lambda\text{PRF}/4$, $R_uv_u=c\lambda/8$. Low, medium and high PRF modes trade range against speed.</li>
+<li>CW radar measures speed only; FMCW adds range through a chirp: $f_b=2RS/c$, $\Delta R=c/2B$.</li>
+<li>FMCW with 4 GHz of bandwidth at 77 GHz is the basis of automotive and many short-range radars.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A 10 GHz radar sees a target closing at 30 m/s straight on. What is the Doppler shift?","o":["200 Hz","2 kHz","20 kHz","200 kHz"],"a":1,"why":"f_d = 2vf/c = 2 × 30 × 10¹⁰ / 3×10⁸ = 2000 Hz."},
+ {"q":"A target moves exactly perpendicular to the line of sight. Its Doppler shift is…","o":["maximum","half the maximum","zero","negative"],"a":2,"why":"Doppler depends on the radial component v·cosθ; at 90° it is zero."},
+ {"q":"Why can’t a pure CW radar measure range?","o":["The wave is too slow","There is no time mark on the signal: all echoes look the same","The frequency is too high","It needs two antennas"],"a":1,"why":"Without modulation there’s nothing to time. FMCW adds a frequency ramp so the delay becomes a beat frequency."},
+ {"q":"What sets the range resolution of an FMCW radar?","o":["The chirp duration","The sweep bandwidth B: ΔR = c/2B","The carrier frequency","The antenna gain"],"a":1,"why":"Only the bandwidth. 4 GHz → 3.75 cm."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>Radars are as diverse as the jobs they do: air traffic, weather, ships, speed guns, mapping from orbit, seeing through the ground. Chapter 14 tours the radar families and the bands they live in.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

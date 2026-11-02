@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 · Feeding it: lines &amp; matching — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Transmission lines, characteristic impedance, reflections, VSWR, the Smith chart, and how to match an antenna to a line.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 10 · Antennas</span>
+<h1>Feeding it: lines &amp; matching</h1>
+<div class="meta"><span>~35 min</span><span>2 widgets</span><span>reflections, VSWR, the Smith chart</span></div>
+<p class="lede">The antenna is at the top of a mast; the radio is in the shed. Between them runs a cable, and at radio frequencies a cable is not just a wire. It is a <em>waveguide for voltage and current waves</em> with its own personality. Get the match between transmitter, cable and antenna wrong and part of your power bounces back and forth. This chapter shows why, and how to fix it.</p>
+
+<h2 id="why" data-short="Wires are waveguides">Why a cable is more than a wire</h2>
+<p>For a 50 Hz mains wire a metre long, the voltage is the same everywhere along it, because the wavelength is 6000 km. At 100 MHz the wavelength is 3 m, so a cable 3 m long holds a full cycle of the wave inside it. The voltage at one end is <em>different</em> from the voltage at the other, and the cable behaves as a <strong>transmission line</strong>: waves travel along it, at a speed $v=c\cdot VF$ (the <strong>velocity factor</strong>, 0.66 for solid polyethylene coax) and with a <strong>characteristic impedance</strong></p>
+<div class="eq">$$Z_0=\sqrt{\frac{L'}{C'}}\qquad\Big(\text{for coax: }Z_0=\frac{138}{\sqrt{\varepsilon_r}}\log_{10}\frac{D}{d}\ \Omega\Big)$$</div>
+<p>where $L'$ and $C'$ are the inductance and capacitance <em>per metre</em>. $Z_0$ is the ratio $V/I$ of a wave moving along the line. It is a property of the cable’s geometry, not of its length or the frequency, and is <strong>not</strong> something an ohmmeter reads. Common values: 50 Ω (radio, test equipment), 75 Ω (TV and video), 300 Ω (flat twin-lead), 600 Ω (open ladder line).</p>
+
+<h2 id="reflection" data-short="Reflections">Mismatch means reflection</h2>
+<p>A wave on the line reaches the load and finds $Z_L$. If $Z_L=Z_0$ the wave looks like it continues on forever and all power goes into the load. If not, the load cannot absorb a wave with the ratio $V/I=Z_0$, so part of the wave is <strong>reflected</strong> back toward the generator:</p>
+<div class="eq">$$\Gamma=\frac{Z_L-Z_0}{Z_L+Z_0},\qquad \text{VSWR}=\frac{1+|\Gamma|}{1-|\Gamma|},\qquad \text{RL}=-20\log_{10}|\Gamma|\ \text{dB}$$</div>
+<ul>
+<li>$Z_L=Z_0$: $\Gamma=0$, VSWR 1:1. Perfect.</li>
+<li>Short circuit ($Z_L=0$): $\Gamma=-1$, everything reflects, with inverted voltage.</li>
+<li>Open circuit ($Z_L=\infty$): $\Gamma=+1$, everything reflects.</li>
+<li>$Z_L=100\ \Omega$ on 50 Ω: $\Gamma=1/3$, VSWR 2:1, 11 % of the power reflected, return loss 9.5 dB.</li>
+</ul>
+<p>The forward and reflected waves add up into a <strong>standing wave</strong> (a pattern frozen in space where the peaks and valleys sit still). VSWR (voltage standing-wave ratio) is the peak voltage divided by the valley voltage. Watch it on the line, with the matching Smith chart on its right.</p>
+<div data-widget="transmission-line"></div>
+<div class="callout"><span class="ct">The three-minute Smith chart</span><p>Every possible load $Z_L$ (every resistance and reactance) maps to one point inside the unit circle of the complex plane $\Gamma$. The Smith chart simply draws a grid of constant-resistance circles and constant-reactance arcs on top, so you can <em>read</em> impedance straight off. The centre is a perfect match. The left edge is a short; the right edge an open circuit. The top half is inductive; the bottom half is capacitive. Moving along the line toward the generator rotates the point <em>clockwise</em> around the centre by one full turn per half wavelength. That is all you need: a matching problem becomes “move this point to the centre”.</p></div>
+
+<h3 id="effects">What mismatch really costs</h3>
+<table class="data">
+<tr><th>VSWR</th><th class="num">|Γ|</th><th class="num">Return loss</th><th class="num">Power reflected</th><th class="num">Mismatch loss</th></tr>
+<tr><td>1.0 : 1</td><td class="num">0</td><td class="num">∞</td><td class="num">0 %</td><td class="num">0 dB</td></tr>
+<tr><td>1.5 : 1</td><td class="num">0.20</td><td class="num">14 dB</td><td class="num">4 %</td><td class="num">0.18 dB</td></tr>
+<tr><td>2 : 1</td><td class="num">0.33</td><td class="num">9.5 dB</td><td class="num">11 %</td><td class="num">0.51 dB</td></tr>
+<tr><td>3 : 1</td><td class="num">0.50</td><td class="num">6 dB</td><td class="num">25 %</td><td class="num">1.25 dB</td></tr>
+<tr><td>10 : 1</td><td class="num">0.82</td><td class="num">1.7 dB</td><td class="num">67 %</td><td class="num">4.8 dB</td></tr>
+</table>
+<p>So a VSWR of 2:1 is by no means a catastrophe: half a decibel of loss. Two real dangers are different: (1) the reflected power adds to the cable’s own loss, since it travels the cable several times; (2) high standing-wave voltage can arc inside connectors or damage a transmitter’s output transistors, which is why many transmitters automatically reduce power at VSWR > 2–3.</p>
+
+<h2 id="loss" data-short="Cable loss">Cable loss: frequency matters</h2>
+<p>Real cables are not lossless. The loss per length rises with $\sqrt f$ (skin effect in the conductors, chapter 6) and with $f$ (dielectric loss), so a cable that is fine at 10 MHz can eat most of your signal at 5 GHz:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Cable</th><th class="num">Z₀</th><th class="num">at 10 MHz</th><th class="num">at 100 MHz</th><th class="num">at 1 GHz</th><th class="num">at 5 GHz</th></tr>
+<tr><td>RG-58 (thin 50 Ω coax)</td><td class="num">50</td><td class="num">5 dB/100 m</td><td class="num">16 dB/100 m</td><td class="num">≈ 60 dB/100 m</td><td class="num">≈ 150 dB/100 m</td></tr>
+<tr><td>RG-213 (fat 50 Ω coax)</td><td class="num">50</td><td class="num">2 dB/100 m</td><td class="num">7 dB/100 m</td><td class="num">≈ 26 dB/100 m</td><td class="num">≈ 65 dB/100 m</td></tr>
+<tr><td>LMR-400 type (low-loss 50 Ω)</td><td class="num">50</td><td class="num">1.3 dB/100 m</td><td class="num">3.9 dB/100 m</td><td class="num">13.5 dB/100 m</td><td class="num">≈ 32 dB/100 m</td></tr>
+<tr><td>Open-wire ladder line</td><td class="num">450</td><td class="num">0.3 dB/100 m</td><td class="num">1.5 dB/100 m</td><td class="num">—</td><td class="num">—</td></tr>
+</table></div>
+<p>(Approximate typical values; they depend on the exact cable.) Two lessons follow. For high frequencies, put the radio <em>at</em> the antenna: this is why satellite dishes have the amplifier right at the feed, why cell-tower radios hang up on the mast, and why Wi-Fi antennas on long cables are a bad idea. And a mismatch costs more with a lossy cable, because the reflected power is attenuated twice.</p>
+
+<h2 id="balun" data-short="Balanced vs unbalanced">Balanced vs unbalanced: the balun</h2>
+<p>A dipole is <strong>balanced</strong>: two arms with equal and opposite currents. Coax is <strong>unbalanced</strong>: signal on the inner wire, ground on the shield. Connect them directly and some current flows on the <em>outside</em> of the shield, turning the cable into part of the antenna; the pattern is distorted and you can pick up noise. A <strong>balun</strong> (balanced–unbalanced transformer, often a few turns of coax on a ferrite ring) fixes that. A 1:4 balun also converts a 300 Ω folded dipole to 75 Ω, or a 200 Ω load to 50 Ω.</p>
+
+<h2 id="match" data-short="How to match">How to match</h2>
+<p>If the antenna’s impedance is not $Z_0$, you have three classic tools:</p>
+<ol>
+<li><strong>Change the antenna</strong>: bend it, fold it, add a ground plane, adjust its length. A half-wave dipole is 73 Ω; a folded dipole is 292 Ω; a dipole with arms drooped 120° apart is ≈ 50 Ω.</li>
+<li><strong>Quarter-wave transformer</strong>: a section of line a quarter-wavelength long, of impedance $Z_T=\sqrt{Z_0Z_L}$. A 100 Ω load on a 50 Ω line needs a 70.7 Ω quarter-wave section. It works at one frequency (and near it).</li>
+<li><strong>Lumped matching network</strong>: an inductor and a capacitor in an L-shape, which can match any real load to any real source <em>at one frequency</em>. If the load has reactance, you cancel it first (add the opposite reactance), then match the resistance. The <strong>antenna tuner</strong> in a ham radio shack is exactly this, with adjustable parts.</li>
+<li><strong>Stub matching</strong>: a short open- or short-circuited line connected at the right spot adds the opposite reactance (a favourite on the Smith chart).</li>
+</ol>
+<p>Try an L-match. Choose a 12 Ω load (typical of a short vertical antenna) and 50 Ω line at 7.1 MHz, and see the values and how narrow the match is as the transformation ratio rises.</p>
+<div data-widget="match-network"></div>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>At radio frequencies a cable is a transmission line with characteristic impedance $Z_0=\sqrt{L'/C'}$ and velocity factor $<1$.</li>
+<li>A load $Z_L\ne Z_0$ reflects: $\Gamma=(Z_L-Z_0)/(Z_L+Z_0)$, VSWR $=(1+|\Gamma|)/(1-|\Gamma|)$. 2:1 costs about 0.5 dB.</li>
+<li>The Smith chart maps $Z_L$ to $\Gamma$; moving down the line rotates the point clockwise.</li>
+<li>Cable loss rises with frequency: keep the line short at microwaves, or put the electronics at the antenna.</li>
+<li>Match with a better antenna, a quarter-wave transformer, an L-network or a stub; use a balun for balanced antennas.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A 50 Ω line is terminated in 100 Ω. What is the VSWR?","o":["1:1","2:1","3:1","50:1"],"a":1,"why":"Γ = (100−50)/(100+50) = 1/3; VSWR = (1+1/3)/(1−1/3) = 2."},
+ {"q":"What impedance should a quarter-wave transformer have to match a 200 Ω load to a 50 Ω line?","o":["100 Ω","125 Ω","150 Ω","75 Ω"],"a":0,"why":"Z_T = √(50 × 200) = √10000 = 100 Ω."},
+ {"q":"Moving along a lossless line from the load toward the generator, the point on the Smith chart…","o":["stays still","moves in a straight line","rotates clockwise around the centre at constant |Γ|","moves to the centre"],"a":2,"why":"Γ(d) = Γ_L e^(−j2βd): constant magnitude, phase decreases with d: clockwise."},
+ {"q":"Why use a balun between coax and a dipole?","o":["To raise the power","To stop current flowing on the outside of the coax shield","To change the frequency","To lower the VSWR to 1"],"a":1,"why":"A balanced antenna fed by an unbalanced line sends common-mode current along the outside of the shield, distorting the pattern."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>You know what an antenna is and how to feed it. Now the zoo: wire, loop, Yagi, helix, patch, horn, dish. See their patterns, their sizes, and their trade-offs, with the same physics.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

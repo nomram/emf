@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16a · Shielding in practice: cages, waveguides &amp; feedthroughs — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Faraday cage limits, waveguides below cutoff, filtered feedthroughs, 360-degree cable bonding, fibre, and how to power or charge a device inside a shielded enclosure.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 16a · EMP</span>
+<h1>Shielding in practice: cages, waveguides &amp; feedthroughs</h1>
+<div class="meta"><span>~50 min</span><span>8 widgets</span><span>how to build a box that keeps its promise</span></div>
+<p class="lede">A Faraday cage is easy to draw and hard to build. The metal is the easy part. The hard part is everything that has to <em>cross</em> the metal: power, data, air, a door. This chapter is the engineering answer to “how do I connect a cable to something inside a shielded box without letting the outside in?”, including how you charge a device in a cage.</p>
+
+<h2 id="what" data-short="What a cage does">What a Faraday cage does (and the one-line proof)</h2>
+<p>Inside a closed hollow conductor, an external electric field is cancelled: the free charges in the metal move until their own field is equal and opposite to the outside field at every point <em>inside</em>. Michael Faraday showed it in 1836 by sitting in a wooden cube covered with metal foil while a huge electrical machine threw sparks at it, and feeling nothing. For a <em>time-varying</em> field the cancelling currents flow in a thin layer on the outer surface, set by the skin depth (chapter 6): the field decays as $e^{-t/\delta}$ through the wall. A closed metal shell therefore works as a shield against both static and radio fields, provided it has no holes and is thicker than a few skin depths (chapter 6’s table: 1 µm of copper stops 2.45 GHz).</p>
+<p>Everyday examples: a car in a thunderstorm (the current flows over the body, not through you); a coaxial cable (the shield is a rolled-up cage for the centre wire); an aircraft hit by lightning; an MRI room (a cage keeps radio noise out of the scanner, and the scanner’s signals in); the metal case around a power supply; the ESD bag around a chip.</p>
+<div class="callout"><span class="ct">The principle to keep in mind</span>A shield is <strong>one continuous conducting surface</strong>. Everything that crosses it is a hole, or an antenna, or both. The art of shielding is to make each crossing behave like a piece of the wall.</div>
+
+<h2 id="limits" data-short="The limits of a cage">The limits of a Faraday cage</h2>
+<p>People often talk about cages as magic boxes. They are not. Here is where a real one falls short:</p>
+<ol>
+<li><strong>Holes and seams leak, and the <em>length</em> of a gap matters, not its area.</strong> A slot of length $l$ leaks about $20\log_{10}(\lambda/2l)$ dB (chapter 16), nothing at all when $l\ge\lambda/2$. A 30 cm seam between two panels is a perfect slot antenna for 500 MHz. A ventilation grille, a screw pitch that is too wide, a door that does not make contact all the way round: all leak. This is why doors in shielded rooms use <strong>knife-edge and finger-stock gaskets</strong> that press metal on metal.</li>
+<li><strong>Thin walls don’t stop low frequencies.</strong> Absorption $A=8.686\,t/\delta$ is tiny when $t\ll\delta$: a 0.5 mm aluminium sheet has $\delta=12$ mm at 50 Hz, so it stops almost nothing at mains frequency, while 85 µm skin depth at 1 MHz makes it superb. Low-frequency <em>electric</em> fields are still blocked (the charges rearrange), but low-frequency <em>magnetic</em> fields need either a very thick conductor or a high-permeability material (<strong>mu-metal</strong>, $\mu_r\approx10^4$–$10^5$) that conducts the field lines around the inside space, usually in layers. Even then, a <em>static</em> magnetic field (a magnet, or Earth’s field) is <strong>not</strong> shielded by any ordinary cage at all.</li>
+<li><strong>The box has its own resonances.</strong> A metal cavity rings at $f_{mnp}=\tfrac c2\sqrt{(m/a)^2+(n/b)^2+(p/d)^2}$ (chapter 17). A 3 m room has a resonance near 70 MHz; a pulse or noise at that frequency may be <em>amplified</em> inside by the cavity’s Q. Shielded chambers line their walls with RF absorber (carbon-loaded foam, ferrite tiles) for exactly this reason.</li>
+<li><strong>The cage works in both directions.</strong> It keeps radiation out, but also keeps the device’s own emissions in. A phone in a good bag is silent and deaf. A cage will not help a device that is <em>already</em> misbehaving or an antenna you wanted to hear.</li>
+<li><strong>Penetrations decide everything</strong> (next sections). A cable, a pipe, a data line, a power cord: each crossing needs a deliberate design. A single unfiltered wire through a perfect box makes a box with a 60 dB hole.</li>
+<li><strong>Grounding is not what makes it shield.</strong> At radio frequencies a floating box shields equally well. Grounding matters for <em>safety</em> (fault current, lightning), for static electricity and for very low-frequency electric fields. A badly grounded cage can however <em>conduct</em> noise currents to a place where you don’t want them: ground loops.</li>
+<li><strong>Real-world numbers are modest.</strong> Typical shielding effectiveness (SE), measured in the 100 MHz–1 GHz range: aluminium-foil wrap with gaps: 20–40 dB; a steel ammo can with a rubber gasket: 30–50 dB; a commercial “Faraday bag” (conductive fabric, folded closed) 40–80 dB if sealed carefully, much less if the fold leaks; a welded-steel enclosure with fingers on the door: 80–100 dB; a purpose-built shielded room, copper or steel, filtered penetrations: 100–120 dB. (MIL-STD-285, IEEE 299 and IEC 61587-3 describe how to measure it.) A <strong>test</strong> anyone can do: put an AM/FM radio, or a phone you call, in the enclosure with the lid closed. If you can still hear it or ring it, the shield is poor.</li>
+</ol>
+<div data-widget="faraday-cage"></div>
+<p>For a whole box, the leaks add up: wall, holes, seams, and the box’s own resonance. The designer below keeps the <em>budget</em>: change the metal, the holes and the gasket and see which path dominates at each frequency.</p>
+<div data-widget="enclosure-designer"></div>
+
+<h3 id="windows">Windows: shielding you can see through</h3>
+<p>Every cage has the same awkward requirement: eventually someone needs to <em>look</em> into it. A display, a lab-instrument window, an MRI-room window, an aircraft canopy, or a cabinet door with a screen: all need a transparent opening that stops radio. The answer is a conductor so thin or so sparse that light passes: <strong>transparent conducting oxides</strong> (ITO, FTO), <strong>silver nanowires</strong>, <strong>graphene</strong>, <strong>conductive polymers</strong>, <strong>ultra-thin silver</strong>, and <strong>metal meshes</strong> of wires too fine to see. Every one is a trade-off between sheet resistance (shielding) and transparency. Ordinary low-E energy-saving window glass is also a thin silver film, which is why modern windows attenuate your phone signal by 20–40 dB.</p>
+<div data-widget="transparent-shield"></div>
+
+<h2 id="waveguide" data-short="Waveguides: two meanings">Waveguides: two very different jobs</h2>
+<p>A <strong>waveguide</strong> is a hollow metal tube. It has two roles, and understanding both gives you the master key for penetrations.</p>
+<h3>1 · The tube that carries a wave (above cutoff)</h3>
+<p>For microwaves, a hollow rectangular tube of width $a$ is a better transmission line than a coaxial cable: no centre conductor, no dielectric, very low loss, very high power handling. It supports a wave only above a <strong>cutoff frequency</strong> $f_c=c/2a$ (the TE$_{10}$ mode). The oven’s magnetron feeds its cavity through a WR-340 guide (86 × 43 mm, $f_c=1.74$ GHz) because 2.45 GHz is just above cutoff. Radar transmitters, satellite ground stations, and radio-astronomy front-ends all use waveguide for the same reason.</p>
+<h3>2 · The tube that blocks a wave (below cutoff)</h3>
+<p>Make the same tube <em>narrow enough</em> that the operating frequency is below its cutoff, and waves can’t propagate in it: the field falls off as $e^{-\alpha x}$, at about <strong>32 dB per diameter</strong> for a round tube. A tube three diameters long therefore gives about 100 dB at every frequency below cutoff. That’s a hole that waves can’t use but fibres, air, water and mechanical shafts can. Such <em>waveguide-below-cutoff</em> tubes are the standard way to bring a fibre-optic cable, a coolant pipe, a pneumatic hose or a plastic shaft into a shielded room. <strong>Honeycomb vents</strong> are bundles of many short small tubes: air flows, waves don’t.</p>
+<div data-widget="waveguide-cutoff"></div>
+<h3 id="sim">Try it: a box, a hole, a tube, a window</h3>
+<p>The widget below is a real wave simulation of everything we just discussed. A plane wave (from the left) hits a metal box. Start with the sealed box, open a hole, widen it past half a wavelength, add a tube, cut a seam, and cover openings with a conductive film. The grey is metal; the colour inside the box is how much of the wave got in.</p>
+<div data-widget="fdtd-box"></div>
+<div class="callout violet"><span class="ct">The one forbidden thing</span>Never run a <em>metal</em> conductor through a below-cutoff tube. A metal wire or even a long conducting hose inside it is a coaxial line: it propagates all frequencies right through, and the tube’s “cutoff” no longer matters. Use <strong>glass fibre, plastic or ceramic</strong> in the tube. That is why optical fibres are the perfect wall-crossers: they cannot carry radio waves at all.</div>
+
+<h2 id="cables" data-short="Getting cables in">Getting a cable in without letting the field in</h2>
+<p>A conductor that passes through a shield carries noise along it, just like an antenna: the outside field induces currents along the outer part, and those currents flow on straight into the box. The fix is to arrange for the noise current to be caught <em>at the wall</em> and sent back outside, and not let it past.</p>
+<h3>Trick 1 · Let the shield’s skin effect do the work (shielded cables)</h3>
+<p>In a coaxial cable at high frequency, current on the <em>outside</em> of the shield and current on its <em>inside</em> are electrically separate: skin effect keeps each on its own surface. If the shield is clamped around its <strong>whole circumference</strong> to the wall at a bulkhead connector, the noise current on the outer surface flows into the wall and stays outside; only the wanted signal current on the inner surface continues inside. The shield becomes a part of the wall. If instead the shield is connected by a <strong>pigtail</strong>, a wire to a single point, the pigtail’s inductance (≈ 10 nH per cm) lets the outer-surface current leak to the inside: the shielding collapses at tens of MHz. Compare:</p>
+<div data-widget="shield-entry"></div>
+<h3>Trick 2 · Filter every wire at the wall</h3>
+<p>A wire carrying power or slow signals can be given a <strong>low-pass filter</strong> at the point of entry, mounted <em>through the wall</em> so that the dirty and clean sides are separated by the metal. A series inductor (or common-mode choke) and a shunt capacitor to the wall make 40 dB per decade above the corner frequency. But real parts have parasitics: the capacitor’s leads and the inductor’s windings make the filter stop working at high frequency. A <strong>feedthrough capacitor</strong> (a cylinder whose central pin passes through a capacitor soldered directly into the wall) has almost no lead inductance and works to the GHz:</p>
+<div data-widget="emi-filter"></div>
+<h3>Trick 3 · Don’t use a conductor at all</h3>
+<ul>
+<li><strong>Optical fibre</strong> for data, through a below-cutoff tube, gives unlimited isolation, no ground loops, and gigabits. Media converters at the wall (copper ↔ fibre) are the standard interface to equipment inside shielded rooms. (Chapter 15a: the same property is why fibre-controlled drones are immune to radio interference.)</li>
+<li><strong>Optocouplers and isolation transformers</strong> pass a signal or power with no galvanic connection: a stage of defence against common-mode noise.</li>
+<li><strong>Dielectric and mechanical couplings</strong> for everything else: plastic rods for switches, glass windows with fine mesh (the oven door), ceramic feed-throughs, fibre-optic pressure sensors.</li>
+</ul>
+<h3>Trick 4 · Entry panel: one place, one design</h3>
+<p>Shielded rooms put <em>every</em> crossing on a single <strong>penetration panel</strong>, a bonded metal plate with filtered power, data connectors, fibre ports and a waveguide-below-cutoff array. Rules of thumb: one entry point (otherwise noise finds the loophole); the filters and bulkhead connectors <em>in</em> the wall, not on cables inside; the dirty (outside) wiring physically separated from the clean (inside) wiring; keep cable lengths on the clean side short; ferrite chokes on any cable that still has to run inside; and test the finished room by walking around it with a field probe while a transmitter radiates outside.</p>
+
+<h2 id="power" data-short="Charging inside a cage">So, how do you charge a device in a Faraday cage?</h2>
+<p>The question has a surprisingly rich answer, because a charger means <em>energy</em> crossing the wall, and energy carried by a conductor brings noise with it. Your options, from simplest to most exotic:</p>
+<ol>
+<li><strong>Bring a battery.</strong> Charge it outside; seal it in. Nothing crosses the wall. For the small, rarely-used device it is the best solution: 100 Wh is a 500 g Li-ion pack.</li>
+<li><strong>A filtered mains or DC feedthrough.</strong> The usual answer for anything above a few watts: a power-line filter bolted <em>through</em> the wall, mains on the outside, filtered mains inside, optionally with a <strong>shielded isolation transformer</strong> (an electrostatic screen between primary and secondary) for isolation and safety. Typical SE 80–110 dB. Mind the leakage-current rule: the capacitor from line to earth is limited to a few nF, so most of the high-frequency rejection comes from chokes.</li>
+<li><strong>Power over fibre.</strong> A laser outside sends light down a fibre; a photovoltaic converter inside produces up to a few watts of electricity at roughly 20–30 % overall efficiency. The wall is untouched. Used where isolation is critical (high-voltage equipment, MRI, explosive atmospheres).</li>
+<li><strong>Through-wall ultrasonic power.</strong> Piezoelectric transducers on each side of an intact metal wall couple vibration through it. Tens of watts have been shown; the wall is not breached.</li>
+<li><strong>Inductive (wireless) charging.</strong> Only works if the <em>magnetic field gets through the wall</em>, which, by definition, means the wall is <em>not</em> shielding at the charger’s frequency. A phone-charging coil at 100 kHz needs a non-conducting window; a metal cage blocks it. (Some enclosures deliberately <em>do</em> shield only above a few MHz, so low-frequency inductive charging passes through: a frequency-selective design, not a general Faraday cage.)</li>
+</ol>
+<div data-widget="power-entry"></div>
+<div class="callout danger"><span class="ct">Reality check for “Faraday bags”</span><p>A bag with a charging cable out of one end is not a shield: the cable leaks. A bag that is folded but not sealed leaks along the fold. A phone that ‘still has signal’ proves the bag is imperfect; a phone that ‘loses signal’ proves only a few tens of dB at that frequency, not 100. Nothing is protected against a pulse unless the penetration problem is solved, as above.</p></div>
+
+<h2 id="checklist" data-short="Design checklist">Design checklist</h2>
+<ol>
+<li>Decide the <strong>frequencies</strong> you need to stop and the required dB. Low-frequency magnetic fields need thick or high-μ metal; microwaves need small holes.</li>
+<li>Make the shell <strong>continuous</strong> (welded, soldered, or overlapped with conductive gaskets at ≤ λ/20 pitch) with no long slots; doors with finger stock or knife-edge.</li>
+<li>Replace every opening with a <strong>mesh or honeycomb</strong> of tubes below cutoff (depth ≥ 3 × width).</li>
+<li>Put all entries on one panel; use <strong>360° shield bonding</strong>, filtered connectors, feedthrough capacitors, common-mode chokes and <strong>fibre</strong> for data.</li>
+<li>Power the device from a <strong>battery, filtered line, isolation transformer or power-over-fibre</strong>; never a bare cord.</li>
+<li>Line the inside with <strong>absorber</strong> if cavity resonances matter.</li>
+<li><strong>Measure</strong> the finished enclosure; assume the weakest crossing sets the result.</li>
+</ol>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>A Faraday cage works by surface currents cancelling the field inside; it needs thickness ≫ skin depth, a continuous surface, and no antennas through it.</li>
+<li>Limits: slot length, seams and doors, thin walls at low frequency, magnetic fields (mu-metal), static magnetic fields (none), cavity resonances, penetrations.</li>
+<li>A tube <em>below cutoff</em> blocks waves (≈ 32 dB per diameter for a round tube) but lets fibres, air and plastic through; above cutoff, a tube is a waveguide.</li>
+<li>Coax shields bonded 360° at the wall use the skin effect to keep outer noise currents out; a pigtail ruins it above tens of MHz.</li>
+<li>Filters work only until their parasitic resonances; feedthrough capacitors push that to GHz.</li>
+<li>Powering a device in a cage: battery, filtered line (+ isolation transformer), power-over-fibre, ultrasonic through the wall; inductive charging breaks the shield by definition.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What is the main reason a 5 cm pigtail on a cable shield destroys its shielding at 100 MHz?","o":["It is too thin","Its inductance (~10 nH/cm) gives it a large impedance at 100 MHz, so the outer-surface noise current leaks to the inside","It is not grounded","It is too long to reach the wall"],"a":1,"why":"Z = jωL: at 100 MHz, 50 nH is about 31 Ω, vastly more than the braid’s transfer impedance."},
+ {"q":"A round hole is 5 mm in diameter. About how deep must it be to give 96 dB far below its cutoff frequency?","o":["5 mm","15 mm","30 mm","1 m"],"a":1,"why":"32 dB per diameter: 96/32 = 3 diameters = 15 mm."},
+ {"q":"Which option lets you give a few watts to a device in a shielded room without making any hole for a conductor?","o":["A bare power cord","Power over fibre (laser + photovoltaic cell)","Inductive charger through the metal wall","A longer cable"],"a":1,"why":"Light in a fibre through a below-cutoff tube leaves the wall intact; efficiency is low but shielding is unaffected."},
+ {"q":"Why are thin metal cages poor at stopping 50 Hz magnetic fields?","o":["Metal is magnetic","The skin depth at 50 Hz (≈ 1 cm in aluminium) is much larger than the wall thickness","Cages are not grounded","50 Hz is too high"],"a":1,"why":"Absorption ∝ t/δ; with t ≪ δ almost nothing is absorbed, so you need thick or high-permeability shields."},
+ {"q":"What is wrong with putting a metal wire inside a waveguide-below-cutoff tube?","o":["Nothing","The wire and tube form a coaxial line that carries all frequencies through, defeating the cutoff","The tube heats up","The wire gets too cold"],"a":1,"why":"A conductor inside the tube turns it into a transmission line with no cutoff."},
+ {"q":"A transparent conductive film has a sheet resistance of 19 Ω/sq. About how much does it reduce a plane wave (dB)?","o":["≈ 5 dB","≈ 20 dB","≈ 60 dB","≈ 100 dB"],"a":1,"why":"SE = 20 log(1 + 188/Rs) = 20 log(1 + 9.9) = 20.7 dB, nearly independent of frequency for a thin film."},
+ {"q":"Why does a fine metal mesh stop shielding well at very high frequency, though it is a good conductor?","o":["Copper stops conducting","Its openings approach half a wavelength and start to leak","It melts","It becomes transparent to magnetism"],"a":1,"why":"A mesh behaves as a sheet only when the pitch is much smaller than the wavelength; near f ≈ c/2g the holes leak."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>We have seen how to keep fields out of a box, and what a cage cannot do. Chapter 16b widens the view to the natural EMP, the Sun, and the Van Allen belts; then chapter 17 looks at a box built to keep a large field <em>in</em>: your microwave oven, and whether it is an EMP.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waves &amp; Antennas for Dummies — from a wire to a phased array</title>
+<meta name="description" content="An interactive guide to electromagnetism, the spectrum, antennas, radar, EMP and phased arrays, starting from a single wire.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<div class="hero">
+  <div class="hero-text">
+    <span class="eyebrow">An interactive guide · 28 chapters · 75+ widgets</span>
+    <h1>Waves &amp; antennas<br>for <span>dummies</span></h1>
+    <p class="lede">Start with one wire and a battery. Finish by steering a radar beam with no moving parts. In between: magnetism, the whole electromagnetic spectrum, atoms and the double slit, what a wave can pass through, whales and submarines, antennas, ham radio and SDR, radar, electronic warfare, EMPs, the microwave oven in your kitchen, and phased arrays that image black holes.</p>
+    <div class="btn-row">
+      <a class="btn fire" href="01-current.html">Start with the wire →</a>
+      <a class="btn" href="05-spectrum.html">Jump to the spectrum</a>
+      <a class="btn" href="18-arrays.html">Jump to phased arrays</a>
+    </div>
+  </div>
+  <div data-widget="hero-wave"></div>
+</div>
+
+<h2 id="idea" data-short="The whole idea">The whole idea in one sentence</h2>
+<p class="lede">A changing electric field makes a magnetic field, a changing magnetic field makes an electric field, and the two can hold each other up and leave the wire as a wave at the speed of light.</p>
+<p>Everything in this guide is that sentence, followed by “and what happens if I shape it, tune it, bounce it, or steer it?”. Orange always means the <span class="e-col">electric field E</span>, cyan always means the <span class="b-col">magnetic field B or H</span>, and yellow means energy or power.</p>
+
+<h2 id="path" data-short="Your path">Your path through the guide</h2>
+<div class="part-h">I · Fields from scratch</div>
+<div class="cards">
+  <a class="card" href="01-current.html"><span class="num">CHAPTER 1</span><h3>A current makes a field</h3><p>Moving charge, the field around a wire, and why a steady current never radiates.</p><div class="tags"><span class="chip b">Ampère</span><span class="chip b">Biot–Savart</span></div></a>
+  <a class="card" href="02-fields.html"><span class="num">CHAPTER 2</span><h3>E, D, H, B &amp; the hand rules</h3><p>Field quantities, materials, the Lorentz force and the right-hand rules.</p><div class="tags"><span class="chip e">Lorentz force</span></div></a>
+  <a class="card" href="03-induction.html"><span class="num">CHAPTER 3</span><h3>Induction &amp; Maxwell</h3><p>Faraday, Lenz, displacement current and the four equations.</p></a>
+  <a class="card" href="04-radiation.html"><span class="num">CHAPTER 4</span><h3>Waves leave the wire</h3><p>Near and far field; how fields fade from lines, points and dipoles.</p></a>
+</div>
+<div class="part-h">II · Spectrum &amp; matter</div>
+<div class="cards">
+  <a class="card" href="05-spectrum.html"><span class="num">CHAPTER 5</span><h3>The spectrum</h3><p>From 1 Hz to gamma: wavelength, frequency, energy, examples.</p></a>
+  <a class="card" href="05a-atoms.html"><span class="num">CHAPTER 5a</span><h3>Photons, atoms &amp; ionising radiation</h3><p>Energy levels, band gaps, why photons are absorbed, and what ionising means.</p></a>
+  <a class="card" href="05b-quantum.html"><span class="num">CHAPTER 5b</span><h3>Wave or particle? The double slit</h3><p>Pellets, photons, electrons, and what an observer really does.</p></a>
+  <a class="card" href="06-matter.html"><span class="num">CHAPTER 6</span><h3>What passes through what</h3><p>Glass, plastic, concrete, soil, rock, seawater, you.</p></a>
+  <a class="card" href="07-senses.html"><span class="num">CHAPTER 7</span><h3>Hearing, whales, bats &amp; eyes</h3><p>Sound vs radio, ocean sound channel, animal senses.</p></a>
+  <a class="card" href="08-submarines.html"><span class="num">CHAPTER 8</span><h3>Talking to submarines</h3><p>ELF and VLF, giant antennas, and the alternatives.</p></a>
+</div>
+<div class="part-h">III · Antennas</div>
+<div class="cards">
+  <a class="card" href="09-antenna.html"><span class="num">CHAPTER 9</span><h3>What is an antenna?</h3><p>Dipoles, patterns, gain, link budget.</p></a>
+  <a class="card" href="10-lines.html"><span class="num">CHAPTER 10</span><h3>Lines &amp; matching</h3><p>Reflections, VSWR, the Smith chart, L-networks.</p></a>
+  <a class="card" href="11-zoo.html"><span class="num">CHAPTER 11</span><h3>The antenna zoo</h3><p>13 types with computed patterns, plus the dish.</p></a>
+  <a class="card" href="11a-radio.html"><span class="num">CHAPTER 11a</span><h3>Radio in practice: ham, SDR &amp; skywave</h3><p>Radio basics, ham radio, a software radio, bouncing off the ionosphere, radio horizon, HAARP.</p></a>
+</div>
+<div class="part-h">IV · Radar</div>
+<div class="cards">
+  <a class="card" href="12-radar.html"><span class="num">CHAPTER 12</span><h3>Radar from zero</h3><p>Echoes, resolution, the 1/R⁴ equation, the radar screen.</p></a>
+  <a class="card" href="13-doppler.html"><span class="num">CHAPTER 13</span><h3>Doppler, PRF &amp; FMCW</h3><p>Speed from frequency; the PRF dilemma; the radar in your car.</p></a>
+  <a class="card" href="14-types.html"><span class="num">CHAPTER 14</span><h3>Radar types &amp; bands</h3><p>L to W bands, weather, SAR, OTH, GPR.</p></a>
+  <a class="card" href="15-rcs.html"><span class="num">CHAPTER 15</span><h3>Seen or unseen: RCS &amp; stealth</h3><p>Why shape and wavelength matter.</p></a>
+  <a class="card" href="15b-realdata.html"><span class="num">CHAPTER 15b</span><h3>Radar in the real world</h3><p>Published, unclassified RCS data and radar parameters: who can see what, and how far.</p></a>
+  <a class="card" href="15c-passive.html"><span class="num">CHAPTER 15c</span><h3>Passive radar &amp; the Starlink question</h3><p>Radar without a transmitter, forward scatter, and a sober look at “Starlink as a giant radar”.</p></a>
+  <a class="card" href="15d-presence.html"><span class="num">CHAPTER 15d</span><h3>Radar that senses people</h3><p>60 GHz presence sensing, breathing and heartbeat from the echo phase.</p></a>
+  <a class="card" href="15a-ew.html"><span class="num">CHAPTER 15a</span><h3>Electronic warfare &amp; resilient links</h3><p>Spread spectrum, frequency hopping, nulling, and why some drones fly on fibre.</p></a>
+</div>
+<div class="part-h">V · EMP</div>
+<div class="cards">
+  <a class="card" href="16-emp.html"><span class="num">CHAPTER 16</span><h3>EMP: the fast, broad burst</h3><p>Sources, spectra, coupling, shielding.</p></a>
+  <a class="card" href="16a-shielding.html"><span class="num">CHAPTER 16a</span><h3>Shielding in practice</h3><p>Limits of Faraday cages, waveguides below cutoff, filtered feedthroughs, and how to power a device inside a shielded box.</p></a>
+  <a class="card" href="16b-space.html"><span class="num">CHAPTER 16b</span><h3>Space weather &amp; the Van Allen belts</h3><p>Solar flares, CMEs, geomagnetic storms, induced currents and trapped radiation.</p></a>
+  <a class="card" href="17-microwave.html"><span class="num">CHAPTER 17</span><h3>Case study: the microwave oven</h3><p>Magnetron, hot spots, shielding, Wi-Fi interference; and why it is not an EMP.</p></a>
+</div>
+<div class="part-h">VI · Hero level</div>
+<div class="cards">
+  <a class="card" href="18-arrays.html"><span class="num">CHAPTER 18</span><h3>Phased arrays</h3><p>Beam steering, grating lobes, AESA, adaptive nulling.</p></a>
+  <a class="card" href="19-systems.html"><span class="num">CHAPTER 19</span><h3>Multi-array systems</h3><p>Faces, MIMO, HAARP, and Earth-sized telescopes.</p></a>
+</div>
+
+<div class="callout"><span class="ct">How this guide works</span>Every idea comes with a plot or widget. Drag the sliders, break things, watch the numbers. The maths is in fold-out boxes and a short quiz ends each chapter. Chapters you scrolled through get a ✓ in the side menu.</div>
+
+</article>
+</main>
+</div>
+</body>
+</html>

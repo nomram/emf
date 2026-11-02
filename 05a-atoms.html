@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5a · Photons, atoms &amp; ionising radiation — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Energy levels, band gaps, why some photons are absorbed and others pass through, and what makes radiation ionising.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 5a · Spectrum &amp; matter</span>
+<h1>Photons, atoms &amp; ionising radiation</h1>
+<div class="meta"><span>~30 min</span><span>2 widgets</span><span>why a photon is absorbed or ignored</span></div>
+<p class="lede">Chapter 5 said a photon’s energy is $E=hf$. Now we meet the other half of the story: what the <em>atom</em> does with it. The answer explains why glass is clear, why silicon is dark, why metals shine, why UV gives sunburn, and exactly what “ionising” means.</p>
+
+<h2 id="levels" data-short="Allowed energies">Electrons only have certain allowed energies</h2>
+<p>An electron bound to an atom is a wave trapped around the nucleus, like a guitar string held at both ends. A string can only vibrate at certain notes (the fundamental and its harmonics), and an electron wave can only exist at certain energies. Between them there is <em>nothing</em>: no allowed state. For hydrogen the allowed energies are</p>
+<div class="eq">$$E_n=-\frac{13.6\ \text{eV}}{n^2},\qquad n=1,2,3,\dots$$</div>
+<p>The minus sign means “bound”: zero is a free electron at rest far away. The ground state $n=1$ is at $-13.6$ eV, the next at $-3.4$ eV, then $-1.51$, $-0.85$ and so on, squeezing together toward zero.</p>
+<div class="callout"><span class="ct">About the picture: not the Bohr model all the way</span>You may have seen electrons drawn as little planets on orbits (Bohr, 1913). That cartoon gets the <em>energy levels</em> exactly right for hydrogen, which is why we use it here, but real electrons are not on tracks. They are spread-out probability clouds called <strong>orbitals</strong>, and the levels in this guide are the energies of those clouds. The widget below therefore shows an <em>energy ladder</em>, the part that is physically solid, and a moving dot only as a visual aid.</div>
+
+<h2 id="absorb" data-short="Absorb or pass">A photon is absorbed only if it fits</h2>
+<p>A photon delivers its energy all at once, in one gulp, or not at all. So when a photon meets an atom there are three outcomes:</p>
+<ol>
+<li><strong>Exactly the right size</strong> for a jump: $E_\text{photon}=E_\text{upper}-E_\text{lower}$. It is absorbed and the electron jumps up (<em>excitation</em>). A moment later (nanoseconds) it falls back and emits a photon, usually in a random direction.</li>
+<li><strong>Not the right size</strong> (too small or between the allowed rungs): it passes through. The atom is <em>transparent</em> to it.</li>
+<li><strong>Bigger than the binding energy</strong> ($>13.6$ eV for hydrogen): the electron is torn free with the surplus as kinetic energy $KE=E_\text{photon}-E_\text{bind}$. This is <strong>ionisation</strong>, and it is called the <em>photoelectric effect</em>. It is how Einstein showed in 1905 that light comes in quanta, and it earned him the Nobel prize.</li>
+</ol>
+<p>Fire photons at hydrogen and then switch to a glass, silicon or metal slab. In a solid the levels of $10^{23}$ atoms merge into <strong>bands</strong>, with a forbidden <strong>gap</strong> $E_g$ between a full valence band and an empty conduction band.</p>
+<div data-widget="atom-levels"></div>
+<p>Look at what this predicts and you can explain everyday things:</p>
+<ul>
+<li><strong>Glass is transparent to visible light</strong> because its gap (≈9 eV) is larger than any visible photon (1.8–3.1 eV). There is no jump for them to make. Photons of 9 eV and above (vacuum UV) are absorbed, so glass blocks UV-C and UV-B largely.</li>
+<li><strong>Silicon is dark grey</strong> because its gap is only 1.12 eV: every visible photon can lift an electron across, and that is exactly what a solar cell harvests. But infrared below 1.12 eV (wavelength above 1100 nm) passes right through, which is why silicon cameras and chips can be inspected with infrared.</li>
+<li><strong>Metals are shiny and opaque</strong> because the electrons are free to take any amount of energy and move together, so they absorb or re-radiate everything from radio to light.</li>
+<li><strong>Radio, Wi-Fi and microwave photons</strong> (≤0.001 eV) are far too small to excite any electron. They interact in different ways (making charges drift, rotating water molecules), and that is the subject of chapter 6.</li>
+</ul>
+<div class="callout violet"><span class="ct">Same idea, opposite direction: emission</span>Run the process in reverse and you get light <em>sources</em>. A neon sign emits only the specific jumps of neon (a few sharp colours). An LED emits photons of energy ≈ its gap when electrons and holes recombine. A laser stimulates many atoms to emit identical photons at once. Every “spectral line” in astronomy is an atomic fingerprint like those above.</div>
+
+<h2 id="ionising" data-short="Ionising radiation">What makes radiation “ionising”?</h2>
+<p>To <strong>ionise</strong> an atom or molecule you must remove an electron. That takes roughly <strong>10–25 eV</strong> for most atoms of living matter (water 12.6, hydrogen 13.6, nitrogen 14.5, oxygen 13.6). Radiation with enough energy per quantum is called <em>ionising</em>: the far ultraviolet (UV-C and below ≈ 100 nm), X-rays, gamma rays, and also fast particles (alpha, beta, neutrons).</p>
+<p>The ladder shows why the boundary matters so much. Ionisation creates fast, reactive fragments (free radicals) and can break DNA strands directly. Lower energies are not harmless (UV-C at 4.9 eV is above the energy of many chemical bonds, and photons of a few eV drive photochemistry), but only the highest ones ionise.</p>
+<div data-widget="photon-ladder"></div>
+<div class="callout danger"><span class="ct">The most important sentence in this chapter</span><p><strong>Photon energy, not power, decides whether radiation ionises.</strong> A 100 kW FM transmitter sends out photons of 4×10⁻⁷ eV each; none of them can break a bond, however many there are. A single 10 keV X-ray photon can ionise hundreds of atoms. So radio-frequency limits are about <em>heating</em>, and X-ray limits are about <em>dose</em>.</p></div>
+
+<h3 id="interactions">How X-rays and gamma rays interact</h3>
+<p>Three processes compete, depending on photon energy and the atomic number $Z$ of the target:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Process</th><th>Photon energy</th><th>What happens</th><th>Why it matters</th></tr>
+<tr><td>Photoelectric absorption</td><td>up to ≈ 100 keV (higher for heavy atoms)</td><td>Photon is absorbed entirely; an inner electron is ejected. Probability $\propto Z^3/E^3$.</td><td>Bones (calcium) absorb far more than soft tissue: that is the medical X-ray picture. Lead shields strongly.</td></tr>
+<tr><td>Compton scattering</td><td>≈ 100 keV – 10 MeV</td><td>Photon bounces off an electron, losing some energy and changing direction.</td><td>Dominant in tissue at CT and radiotherapy energies; causes the fuzzy background in images.</td></tr>
+<tr><td>Pair production</td><td>&gt; 1.022 MeV</td><td>Near a nucleus the photon becomes an electron and a positron.</td><td>Dominant for very high energy gamma rays. The 1.022 MeV is $2m_ec^2$.</td></tr>
+</table></div>
+<p>A beam loses intensity exponentially as it goes through a material, the same law we will use for radio waves in chapter 6:</p>
+<div class="eq">$$I=I_0\,e^{-\mu x},\qquad \text{half-value layer: } x_{1/2}=\frac{\ln2}{\mu}$$</div>
+<p>$\mu$ is the attenuation coefficient. For 100 keV X-rays, lead has a half-value layer of about 0.1 mm, concrete about 2 cm and water about 4 cm. That is why dentists drape a lead apron on you, and why a nuclear shield is thick concrete.</p>
+
+<h3 id="dose">Dose: how much is a lot?</h3>
+<p>Absorbed energy per kilogram is measured in <strong>grays</strong> (Gy = J/kg). The biological effect also depends on the radiation type and tissue; the <strong>sievert</strong> (Sv) weights for that. For X-rays and gamma rays $1\ \text{Gy}\approx1\ \text{Sv}$. These figures are approximate typical values:</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Source</th><th class="num">Effective dose</th></tr>
+<tr><td>Eating a banana (potassium-40)</td><td class="num">≈ 0.1 µSv</td></tr>
+<tr><td>Dental X-ray</td><td class="num">≈ 5 µSv</td></tr>
+<tr><td>Chest X-ray</td><td class="num">≈ 0.1 mSv</td></tr>
+<tr><td>Long-haul flight (cosmic rays)</td><td class="num">≈ 0.05 mSv</td></tr>
+<tr><td>Natural background, per year (average)</td><td class="num">≈ 2.4 mSv</td></tr>
+<tr><td>CT scan of the abdomen</td><td class="num">≈ 8 mSv</td></tr>
+<tr><td>Occupational limit, per year (average over 5 years)</td><td class="num">20 mSv</td></tr>
+<tr><td>Acute radiation sickness begins (short exposure)</td><td class="num">≈ 1 Sv</td></tr>
+<tr><td>Roughly half would die without treatment</td><td class="num">≈ 4–5 Sv</td></tr>
+</table></div>
+<p>Note the six orders of magnitude between a banana and a lethal dose. Also note that radio waves do not appear anywhere on this table: their risk is measured in W/m² and tissue heating, not in sieverts.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Bound electrons have only certain allowed energies. A photon is absorbed only if it exactly matches a jump, or, above the binding energy, ionises.</li>
+<li>In solids the levels merge into bands. A gap larger than the photon energy means transparency (glass for visible light); a gap smaller means absorption (silicon); no gap means metal.</li>
+<li>Ionising radiation (≳10 eV per photon) is UV-C, X-ray and gamma. Photon energy, not power, decides.</li>
+<li>X-rays and gamma interact by photoelectric absorption, Compton scattering and pair production; intensity falls as $e^{-\mu x}$.</li>
+<li>Doses are measured in sieverts, and typical medical doses are a few mSv.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"A photon with energy exactly halfway between two allowed levels of an atom meets that atom. What happens?","o":["It is absorbed and the electron goes halfway","It passes through (no matching jump)","It splits into two photons","It is always reflected"],"a":1,"why":"Only energy differences between allowed levels (or above the ionisation limit) can be absorbed. In between there is no state to jump to."},
+ {"q":"Why is ordinary window glass transparent to visible light?","o":["Visible photons have too little energy to lift an electron across the ≈9 eV gap","It reflects all visible light","It has no electrons","It is so thin"],"a":0,"why":"Visible photons are 1.8–3.1 eV, far below the glass band gap, so nothing absorbs them."},
+ {"q":"A photon of 20 eV hits a hydrogen atom in its ground state. The electron is…","o":["excited to n = 2","ejected with about 6.4 eV of kinetic energy","unaffected","pushed to n = 3"],"a":1,"why":"20 − 13.6 = 6.4 eV: photoelectric effect (ionisation)."},
+ {"q":"Which statement about ionisation is right?","o":["A powerful enough Wi-Fi router can ionise atoms","Ionisation depends on the energy of each photon, not just on total power","Only gamma rays can ionise","Visible light always ionises"],"a":1,"why":"Each photon acts alone. Wi-Fi photons are ~10 µeV; no amount of them can ionise."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>If a photon is a lump of energy that either is absorbed whole or not at all, is light a stream of particles? But it also interferes and diffracts like a wave. Chapter 5b runs the most famous experiment in physics to see which one it is.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5 · The spectrum — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="The electromagnetic spectrum from ELF to gamma rays: frequency, wavelength and photon energy, with an interactive explorer and real examples.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 5 · Spectrum &amp; matter</span>
+<h1>The spectrum</h1>
+<div class="meta"><span>~30 min</span><span>3 widgets</span><span>one wave, 25 decades</span></div>
+<p class="lede">A 50 Hz mains wire, an FM station, Wi-Fi, the glow of a stove, the blue of the sky, a dentist’s X-ray and a gamma ray from a collapsing star are <em>the same thing</em>: an oscillating electric and magnetic field. They differ only in how fast it oscillates.</p>
+
+<h2 id="three" data-short="Three numbers">Three numbers for one wave</h2>
+<p>Every wave has three equivalent descriptions:</p>
+<div class="eq">$$c=f\lambda,\qquad E_{\text{photon}}=hf\qquad\Rightarrow\qquad \lambda[\text{m}]=\frac{299\,792\,458}{f[\text{Hz}]},\quad E[\text{eV}]=\frac{1.2398\times10^{-6}}{\lambda[\text{m}]}$$</div>
+<p><strong>Frequency</strong> $f$: how many times per second the field goes up and down. <strong>Wavelength</strong> $\lambda$: how far the wave travels during one oscillation, which is also the spacing between crests. <strong>Photon energy</strong> $E=hf$ (with $h=6.626\times10^{-34}$ J·s): at the finest scale the wave comes in packets, and the energy of one packet is proportional to the frequency.</p>
+<div class="callout"><span class="ct">Rule of thumb</span>$\lambda\,[\text{m}]\approx300/f\,[\text{MHz}]$. FM at 100 MHz is 3 m. Wi-Fi at 2400 MHz is 12.5 cm. A 30 cm ruler is one wavelength at 1 GHz. Radio people memorise this one.</div>
+<p>All three, plus the period, are on the explorer below. The scale is <strong>logarithmic</strong>, with each tick ten times the previous one, because the spectrum spans 25 powers of ten. Drag along it, click on the examples, and use the zoom buttons.</p>
+<div data-widget="spectrum"></div>
+
+<h2 id="bands" data-short="Bands & names">The bands and what lives in them</h2>
+<p>The ITU (International Telecommunication Union) names radio bands by powers of ten: each band is a factor of ten wide, which is also a factor of ten in wavelength.</p>
+<div class="table-wrap"><table class="data">
+<tr><th>Band</th><th>Frequency</th><th>Wavelength</th><th>Typical uses and behaviour</th></tr>
+<tr><td>ELF / SLF</td><td>3–300 Hz</td><td>1 000–100 000 km</td><td>Submarine messages (76/82 Hz), power grid. Penetrates seawater (chapter 8). Gigantic antennas.</td></tr>
+<tr><td>ULF / VLF</td><td>0.3–30 kHz</td><td>10–1 000 km</td><td>Through-earth mine radio, navy VLF at 15–30 kHz, lightning “whistlers”. Guided between Earth and ionosphere.</td></tr>
+<tr><td>LF / MF</td><td>30 kHz–3 MHz</td><td>100 m–10 km</td><td>Longwave, AM radio, RFID, maritime beacons. Ground wave follows the Earth.</td></tr>
+<tr><td>HF</td><td>3–30 MHz</td><td>10–100 m</td><td>Shortwave, amateur, over-the-horizon radar. Reflects off the ionosphere (“skip”).</td></tr>
+<tr><td>VHF</td><td>30–300 MHz</td><td>1–10 m</td><td>FM radio, TV, aircraft voice, marine radio. Mostly line of sight.</td></tr>
+<tr><td>UHF</td><td>0.3–3 GHz</td><td>10 cm–1 m</td><td>Cell phones, GPS, Wi-Fi 2.4 GHz, microwave ovens, TV, 1–2 GHz radar. Penetrates walls moderately.</td></tr>
+<tr><td>SHF</td><td>3–30 GHz</td><td>1–10 cm</td><td>Satellite links, Wi-Fi 5/6 GHz, C/X/Ku radar, 5G mid-band. Dish antennas become practical.</td></tr>
+<tr><td>EHF</td><td>30–300 GHz</td><td>1–10 mm</td><td>Automotive radar (77 GHz), 5G mmWave, security scanners. Absorbed by rain and oxygen.</td></tr>
+<tr><td>THz</td><td>0.3–10 THz</td><td>30 µm–1 mm</td><td>Spectroscopy, imaging. Strongly absorbed by water vapour.</td></tr>
+<tr><td>Infrared</td><td>10–400 THz</td><td>0.75–30 µm</td><td>Heat radiation, thermal cameras, remote controls, optical fibre.</td></tr>
+<tr><td>Visible</td><td>400–790 THz</td><td>380–750 nm</td><td>Vision, photosynthesis. Passes through the atmosphere and glass.</td></tr>
+<tr><td>Ultraviolet</td><td>0.8–30 PHz</td><td>10–380 nm</td><td>Sunburn, sterilisation, fluorescence. Starts to be ionising below ≈100 nm.</td></tr>
+<tr><td>X-rays</td><td>30 PHz–30 EHz</td><td>0.01–10 nm</td><td>Medical imaging, crystallography, security scanning.</td></tr>
+<tr><td>Gamma rays</td><td>&gt;30 EHz</td><td>&lt;0.01 nm</td><td>Radioactive decay, cosmic sources. Penetrate deeply.</td></tr>
+</table></div>
+<p>Radar people have their own letter names (L, S, C, X, Ku, K, Ka, V, W) which appear when you zoom the explorer into the 1–110 GHz window. We use them from chapter 12 onward.</p>
+
+<h2 id="energy" data-short="Ionising or not?">Photon energy: where the “radiation” worry begins</h2>
+<p>A molecule needs a few electron-volts (eV) to be torn apart, and about 10–25 eV to lose an electron. A photon delivers its energy all at once. So:</p>
+<ul>
+<li>A Wi-Fi photon carries 10 µeV. Millions of times too little to break a bond. <em>No amount of Wi-Fi power can ionise anything</em>; the only effect is heating, if the power is high enough.</li>
+<li>A visible-light photon (2–3 eV) can nudge electrons in a molecule: the basis of vision and photosynthesis.</li>
+<li>UV photons (3–12 eV) break bonds, and DNA is vulnerable: sunburn.</li>
+<li>X-ray and gamma photons (keV and up) knock electrons out of atoms: <strong>ionising radiation</strong>, which is dangerous even at low power.</li>
+</ul>
+<p>That is why the safety rules in the radio range are about <em>heating</em> (power density, W/m²) and the rules at X-ray and above are about <em>dose</em>. The converter lets you check any number yourself, including what happens inside a material where the wavelength is shorter.</p>
+<div data-widget="wave-calc"></div>
+
+<h2 id="heat" data-short="Hot things glow">Hot things glow: the Planck curve</h2>
+<p>Warm matter is full of jiggling charges, and jiggling charges radiate (chapter 1). A perfect absorber and emitter (a “black body”) radiates a spectrum that depends on only one number, its temperature. Hotter means more power ($\propto T^4$) and a shorter peak wavelength ($\propto 1/T$). This is the radio-frequency noise that limits every receiver, the infrared that thermal cameras see, and the colour of the Sun.</p>
+<div data-widget="wien"></div>
+<p>Note one beautiful fact on the plot: the peak for your body is at about 9.4 µm, in the thermal infrared. And the cosmic microwave background left over from the Big Bang, at 2.7 K, peaks at 1 mm, in the microwave. Radio astronomers listen to the afterglow of the universe with the same kind of dish you will meet in chapter 11.</p>
+
+<h2 id="propagation" data-short="How each band travels">How each band travels</h2>
+<p>Frequency also sets <em>how the wave gets around</em>:</p>
+<ul>
+<li><strong>Ground wave (below ~3 MHz):</strong> follows the curve of the Earth. AM stations reach beyond the horizon, and VLF/LF reaches thousands of kilometres.</li>
+<li><strong>Sky wave (3–30 MHz):</strong> reflected back by charged layers of the ionosphere at 100–400 km height. The reason shortwave radio and over-the-horizon radar can reach the other side of the globe.</li>
+<li><strong>Line of sight (VHF and up):</strong> the wave goes straight and passes through the ionosphere. Range is set by antenna height: $d\approx3.57(\sqrt{h_1}+\sqrt{h_2})$ km for heights in metres (with the usual 4/3 Earth effective radius).</li>
+<li><strong>Above ~10 GHz:</strong> raindrops and gases begin to absorb, and at optical frequencies clouds block the path.</li>
+</ul>
+<p>Chapter 6 attaches numbers to “passes through” and “is blocked by”.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>$c=f\lambda$; $\lambda[\text{m}]\approx300/f[\text{MHz}]$. Photon energy $E=hf$.</li>
+<li>Radio, microwave, infrared, visible, UV, X-ray and gamma are one family, differing only in frequency.</li>
+<li>Below the UV the photons are too weak to ionise, so the concern is heating; above it, dose.</li>
+<li>Everything warm radiates a Planck curve peaking at $\lambda=2898\ \mu\text{m·K}/T$.</li>
+<li>Different bands travel by ground wave, sky wave or line of sight.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"What is the wavelength of a 100 MHz FM radio signal in air?","o":["3 mm","30 cm","3 m","300 m"],"a":2,"why":"λ = c/f = 3×10⁸ / 10⁸ = 3 m."},
+ {"q":"Which has the most energy per photon?","o":["An FM radio wave","A Wi-Fi signal","Visible red light","An X-ray"],"a":3,"why":"E = hf grows with frequency: X-rays have far higher f than anything else on the list."},
+ {"q":"Why can’t a very strong Wi-Fi transmitter ionise atoms the way X-rays do?","o":["Wi-Fi uses lower power","Each Wi-Fi photon has far too little energy; extra power just means more photons","Wi-Fi is not electromagnetic","Atoms are immune to radio"],"a":1,"why":"Ionisation depends on energy per photon (E=hf), not on the number of photons. More Wi-Fi power only heats."},
+ {"q":"A human body (about 310 K) glows most brightly at roughly…","o":["500 nm (green)","9–10 µm (thermal infrared)","3 m (FM radio)","10 nm (UV)"],"a":1,"why":"Wien: λ = 2898 µm·K / 310 K ≈ 9.3 µm."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>We said a photon’s energy decides whether it can break a bond. Chapter 5a looks inside an atom to see exactly why some photons are absorbed and others sail through, and chapter 5b asks the awkward question: is light a wave or a particle?</div>
+</article>
+</main>
+</div>
+</body>
+</html>

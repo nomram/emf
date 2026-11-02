@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5b · Wave or particle? The double slit — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Pellets, photons and electrons through slits; wave-particle duality; what 'observing' really means; decoherence and the quantum eraser.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 5b · Spectrum &amp; matter</span>
+<h1>Wave or particle? The double slit</h1>
+<div class="meta"><span>~35 min</span><span>4 widgets</span><span>the strangest experiment in physics</span></div>
+<p class="lede">Maxwell says light is a wave. Einstein says it comes in lumps. Both are right, and a pair of slits in a piece of cardboard will show you why that is so odd. We will run the experiment three ways: with pellets, with single photons, and with someone watching.</p>
+
+<h2 id="evidence" data-short="Two sets of evidence">Two sets of evidence</h2>
+<p><strong>Wave evidence.</strong> In 1801 Thomas Young shone light through two narrow slits and saw stripes of light and dark on a screen. Light from the two slits arrives with some <em>path difference</em>; where crests meet crests it is bright, where crest meets trough it cancels. Only waves do that. Maxwell’s equations (chapter 3) then explained why: light is an oscillating electromagnetic field. Radio waves, radar and antenna patterns all rely on this same interference. Everything in chapters 9–19 is a many-slit version of this experiment.</p>
+<p><strong>Particle evidence.</strong> The photoelectric effect (chapter 5a) shows light handing over its energy in indivisible lumps of $hf$. Photon counters click one at a time. A dim star’s light arrives as individual hits on a camera pixel.</p>
+<div class="callout"><span class="ct">The question</span>How can something be a spread-out wave that interferes with itself <em>and</em> arrive in single lumps? The slit experiment answers it better than any argument.</div>
+
+<h2 id="pellets" data-short="1 · Pellets">Experiment 1: pellets</h2>
+<p>Start with something we understand. Fire small pellets at a wall with $N$ slits and put a screen behind it. A pellet goes through <em>one</em> slit (it cannot split) and lands behind it, with some random scatter from the slit edges. What shape should the pile be? Just the sum of the piles you would get with each slit alone: $N$ bumps. Check it:</p>
+<div data-widget="slit-pellets"></div>
+<p>Cover one slit and the bump behind it disappears; the other is unchanged. <strong>Pellets never cancel each other.</strong> Adding a slit can only ever <em>add</em> pellets somewhere.</p>
+
+<h2 id="waves" data-short="Waves interfere">What waves do instead</h2>
+<p>Send water waves (or radio waves, or sound) at two slits and each slit becomes a new source. At a point on the screen the two contributions arrive with path difference $\Delta=d\sin\theta$. They add in step (bright) when $\Delta=m\lambda$ and cancel (dark) when $\Delta=(m+\tfrac12)\lambda$:</p>
+<div class="eq">$$d\sin\theta=m\lambda\ \ (\text{bright}),\qquad y_m\approx m\,\frac{\lambda L}{d}$$</div>
+<p>with $L$ the distance to the screen. The stripes are spaced $\lambda L/d$ apart. The wave amplitudes add first and the intensity (what you measure) is the amplitude <em>squared</em>, so the result is not a sum of intensities. With $N$ equally spaced slits the stripes sharpen into narrow peaks: the formula for an antenna <em>array</em>, which you will meet again in chapter 18.</p>
+
+<h2 id="photons" data-short="2 · One photon at a time">Experiment 2: one photon (or electron) at a time</h2>
+<p>Now fire single photons, so rarely that there is only ever one in the apparatus. Surely each takes one slit or the other and we get two bumps? Run it:</p>
+<div data-widget="slit-quantum"></div>
+<p>Press <kbd>+1</kbd> a few times. Each photon makes <em>one dot</em> on the screen: a particle. The dots look random. But press <kbd>+2000</kbd> and the stripes appear. The photons “know” about the stripes even though they were sent one at a time, and in a dark stripe the dots <em>never</em> land, even though they could have landed there if only one slit were open. Opening the second slit made some spots <strong>less</strong> likely. No pellet can do that.</p>
+<h3 id="electrons">It is not only light</h3>
+<p>Switch the widget to electrons. Electrons also build up the pattern one dot at a time, with a wavelength given by de Broglie’s relation $\lambda=h/p$, which is why electron microscopes can see atoms: their wavelength can be thousands of times shorter than light’s. The experiment has been done with electrons (Jönsson 1961, Tonomura 1989), neutrons, atoms, and molecules of over 25 000 atomic mass units (Vienna, 2019).</p>
+<div data-widget="debroglie"></div>
+<h3 id="rule">The rule that makes it work</h3>
+<p>Quantum mechanics describes the particle with a <strong>wavefunction</strong> $\psi$, a complex wave. It does not describe where the particle <em>is</em>. It gives amplitudes for where it might be found:</p>
+<div class="eq">$$P(y)=|\psi(y)|^2=|\psi_1(y)+\psi_2(y)|^2=|\psi_1|^2+|\psi_2|^2+2\,\mathrm{Re}(\psi_1^*\psi_2)$$</div>
+<p>$\psi_1$ is the amplitude via slit 1, $\psi_2$ via slit 2. The last <em>cross term</em> is the interference. For pellets the cross term is absent because they really do go through one slit or the other, so you add probabilities. For photons you add <em>amplitudes</em> and square. Everything the quantum case does follows from that one change.</p>
+<div class="callout violet"><span class="ct">Not “either” and not “both”</span>It is tempting to say “the photon goes through both slits”. That is a reasonable picture of how the <em>amplitude</em> behaves, but a photon is never found in two places. It is better to say: <strong>a photon is neither a tiny ball nor a spread-out wave</strong>. It is a quantum object that is <em>emitted</em> and <em>detected</em> like a particle and <em>propagates</em> like a wave. Our everyday words don’t fit it, and the formula does.</div>
+
+<h2 id="observer" data-short="3 · The observer">Experiment 3: now watch</h2>
+<p>Put a detector at each slit to record which one the photon uses. Now the pattern changes: the stripes disappear and we get exactly the two pellet-like bumps. The photon has become a particle again, because we know its path. Play with it, and compare what happens in each situation:</p>
+<div data-widget="slit-observer"></div>
+<p>Four things to try, and what each one teaches:</p>
+<ol>
+<li><strong>Detector at the slits:</strong> fringes vanish. You get “which slit” and lose “interference”.</li>
+<li><strong>Detector installed but switched off:</strong> fringes return. It is not the hardware, it is <em>whether a record of the path exists</em>.</li>
+<li><strong>Partial detector:</strong> with $K$ the reliability of your guess about the slit, the fringe visibility is $V=\sqrt{1-K^2}$. Knowledge and fringes trade off smoothly. You can have all the path information or all the interference, or some of each.</li>
+<li><strong>Stray gas in the chamber:</strong> the more molecules the particle can bump into, the more fringes fade, though <em>nobody is watching</em>. The gas molecules <em>are</em> the observer. This is called <strong>decoherence</strong>, and it is why this experiment needs a vacuum and why a cat or a baseball never shows interference.</li>
+</ol>
+<div class="callout danger"><span class="ct">What “observer” does NOT mean</span><p>Nothing in the physics requires a human, a mind, or consciousness. “Observation” means any physical interaction that leaves a record, however tiny, of which path was taken. A single stray photon scattering off an electron in the slit is enough. The popular idea that “the universe changes because someone looked” is a misreading: it changes because the detector <em>interacted</em> with the particle, and that interaction can happen in a machine, a gas molecule, or an unattended lab with the lights off.</p></div>
+<h3 id="where">Looking from different places</h3>
+<ul>
+<li><strong>At the slits (before the interference forms):</strong> destroys the pattern, as above.</li>
+<li><strong>At the screen:</strong> this is just the experiment itself. Every dot is an observation. It does not change the pattern: it <em>builds</em> it.</li>
+<li><strong>Later, after the screen, on a partner particle (the delayed choice and the quantum eraser):</strong> in the eraser version, a second entangled photon carries the which-path information. The dots on the main screen never form stripes. But if you later sort them by what you happened to measure on the partner, one subset shows stripes and the complementary subset shows anti-stripes, and together they add to a smooth blob. Choose the quantum eraser in the widget and watch the coloured halves. <em>No signal travels back in time and no single dot changes</em>: the stripes were hidden in correlations all along and the measurement picks them out.</li>
+</ul>
+
+<details class="deep plain"><summary>Why “both slits” is not the same as a particle splitting in half</summary><div>
+<p>Put a detector at the slits and you will always find the <em>whole</em> photon in <em>one</em> detector: never half a photon in each. Detecting is a yes/no event. The wave aspect lives in the amplitudes before the detection; the particle aspect appears at the detection. Different interpretations of quantum mechanics (Copenhagen, many-worlds, pilot-wave and others) tell different stories about what happens in between, but <em>they all predict exactly the same dots</em>. This is an open question in the philosophy of physics, not a gap in the equations.</p>
+</div></details>
+
+<h2 id="radio" data-short="Why radio is a wave">So why do antennas use waves?</h2>
+<p>The same reasoning explains why this guide can treat radio and radar as classical waves. A 100 W transmitter at 100 MHz emits $P/hf=100/(6.6\times10^{-26})\approx1.5\times10^{27}$ photons every second. With that many photons, the average (the classical wave) is all you ever see, and the individual lumps are lost in the crowd. The particle nature of radio waves only shows up in superconducting receivers and some astronomy, where the noise is so low that individual quanta matter. Conversely, light from a single atom or a dim star is photon-by-photon.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Pellets through slits give a sum of bumps. Waves give interference stripes spaced $\lambda L/d$.</li>
+<li>Single photons and electrons also build up stripes, one random dot at a time: amplitudes add, then you square.</li>
+<li>Anything with momentum has a wavelength $\lambda=h/p$. It is only noticeable for tiny, isolated objects.</li>
+<li>Recording which-path information destroys the stripes; the trade-off is $V^2+K^2\le1$.</li>
+<li>“Observer” means anything that records the path (a detector, a gas molecule), not a conscious person. Decoherence by the environment is why big things look classical.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Pellets are fired through two slits. The pattern on the screen is…","o":["Interference stripes","Two bumps, one behind each slit","One central bump","Nothing lands"],"a":1,"why":"Each pellet goes through one slit, so the pile is the sum of the two single-slit piles."},
+ {"q":"Photons are sent through two slits one at a time. After thousands of photons the screen shows…","o":["Two bumps","Stripes, built up dot by dot","A single bright dot","Random uniform noise"],"a":1,"why":"Each photon lands as one dot, but the probability of landing follows the interference pattern. The stripes only show up in the pile."},
+ {"q":"A which-path detector sits at the slits but is switched off and records nothing. The stripes…","o":["are gone","come back, because no path information exists","become sharper than before","are replaced by two bumps"],"a":1,"why":"It is the existence of a record of the path that destroys interference, not the mere presence of the hardware."},
+ {"q":"Which is the best description of an ‘observer’ in the double-slit experiment?","o":["A conscious human watching","Any physical interaction that records which path was taken, even a stray gas molecule","Only a camera","Only the screen"],"a":1,"why":"Decoherence by the environment acts like observation. No mind is needed."},
+ {"q":"A baseball does not show interference because…","o":["It is too hot","Its de Broglie wavelength (~10⁻³⁴ m) is absurdly small and it interacts constantly with its surroundings","It has no wavelength","It is not made of atoms"],"a":1,"why":"λ = h/mv is minute, and the countless interactions with air and light (decoherence) wash out any interference."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>We now know what a photon is and how a wave meets an atom. Chapter 6 uses that to answer a very practical question: which waves get through glass, plastic, concrete, soil, rock, seawater and your body?</div>
+</article>
+</main>
+</div>
+</body>
+</html>
