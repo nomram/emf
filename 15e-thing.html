@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15e · Theremin’s passive bug: a transmitter with no power — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Leon Theremin’s 1945 passive cavity microphone, the Great Seal bug: how a resonator with a diaphragm became a transmitter without a battery, modulated backscatter, and the musical theremin.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 15e · Radar</span>
+<h1>Theremin’s passive bug: a transmitter with no power</h1>
+<div class="meta"><span>~35 min</span><span>2 widgets</span><span>history, backscatter and a musical instrument</span></div>
+<p class="lede">In 1945 a group of Soviet schoolchildren gave the American ambassador in Moscow a carved wooden plaque of the Great Seal of the United States. It hung in his study for seven years. Inside it was a microphone that had no battery, no wires and no electronics, and it “transmitted” every word spoken in the room for as long as someone outside pointed a radio beam at it. Its inventor, Leon Theremin, is better known for a musical instrument you play without touching it. Both inventions rest on the same idea: a <em>capacitor you can move without contact</em>.</p>
+
+<h2 id="story" data-short="The story">What happened (as documented in open sources)</h2>
+<ul>
+<li><strong>1945:</strong> the carved seal is presented to Ambassador W. Averell Harriman at the US residence (Spaso House) in Moscow. It is hung in the study. The US side had a routine for checking for bugs, but this one had nothing to find: no power source, no circuits.</li>
+<li><strong>1952:</strong> a British radio operator, listening on the airwaves, picks up an American conversation that should not be on the air. The source of the signal turns out to be the plaque. Engineers find a small cavity with a thin metal diaphragm and a short wire antenna.</li>
+<li><strong>Understanding it:</strong> the device could not be explained until it was reproduced; Peter Wright of the British security service and colleagues worked out that the object is a <em>resonator</em> that responds to a beam of radio waves from a transmitter outside. US and British investigations followed, and the devices went on to inspire counter-surveillance work. The US named it “The Thing”.</li>
+<li><strong>The inventor:</strong> Leon (Lev) Theremin, a Russian physicist, who had earlier invented the musical instrument that bears his name (1920) and later worked in Soviet security laboratories.</li>
+</ul>
+<div class="callout"><span class="ct">Sources and caution</span><p>This story is well documented in outline, but details differ between sources: the illuminating frequency (often given as around 300–330 MHz, with later versions using microwaves), the beam power and range, and how long it ran. The widgets use order-of-magnitude values, not a reconstruction.</p></div>
+
+<h2 id="how" data-short="How it works">How a battery-free microphone works</h2>
+<p>Think of it as a radar target (chapter 12) that <em>changes its own echo</em> with sound:</p>
+<ol>
+<li>A <strong>cavity resonator</strong> (a small metal can with a tuning stub, chapter 17) rings at one particular frequency $f_0$, with a quality factor $Q$ that sets how narrow the resonance is: $\Delta f=f_0/Q$. A short antenna couples it to free space.</li>
+<li>One wall of the cavity’s capacitive gap is a thin <strong>diaphragm</strong>. Sound pressure pushes the diaphragm, changing the gap and so the capacitance $C$. The resonance moves by $\Delta f/f_0\approx-\Delta C/2C$.</li>
+<li>Outside, a transmitter illuminates the room with a steady radio signal at a frequency near the resonance. The cavity absorbs a little energy, rings, and <strong>re-radiates</strong> it. How strongly and with what phase depends on how far the illuminating frequency is from the (moving) resonance.</li>
+<li>A receiver outside picks up the echo and <strong>demodulates</strong> it as AM or PM: the sound comes out.</li>
+</ol>
+<p>No part of the bug creates energy: it only <em>modulates the reflection</em> of energy that someone else supplies. That is <strong>modulated backscatter</strong>, and it is the same idea that today powers RFID tags, contactless cards, “ambient backscatter” devices and, in chapter 15c, the way a passive radar listens to someone else’s transmitter.</p>
+<p>The resonance curve decides the quality of the copy. On the <em>peak</em> the amplitude of the echo is flat and the sound shows up only as a phase change; on the <em>slope</em> the amplitude follows the sound. A high $Q$ gives a steep slope (strong, sensitive) but a narrow resonance that loud sounds sweep right across (distortion). Try it:</p>
+<div data-widget="the-thing"></div>
+
+<h2 id="listening" data-short="Listening in">Why it is hard to find, and how people looked</h2>
+<ul>
+<li><strong>It is silent when not illuminated.</strong> With the beam off it is a lump of metal: there is nothing to detect with a receiver. This is the weakness of the typical bug sweep that looks for transmissions.</li>
+<li><strong>No semiconductors.</strong> Non-linear junction detectors, which find electronics by the harmonics that diodes and transistors create, do not respond to it.</li>
+<li><strong>Dynamic range.</strong> The listener must hear an echo that is a hundred or more dB below the transmitter, by the same $R^4$ law as radar. In practice the limit is the transmitter’s own noise leaking into the receiver, not thermal noise (see the last readout of the widget).</li>
+<li><strong>What does find such devices:</strong> physical inspection (including X-ray), spectrum surveys that spot unexplained <em>illuminating</em> signals, and sweeps with a swept-frequency transmitter that looks for resonant targets. These are the techniques of <em>technical surveillance countermeasures</em> (TSCM), a professional field; the physics of why they work is the resonance curve above.</li>
+</ul>
+
+<h2 id="descendants" data-short="Backscatter today">Its descendants</h2>
+<table class="data">
+<tr><th>Technology</th><th>How it echoes the idea</th></tr>
+<tr><td>RFID and NFC tags</td><td>A chip on the tag switches its antenna load; the reader’s field supplies the power and reads the changes.</td></tr>
+<tr><td>Passive radar tags and reflectors</td><td>Corner reflectors with a modulator tell a radar “I am here” with a unique signature.</td></tr>
+<tr><td>Ambient backscatter</td><td>Devices that modulate the reflection of TV or Wi-Fi signals to send data on microwatts.</td></tr>
+<tr><td>Surface-acoustic-wave sensors</td><td>A resonator whose frequency depends on temperature or strain, read remotely by a beam: a close cousin of the cavity and diaphragm.</td></tr>
+<tr><td>Laser microphones</td><td>An optical analogue: a laser beam bounced off a window pane picks up vibration; a cousin, not a descendant.</td></tr>
+</table>
+
+<h2 id="theremin" data-short="The musical theremin">The same inventor: an instrument you play with your hand in the air</h2>
+<p>The theremin (1920) has two radio-frequency oscillators near 450 kHz. In one, a metal rod (the antenna) and your hand form the two plates of a tiny capacitor: the closer the hand, the larger the capacitance, the lower the oscillator’s frequency. The two oscillators are mixed, and their <em>difference</em>, a note in the audio range, is amplified and sent to a loudspeaker. A second antenna and circuit control the volume the same way. This is the heterodyne principle of the radio receivers in chapter 11a, with a human body as a variable component.</p>
+<p>The hand’s capacitance is a few picofarads out of a few hundred, so a movement of centimetres changes the frequency by under a percent, but that is enough to sweep several octaves. Try playing:</p>
+<div data-widget="theremin-hand"></div>
+<p>The relation to the bug is the “capacitor with no contact”: in the Thing the diaphragm moves the capacitance and the radio beam reads it from far away; in the theremin the hand moves it and the oscillator reads it locally. Modern descendants include touch screens, car-seat occupancy sensors and the near-field part of the presence sensors in chapter 15d.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>A passive bug re-radiates an illuminating beam; its diaphragm and cavity modulate the echo: <strong>modulated backscatter</strong>.</li>
+<li>A resonator’s echo is a Lorentzian: amplitude $1/\sqrt{1+\Delta^2}$, phase $-\arctan\Delta$. Sound shifts the curve; the operating point decides AM or PM output and the distortion.</li>
+<li>Higher $Q$ gives more sensitivity but less dynamic range.</li>
+<li>The listener must separate a faint echo from a much stronger beam (like passive radar); detection of such devices relies on inspection and resonance sweeps, not on finding a transmitter.</li>
+<li>The theremin works by mixing two oscillators, one of which is detuned by the capacitance of the hand.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Why can the Thing work without a battery?","o":["It uses a hidden solar cell","It only modulates the reflection of a radio beam supplied from outside","It stores energy in the diaphragm","It has a tiny nuclear source"],"a":1,"why":"All the energy comes from the illuminating transmitter; the device changes how much and with what phase it re-radiates."},
+ {"q":"What does sound do to the cavity?","o":["Heats it","Moves a diaphragm, changing a capacitance and so the resonant frequency","Increases its mass","Makes it transmit its own signal"],"a":1,"why":"Δf/f ≈ −ΔC/2C: the resonance curve slides sideways."},
+ {"q":"With the illuminator exactly on the resonance peak, the AM output has…","o":["The cleanest copy","Mainly the second harmonic, since the peak is flat; the phase carries the sound","No echo","Higher power"],"a":1,"why":"The peak is symmetric: a small shift lowers the amplitude either way, doubling the frequency. The phase, steepest at the peak, gives a linear copy."},
+ {"q":"In a musical theremin, what produces the audible note?","o":["A loudspeaker coil","The difference frequency between a fixed and a hand-detuned radio-frequency oscillator","The hand’s resistance","The air movement"],"a":1,"why":"Heterodyne beat: f_audio = f_fixed − f_variable."},
+ {"q":"Why would a non-linear junction detector fail to find the Thing?","o":["It is shielded","It contains no semiconductor junctions that generate harmonics","It is too small","It is made of wood"],"a":1,"why":"NLJDs look for the harmonics created by diodes and transistors; a passive cavity is linear."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>A bug like this lives or dies by who controls the radio environment. Chapter 15a is about that contest: electronic warfare, how links protect themselves, and why some drones now fly on a thread of glass fibre.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

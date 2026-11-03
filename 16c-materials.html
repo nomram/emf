@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16c · Cage materials and the signal door — Waves &amp; Antennas for Dummies</title>
+<meta name="description" content="Conductivity of materials, skin depth, choosing a Faraday cage material, and how to get a wanted signal through a shield wall while interference is blocked or cancelled.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script src="js/em.js"></script>
+<script src="js/site.js" defer></script>
+</head>
+<body>
+<header id="topbar"></header>
+<div class="layout">
+<nav class="sidenav" id="sidenav" aria-label="Chapters"></nav>
+<main id="main">
+<article class="chapter">
+
+<span class="eyebrow">Chapter 16c · EMP</span>
+<h1>Cage materials and the signal door</h1>
+<div class="meta"><span>~45 min</span><span>3 widgets</span><span>from conductivity to a working feed-through</span></div>
+<p class="lede">Chapter 16a showed what a cage can and cannot do. Two practical questions are left. First: <em>what should it be made of</em>? Copper, aluminium, steel, mesh, fabric, paint, a metallised bag? Second, and harder: your equipment needs a signal to enter or leave. How do you pass a wanted signal through the wall while the outside interference is blocked, or <em>cancelled</em>?</p>
+
+<h2 id="conductivity" data-short="Conductivity">Conductivity: the number behind everything</h2>
+<p>A material’s <strong>conductivity</strong> $\sigma$ (siemens per metre, S/m) says how freely charges move under an electric field. It runs from $6\times10^{7}$ S/m for silver and copper down to $10^{-16}$ S/m for plastics: more than <strong>twenty orders of magnitude</strong>, wider than any other everyday property. Select the three views below: the raw conductivity, the <em>skin depth</em> (how far a wave of the chosen frequency gets into the material, chapter 6), and the shielding that a sheet of chosen thickness gives. Click a row for notes.</p>
+<div data-widget="conductivity-chart"></div>
+<div class="callout"><span class="ct">What the graph teaches</span><ul>
+<li>Metals are within a factor of <b>40</b> of each other (copper 58 MS/m to stainless 1.4 MS/m), yet at 1 MHz even stainless steel has a skin depth of only 0.4 mm: <em>almost any metal sheet shields well</em> once the frequency is high enough.</li>
+<li>The gap between “metal” and everything else is huge: seawater is 10 million times poorer than copper, and concrete or soil another thousand times worse. Their shielding comes from absorption of a lossy medium, not from reflection.</li>
+<li>Carbon fibre, graphite, conductive paints, polymers and ITO are in the middle (10⁴–10⁶ S/m): good enough for films and coatings, which is how they are used, but not for thick walls.</li>
+<li>Magnetic metals (iron, steel, nickel, mu-metal) have a relative permeability $\mu_r\gg1$ at low frequency; in the skin depth it sits next to $\sigma$ and for low-frequency <em>magnetic</em> fields it can matter more than $\sigma$. This is why a steel box beats an aluminium one at 50 Hz and loses at 100 MHz.</li>
+</ul></div>
+
+<h2 id="choice" data-short="Choosing the material">So what should the cage be made of?</h2>
+<p>Total shielding is $SE=R+A+B$: the wave is <strong>reflected</strong> because the metal is a poor match to free space ($R$), the part that gets in is <strong>absorbed</strong> as currents heat the metal ($A=8.686\,t/\delta$), and multiple reflections inside thin sheets correct the result slightly ($B$, usually negligible). For a thin sheet, the film formula $SE=20\log_{10}(1+188.5/R_s)$ with sheet resistance $R_s=1/\sigma t$ is the same thing in a more convenient form.</p>
+<p>The choice then comes down to <strong>frequency</strong>, <strong>field type</strong> (a radio wave or a magnetic near-field of a transformer or motor) and practical things: weight, seams, corrosion, cost, and whether the cage must be light, flexible, transparent or see-through. Compare the options. Switch to “Magnetic near field” and drag the frequency down to 50 Hz to see which materials still work.</p>
+<div data-widget="cage-materials"></div>
+<h3 id="practical">Practical notes behind the numbers</h3>
+<ul>
+<li><strong>Seams decide, not the sheet.</strong> A 1.5 mm aluminium box has a theoretical SE of well over 150 dB. A real box gets 30–80 dB because of seams, joints and holes (chapter 16a). Choose the material that gives the <em>best seam</em>: copper is solderable, steel weldable, aluminium needs conductive gaskets or finishes.</li>
+<li><strong>Galvanic corrosion.</strong> Two different metals in a damp joint form a battery: aluminium against copper or steel corrodes; stainless and galvanised steel in contact is a common pair; tin-plated or nickel-plated contacts reduce the problem. Joints that corrode become open seams.</li>
+<li><strong>Magnetic fields at low frequency.</strong> Thin foils or paint do nothing at 50 Hz; you need <em>thick</em> conductive walls (eddy currents) or <em>permeable</em> ones (steel; mu-metal for low fields). Mu-metal is annealed and is spoiled by bending or shock.</li>
+<li><strong>Fabric and foil.</strong> Conductive fabric is the practical choice for flexible tents, bags and clothing; household aluminium foil works if wrapped continuously with folded, overlapped seams, but tears and creases make it unreliable; a “Faraday bag” for a phone is judged by a test, not a label, since the closure matters.</li>
+<li><strong>Mesh versus solid.</strong> Mesh lets air and light through but its holes set a cut-off, roughly $c/2g$, and the crossings must be bonded. See the microwave-oven door (chapter 17).</li>
+<li><strong>Buildings.</strong> Reinforced concrete is a coarse cage of rebar: 10–30 dB at best at GHz. A purpose-built shielded room is welded steel or bolted panels with knife-edge doors.</li>
+<li><strong>Weight.</strong> Per kilogram, aluminium and copper foil give by far the most shielding; fabric and paint are best for large flexible or retrofit jobs.</li>
+</ul>
+
+<h2 id="door" data-short="The signal door">The signal door: a wanted signal in, interference out</h2>
+<p>Whatever the wall is made of, equipment inside needs data and power. We have seen the power side in chapter 16a (<em>power-entry</em>). For signals, the aim is to let the <strong>wanted signal cross</strong> while <strong>interference is blocked or cancelled</strong>. There are four principles, each with a place in real shielded rooms and test labs:</p>
+<ol>
+<li><strong>Bond, then carry.</strong> A coaxial cable carries the signal on its centre conductor, and the outside interference runs on the <em>outside</em> of the shield. If the shield is joined 360° to the wall at a bulkhead connector, the interference stays on the outside. What leaks is described by the <strong>transfer impedance</strong> $Z_t$: a pigtail of a few cm destroys it.</li>
+<li><strong>Filter.</strong> A low-pass filter mounted <em>in</em> the wall lets slow signals through and kills fast ones. It works only if the wanted signal is much slower than the interference, and the filter’s own parasitics (lead inductance of a capacitor) limit it to tens of MHz unless a coaxial feedthrough capacitor is used.</li>
+<li><strong>Cancel.</strong> A <strong>balanced</strong> pair (twisted wires, differential driver and receiver) carries the signal as the <em>difference</em> of two voltages. Interference arrives on both wires equally: <b>common mode</b>. The receiver subtracts one wire from the other, so the common part cancels, to a depth limited by how well matched the wires are (a 0.1 % imbalance gives 60 dB). A <strong>common-mode choke</strong> raises the impedance seen by the common current only. This is how audio, Ethernet and USB survive a noisy world. It also works against interference that falls <em>in</em> the signal’s own band, which no filter can do.</li>
+<li><strong>Leave the metal out of it.</strong> A glass or plastic <strong>optical fibre</strong> carries light, not current, and so brings no conducting path. It passes through the wall in a metal <strong>tube below cutoff</strong>: a waveguide too narrow to carry radio waves, whose attenuation is about 32 dB per diameter of length (chapter 16a). The shielding of the wall is untouched. The price is a transceiver inside the box and a way to power it (batteries or filtered power).</li>
+</ol>
+<p>Choose a method and adjust it. Check the wanted bandwidth, add the broadband impulse and watch where the interference ends up inside.</p>
+<div data-widget="signal-through-wall"></div>
+<div class="callout violet"><span class="ct">Putting it together</span>A realistic shielded-room design uses <b>all of them</b>: power through a filtered panel (chapter 16a), data on <b>fibre</b> through a below-cutoff waveguide array, analogue signals on <b>balanced</b> shielded pairs with common-mode chokes, and RF coax on <b>bonded bulkhead</b> connectors. Every opening in the wall is a waveguide below cutoff or a filter; the door has knife-edge or finger-stock gaskets.</div>
+
+<h2 id="cancel" data-short="Cancelling on purpose">What about “cancelling” in the sense of anti-phase?</h2>
+<p>Subtracting two equal copies of a common noise is passive cancellation by symmetry. People also ask about <em>active</em> cancellation: generating an anti-phase copy of an interfering field. It works for narrow bands and low frequencies where the field is known and slowly varying: active magnetic compensation of 50 Hz mains fields near an electron microscope, for instance. At radio frequencies, where wavelength is short, the field varies across the room and the interference changes quickly and unpredictably, so active cancellation is rarely practical. Passive shielding and balanced circuits do the real work.</p>
+
+<h2 id="takeaways" data-short="What you learned">What you now know</h2>
+<ul>
+<li>Conductivity spans 20+ decades; metals are within ×40 of each other, and with skin depth this makes almost any metal a good shield at high frequency.</li>
+<li>$SE=R+A$ for a sheet: reflection from the mismatch, absorption $8.686\,t/\delta$. Thin films work through their sheet resistance.</li>
+<li>Choose by frequency, field type and practical seams, weight and corrosion: copper and aluminium for RF, steel for low-frequency magnetic, mu-metal for static magnetic, fabric and paint for flexibility.</li>
+<li>Signals cross a shield through a bonded coax, a filter, a balanced pair (cancels the common-mode) or a fibre in a below-cutoff tube; do each right and the wall keeps its rating.</li>
+</ul>
+
+<div data-widget="quiz">
+<script type="application/json">[
+ {"q":"Roughly how far apart (in conductivity) are copper and stainless steel?","o":["10 million times","about 40 times","1000 times","They are equal"],"a":1,"why":"58 MS/m versus 1.4 MS/m: a factor of about 40, small compared to the ranges of the whole graph."},
+ {"q":"Which sheet gives the best shielding against the magnetic field of a 50 Hz transformer?","o":["Kitchen foil","A thin copper foil","A thick steel or mu-metal wall","Conductive paint"],"a":2,"why":"At 50 Hz the skin depth is centimetres, so thin conductors do nothing; permeable metal shunts the flux."},
+ {"q":"Why does a balanced pair let a signal through while cancelling the interference?","o":["It is shielded twice","Interference is the same on both wires, and the receiver subtracts the two, which cancels the common part","The wires are twisted so that no field reaches them","It blocks all frequencies above 1 MHz"],"a":1,"why":"Common-mode rejection: only the difference between the wires is the signal."},
+ {"q":"What limits a coax cable’s shielding at 100 MHz if the shield ends in a 3 cm pigtail?","o":["The cable length","The inductance of the pigtail, which dominates the transfer impedance","The centre conductor","Nothing"],"a":1,"why":"A pigtail of ~10 nH/cm gives an impedance of several ohms at 100 MHz; bond the shield 360° instead."},
+ {"q":"A fibre goes through a 10 mm tube that is 40 mm long. Approximate attenuation well below cutoff?","o":["≈ 3 dB","≈ 32 dB","≈ 130 dB","0 dB"],"a":2,"why":"32 dB per diameter × 4 diameters ≈ 128 dB."}
+]</script>
+</div>
+
+<div class="bridge"><span class="tag">Next</span>With the materials and doors settled, chapter 16b widens the view to the largest EMP of all, from the Sun, and the radiation belts of the Earth.</div>
+</article>
+</main>
+</div>
+</body>
+</html>

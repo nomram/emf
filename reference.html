@@ -70,11 +70,13 @@
 <li><strong>15b.</strong> detection range $R_{max}=\left[\dfrac{P_tG^2\lambda^2\sigma}{(4\pi)^3kT_0BF\,\text{SNR}}\right]^{1/4}$ (range $\propto\sigma^{1/4}$); weather $\eta=\dfrac{\pi^5}{\lambda^4}|K|^2Z$, $Z=\sum D^6$ (dBZ).</li>
 <li><strong>15c.</strong> bistatic $P_r=\dfrac{P_tG_tG_r\lambda^2\sigma_b}{(4\pi)^3R_t^2R_r^2}$; forward scatter $\sigma_{fs}=4\pi A^2/\lambda^2$; processing gain $\approx B\,T$.</li>
 <li><strong>15d.</strong> echo phase $\Delta\varphi=4\pi x/\lambda$; micro-Doppler $f_d=2v/\lambda$; power density $S=P/4\pi r^2$.</li>
+<li><strong>15e.</strong> resonance $\Delta=2Q(f-f_0)/f_0$, echo $|a|=1/\sqrt{1+\Delta^2}$, phase $-\arctan\Delta$; $\Delta f/f_0\approx-\Delta C/2C$; theremin $f=1/(2\pi\sqrt{L(C_0+C_h)})$, beat $f_a=f_0-f$.</li>
 </ul>
 <h3>V · EMP</h3>
 <ul>
 <li><strong>16.</strong> $E(t)=E_0k(e^{-\alpha t}-e^{-\beta t})$; bandwidth $\approx1/t_{rise}$; wire resonances $f_n=nc/2L$; SE $\approx20\log(\lambda/2l)$ for a slot, absorption $8.686\,t/\delta$.</li>
 <li><strong>16a.</strong> below-cutoff attenuation ≈ 32 dB per diameter (round) or 27.3 dB per width (rectangular); cutoff circular $f_c=0.586\,c/D$, rectangular $f_c=c/2a$; shield absorption $8.686\,t/\delta$ dB; slot leakage $20\log(\lambda/2l)$; transfer impedance $V=Z_tI_s$ with a pigtail $Z\approx j\omega L_p$ (≈ 10 nH/cm).</li>
+<li><strong>16c.</strong> skin depth $\delta=1/\sqrt{\pi f\mu\sigma}$; $SE=R+A$, $A=8.686\,t/\delta$, $R=168+10\log(\sigma_r/\mu_rf)$; film $SE=20\log(1+188.5/R_s)$, $R_s=1/\sigma t$; magnetic thin sheet $SE\approx20\log\sqrt{1+(\omega\mu_0d/2R_s)^2}$; flux shunting $\approx1+\tfrac23\mu_rt/R$; CMRR $\approx-20\log_{10}(\text{imbalance})$; coax leakage $\approx20\log(50\,\Omega/|Z_t|)$.</li>
 <li><strong>16b.</strong> light travel 1 AU $=499$ s; geomagnetically induced current $I=E\,L/R$; dipole field $B_{eq}=31.2\,\mu\text{T}/L^3$, L-shell $r=L\cos^2\lambda$; gyro-frequency $f_g=qB/2\pi m$; loss cone $\sin^2\alpha_{LC}=B_{eq}/B_{mirror}$.</li>
 <li><strong>17.</strong> dielectric heating $p=2\pi f\varepsilon_0\varepsilon''E^2$; cavity modes $f=\tfrac c2\sqrt{(m/a)^2+(n/b)^2+(p/d)^2}$; Hull cutoff $B_c=\dfrac{\sqrt{8mV/e}}{b(1-a^2/b^2)}$.</li>
 </ul>
@@ -101,8 +103,11 @@
 <dt><strong>AESA</strong></dt><dd>Active electronically scanned array: a transmit/receive module behind every element.</dd>
 <dt><strong>Aperture</strong></dt><dd>The effective area that collects or radiates a wave; sets beamwidth and gain.</dd>
 <dt><strong>Array factor</strong></dt><dd>The pattern of a set of identical antennas, ignoring the element’s own pattern.</dd>
+<dt><strong>Backscatter (modulated)</strong></dt><dd>A target that re-radiates an illuminating signal while changing its own reflection: RFID, passive bugs.</dd>
 <dt><strong>Balun</strong></dt><dd>Balanced-to-unbalanced transformer.</dd>
 <dt><strong>Beamwidth (HPBW)</strong></dt><dd>Angle between half-power (−3 dB) points of the main lobe.</dd>
+<dt><strong>Common mode</strong></dt><dd>Interference present equally on both wires of a pair; a balanced receiver cancels it.</dd>
+<dt><strong>CMRR</strong></dt><dd>Common-mode rejection ratio: how much a balanced circuit suppresses common-mode signals compared with the wanted difference.</dd>
 <dt><strong>Chirp</strong></dt><dd>A signal whose frequency changes steadily with time.</dd>
 <dt><strong>Clutter</strong></dt><dd>Unwanted radar echoes from ground, sea, rain, birds.</dd>
 <dt><strong>Decoherence</strong></dt><dd>Loss of quantum interference through interaction with the environment.</dd>
@@ -137,11 +142,13 @@
 <dt><strong>SAR</strong></dt><dd>Synthetic aperture radar.</dd>
 <dt><strong>SDR</strong></dt><dd>Software-defined radio: digitise early, process in software.</dd>
 <dt><strong>Solar flare</strong></dt><dd>Sudden release of magnetic energy on the Sun; classes A, B, C, M, X by peak soft X-ray flux.</dd>
+<dt><strong>Sheet resistance</strong></dt><dd>Resistance of a square of thin film, in ohms per square: R_s = 1/(σt).</dd>
 <dt><strong>Skin depth</strong></dt><dd>Depth at which a wave in a conductor falls to 1/e.</dd>
 <dt><strong>SOFAR channel</strong></dt><dd>Deep ocean sound channel that traps low-frequency sound.</dd>
 <dt><strong>Spread spectrum</strong></dt><dd>Using far more bandwidth than the data needs, for robustness or secrecy.</dd>
 <dt><strong>Standing wave</strong></dt><dd>Fixed pattern formed by forward and reflected waves; VSWR measures its contrast.</dd>
 <dt><strong>Van Allen belts</strong></dt><dd>Doughnut-shaped regions of charged particles trapped by Earth’s magnetic field: inner (protons) and outer (electrons).</dd>
+<dt><strong>Theremin</strong></dt><dd>Instrument played without touching: a hand detunes an oscillator, and the beat with a fixed one is the note. Also Leon Theremin’s 1945 passive cavity bug.</dd>
 <dt><strong>VSWR</strong></dt><dd>Voltage standing-wave ratio.</dd>
 <dt><strong>Waveguide (below cutoff)</strong></dt><dd>Hollow tube carrying a wave above its cutoff frequency; below cutoff it blocks waves while letting fibres or air through.</dd>
 <dt><strong>Feedthrough capacitor</strong></dt><dd>A capacitor mounted through a shield wall, with almost no lead inductance, used to filter lines at the entry point.</dd>

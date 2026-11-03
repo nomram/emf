@@ -1,6 +1,6 @@
 # Waves & Antennas for Dummies
 
-An interactive, plain HTML/CSS/JS guide: from a current in a wire to phased arrays, with 75+ widgets.
+An interactive, plain HTML/CSS/JS guide: from a current in a wire to phased arrays, with 80+ widgets.
 Modelled on the structure of the “Jet Engines for Dummies” site (multi-page, lazy-loaded canvas widgets, KaTeX maths).
 
 ## Run it
